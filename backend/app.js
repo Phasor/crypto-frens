@@ -7,6 +7,9 @@ var usersRouter = require('./routes/users');
 
 var app = express();
 
+// Configures the database and opens a global connection that can be used in any module with `mongoose.connection`
+require('./config/database');
+
 // setup middleware
 app.use(logger('dev'));
 app.use(express.json());  // Instead of using body-parser middleware
