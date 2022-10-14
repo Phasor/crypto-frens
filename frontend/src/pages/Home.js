@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import NavBar from '../components/NavBar';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
 const [posts, setPosts] = useState([]);
@@ -22,8 +24,10 @@ useEffect(() => {
   return (
     <div>
         <div>
+            <NavBar/>
             <div>
                 <h1>Home</h1>
+                <Link to="/post/create"><button>Create Post</button></Link>
                 {loading ? <p>Loading...</p> : 
                     posts.map((post) => (
                         <div key={post._id}>
