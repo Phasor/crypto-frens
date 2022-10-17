@@ -2,7 +2,9 @@ const Post = require('../models/post');
 
 exports.fetchPosts = async (req, res) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find()
+        .sort({posted: -1})
+        .populate('author', 'username');
         return posts;
     } catch(err) {
         return res.status(500).send(err.message);
