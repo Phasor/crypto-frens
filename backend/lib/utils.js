@@ -3,8 +3,10 @@ const jsonwebtoken = require('jsonwebtoken');
 const fs = require('fs');
 const path = require('path');
 
-const pathToKey = path.join(__dirname, '..', 'id_rsa_priv.pem');
-const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
+const pathToPvtKey = path.join(__dirname, '..', 'id_rsa_priv.pem');
+const pathToPubKey = path.join(__dirname, '..', 'id_rsa_pub.pem');
+const PRIV_KEY = fs.readFileSync(pathToPvtKey, 'utf8');
+const PUB_KEY = fs.readFileSync(pathToPubKey, 'utf8');
 
 /**
  * -------------- HELPER FUNCTIONS ----------------
@@ -66,6 +68,17 @@ function issueJWT(user) {
   }
 }
 
+function verifyJWT(token) {
+    return new Promise((resolve, reject) => {
+        jsonwebtoken.verify(token, PUB_KEY, { algorithm: 'RS256' },(err, decodedPayload) => {
+        if (err) {
+            return reject(err);
+        }
+        resolve(decodedPayload);
+        });
+    });
+}
+
 // const isAdmin = (req, res, next) => {
 //     if (!req.user) {
 //         return res.status(401).json({ success: false, msg: 'You are not authorized to view this resource' });
@@ -81,4 +94,5 @@ function issueJWT(user) {
 module.exports.validPassword = validPassword;
 module.exports.genPassword = genPassword;
 module.exports.issueJWT = issueJWT;
+module.exports.verifyJWT = verifyJWT;
 // module.exports.isAdmin = isAdmin;
