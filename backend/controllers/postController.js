@@ -3,14 +3,22 @@ const { createPost } = require('../services/postService');
 const { verifyJWT } = require('../lib/utils');
 
 exports.get_posts = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
     try {
-        const posts = await fetchPosts();
-        return res.json({
-            success: true,
-            posts: posts
-        });
+        // get user from JWT
+        const decodedToken = await verifyJWT(token);
+        const userID = decodedToken.sub;
+        if (userID) {     
+            const posts = await fetchPosts(userID);
+            return res.json({
+                success: true,
+                posts: posts
+            });
+        } else {
+            return res.status(401).json({ success: false, message: 'Unauthorized'});
+        }
     } catch(err) {
-        return res.status(500).send(err.message);
+        return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
     }
 }
 

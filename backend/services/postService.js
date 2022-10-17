@@ -1,11 +1,16 @@
 const Post = require('../models/post');
+const User = require('../models/user');
 
-exports.fetchPosts = async (req, res) => {
+exports.fetchPosts = async (userID) => {
+    // fetch posts of users friends only
     try {
-        const posts = await Post.find()
-        .sort({posted: -1})
-        .populate('author', 'username');
-        return posts;
+        const friends = await User.findById(userID).select('friends');
+        const allPosts = [];
+        for (let i = 0; i < friends.friends.length; i++) {
+            const posts = await Post.find({ author: friends.friends[i] }).populate('author', 'username');
+            allPosts.push(...posts);
+        }
+        return allPosts;
     } catch(err) {
         return res.status(500).send(err.message);
     }
