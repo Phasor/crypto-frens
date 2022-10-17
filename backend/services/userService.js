@@ -3,9 +3,6 @@ const utils = require('../lib/utils.js');
 
 exports.createUser = async (user) => {
     try {
-        // const newUser = await User.create(user);
-        //  return newUser;
-
         // create and save new user account
         const saltHash = utils.genPassword(user.password);
         const salt = saltHash.salt;
@@ -24,4 +21,13 @@ exports.createUser = async (user) => {
      } catch (err) {
         return { success: false, message: `${err.name}, ${err.message}`};
      }
+}
+
+exports.getUserById = async (id) => {
+    try{
+        const user = await User.findById(id);
+        return user;
+    } catch(err){
+        return err;
+    }
 }
