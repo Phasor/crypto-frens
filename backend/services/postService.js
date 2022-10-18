@@ -51,7 +51,9 @@ exports.updatePost = async (postID, updatedPost, userID) => {
         // test to see if user if allowed to change this post
         const postToChange = await Post.findById(postID);
         const author = postToChange.author;
-        if(author === userID) {
+        // console.log(`author: ${author}`);
+        // console.log(`userID: ${userID}`);
+        if(author == userID) {
             const post = await Post.findByIdAndUpdate(postID, updatedPost, {new: true});
             return {success: true, post:post};
         }
