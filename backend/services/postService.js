@@ -45,3 +45,20 @@ exports.getPostById = async (postID, userID) => {
         return {success: false, message:`${err.name}, ${err.message}`};
     }
 }
+
+exports.updatePost = async (postID, updatedPost, userID) => {
+    try {
+        // test to see if user if allowed to change this post
+        const postToChange = await Post.findById(postID);
+        const author = postToChange.author;
+        if(author === userID) {
+            const post = await Post.findByIdAndUpdate(postID, updatedPost, {new: true});
+            return {success: true, post:post};
+        }
+        else{
+            return {success: false, message:'You are not authorized to change this post.'};
+        }
+    } catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+}
