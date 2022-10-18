@@ -7,6 +7,7 @@ const passport = require('passport');
 router.get('/all', passport.authenticate('jwt', {session: false}), postController.get_posts);
 router.get('/:id', passport.authenticate('jwt', {session: false}), postController.get_post_by_id);
 router.put('/:id', passport.authenticate('jwt', {session: false}), postController.put_update_post_by_id);
+router.delete('/:id', passport.authenticate('jwt', {session: false}), postController.delete_post_by_id);
 router.post('/create', passport.authenticate('jwt', {session: false}), postController.create_post);
 
 module.exports = router;

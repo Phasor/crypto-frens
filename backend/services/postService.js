@@ -64,3 +64,22 @@ exports.updatePost = async (postID, updatedPost, userID) => {
         return {success: false, message:`${err.name}, ${err.message}`};
     }
 }
+
+exports.deletePost = async (postID, userID) => {
+    try {
+        // test to see if user if allowed to change this post
+        const postToDelete = await Post.findById(postID);
+        const author = postToDelete.author;
+        // console.log(`author: ${author}`);
+        // console.log(`userID: ${userID}`);
+        if(author == userID) {
+            const post = await Post.findByIdAndDelete(postID);
+            return {success: true, post:post};
+        }
+        else{
+            return {success: false, message:'You are not authorized to change this post.'};
+        }
+    } catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+}
