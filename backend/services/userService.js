@@ -49,3 +49,21 @@ exports.UpdateUser = async (userID, updatedUserDetails, token) => {
         return {success: false, message: "You are not authorized to update this user"};
     }
 }
+
+exports.sendFriendRequest = async (userID, friendID) => {
+    try{
+        const user = await User.findById(userID);
+        const friend = await User.findById(friendID);
+        if(user && friend){
+            user.pendingFriendRequestsSent.push(friendID);
+            friend.pendingFriendRequestsReceived.push(userID);
+            const updatedFriend = await friend.save();
+            const updatedUser = await user.save();
+            return {success: true, user: updatedUser, friend: updatedFriend};
+        } else {
+            return {success: false, message: "User or friend not found"};
+        }
+    } catch(error){
+        return error;
+    }
+}

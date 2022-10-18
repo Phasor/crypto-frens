@@ -12,7 +12,8 @@ const UserSchema  = new Schema({
     joinDate: { type: Date, default: Date.now },
     birthDay: { type: Date, required: false },
     profileImage: { type: String, data: Buffer, required: false },
-    pendingFriendRequests: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
+    pendingFriendRequestsSent: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
+    pendingFriendRequestsReceived: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
 })
 

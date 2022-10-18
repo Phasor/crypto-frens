@@ -1,4 +1,4 @@
-const { createUser, getUserById, UpdateUser } = require("../services/userService");
+const { createUser, getUserById, UpdateUser, sendFriendRequest } = require("../services/userService");
 
 exports.post_signup = async (req, res) => {
     try{
@@ -37,6 +37,19 @@ exports.put_update_user = async (req, res) => {
             return res.json({success: true, user: user});
         } else {
             return res.status(401).json({success: false, message: "Unauthorised"});
+        }
+    } catch(err){
+        return res.json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.post_friend_request = async (req, res) => {
+    try{
+        const response = await sendFriendRequest(req.params.id, req.body.friendID);
+        if(response.success){
+            return res.json({success: true, user: response.user, friend: response.friend});
+        } else {
+            return res.json({success: false, message: response.message});
         }
     } catch(err){
         return res.json({success: false, message: `${err.name}, ${err.message}`});
