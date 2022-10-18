@@ -10,5 +10,6 @@ router.post('/signup', userController.post_signup);
 router.get('/:id', passport.authenticate('jwt', {session: false}), userController.get_by_id);
 router.put('/:id', passport.authenticate('jwt', {session: false}), userController.put_update_user);
 router.post('/:id/friend-request', passport.authenticate('jwt', {session: false}), userController.post_friend_request);
+router.post('/:id/friend-request/accept', passport.authenticate('jwt', {session: false}), userController.post_friend_request_accept);
 
 module.exports = router;

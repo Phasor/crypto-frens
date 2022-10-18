@@ -1,5 +1,6 @@
 const User = require('../models/user.js');
 const utils = require('../lib/utils.js');
+const mongoose = require('mongoose');
 
 exports.createUser = async (user) => {
     try {
@@ -65,5 +66,30 @@ exports.sendFriendRequest = async (userID, friendID) => {
         }
     } catch(error){
         return error;
+    }
+}
+
+exports.acceptFriendRequest = async (userID, friendID) => {
+    try{
+        const userObjID = mongoose.Types.ObjectId(userID);
+        console.log(`userObjID: ${userObjID}`);
+        const friendObjID = mongoose.Types.ObjectId(friendID);
+        console.log(`friendObjID: ${friendObjID}`);
+        const user = await User.findById(userObjID);
+        const friend = await User.findById(friendObjID);
+        if (user && friend){
+            // remove request from both send/receive request arrays
+            await User.updateOne({_id:userObjID},{$pull: {pendingFriendRequestsReceived : friendObjID }});
+            await User.updateOne({_id:friendObjID}, {$pull: {pendingFriendRequestsSent: userObjID}});
+
+            // add friends to both users' friends list
+            await user.update({$push: {friends: friendObjID}});
+            await friend.update({$push: {friends: userObjID}});
+            return {success: true, user: user, friend: friend};
+        } else {
+            return {success: false, message: "one or both users not found"};
+        }
+    } catch(err){
+        return err;
     }
 }
