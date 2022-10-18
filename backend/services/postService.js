@@ -1,5 +1,6 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const mongoose = require('mongoose');
 
 exports.fetchPosts = async (userID) => {
     // fetch posts of users friends only
@@ -80,6 +81,15 @@ exports.deletePost = async (postID, userID) => {
             return {success: false, message:'You are not authorized to change this post.'};
         }
     } catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+}
+
+exports.createComment = async (postID, comment) => { 
+    try{
+        const post = await Post.findByIdAndUpdate(postID, {$push: {comments: comment}}, {new: true});
+        return {success: true, post: post};
+    }catch(err){
         return {success: false, message:`${err.name}, ${err.message}`};
     }
 }

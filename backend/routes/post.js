@@ -9,5 +9,6 @@ router.get('/:id', passport.authenticate('jwt', {session: false}), postControlle
 router.put('/:id', passport.authenticate('jwt', {session: false}), postController.put_update_post_by_id);
 router.delete('/:id', passport.authenticate('jwt', {session: false}), postController.delete_post_by_id);
 router.post('/create', passport.authenticate('jwt', {session: false}), postController.create_post);
+router.post('/:id/comment', passport.authenticate('jwt', {session: false}), postController.post_create_comment);
 
 module.exports = router;
