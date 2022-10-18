@@ -28,3 +28,20 @@ exports.createPost = async (req, res) => {
         return res.status(500).send(err.message);
     }
 }
+
+exports.getPostById = async (postID, userID) => {
+    try {
+        // test to see if user if allowed to see this post
+        const postToView = await Post.findById(postID);
+        const author = postToView.author;
+        const friends = await User.findById(userID).select('friends');
+        if (friends.friends.includes(author)) {
+            const post = await Post.findById(postID).populate('author', 'username');
+            return {success: true, post:post};
+        } else {
+            return {success: false, message:'You are not authorized to view this post.'};
+        }
+    } catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+}

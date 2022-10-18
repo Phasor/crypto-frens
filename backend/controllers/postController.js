@@ -1,5 +1,7 @@
-const { fetchPosts } = require('../services/postService');
-const { createPost } = require('../services/postService');
+const { 
+    fetchPosts,
+    createPost,
+    getPostById } = require('../services/postService');
 const { verifyJWT } = require('../lib/utils');
 
 exports.get_posts = async (req, res) => {
@@ -37,4 +39,23 @@ exports.create_post = async (req, res) => {
         return res.status(500).send(err.message);
     }
 }
-        
+
+exports.get_post_by_id = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    try {
+        // get user from JWT
+        const decodedToken = await verifyJWT(token);
+        const userID = decodedToken.sub;
+        // console.log(`userID from token: ${userID}`);
+        if (userID) {     
+            const post = await getPostById(req.params.id, userID);
+            if (post.success) {
+                return res.json(post);
+            } else {return res.status(401).json({ success: false, message: post.message});}
+        } else {
+            return res.status(401).json({ success: false, message: 'Unauthorized'});
+        }
+    } catch(err) {
+        return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
+    }
+}        
