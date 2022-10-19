@@ -39,17 +39,47 @@ export default function Post({setPosts, post}) {
             console.log(err);
         }
     }
+
+    const likePost = async (e) => {
+        try{
+            const response = await fetch(`http://localhost:3000/api/v1/post/${post._id}/like`,
+                {method: 'POST',
+                headers: {'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('token')}`},
+            });
+            const data = await response.json();
+            console.log(data);
+            if(data.success){
+                // refresh the posts to show the new like
+                const refreshedPosts = await fetch(
+                    'http://localhost:3000/api/v1/post/all',
+                    {type: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${localStorage.getItem('token')}`
+                        }
+                    }
+                );
+                const refreshedPostsJson = await refreshedPosts.json();
+                setPosts(refreshedPostsJson.posts);
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+
     
 
   return (
     <>
-        <div key={post._id}>
+        <div>
             <h2>{post.title}</h2>
             <p>{post.content}</p>
             <p>{post.author.username}</p>
             <p>{formatDate(post.posted)}</p>
-            <p>Likes: {post.length}</p>
+            <p>Likes: {post.likes.length}</p>
         </div>
+        <div><button onClick={likePost}>Like</button></div>
         <div>
             <form onSubmit={postComment}>
                 <input placeholder="leave comment..." type="text" name="comment" id="comment" value={comment} onChange={(e) => setComment(e.target.value)}/>

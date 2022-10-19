@@ -13,9 +13,8 @@ exports.login = async (username, password) => {
         if(isValid) {
             // valid user, issue a JWT
             const tokenObject = utils.issueJWT(user);
-            // console.log(tokenObject); token ExpiresIn
             // res.status(200).json({ success: true, user: user, token: tokenObject.token, expiresIn: tokenObject.expires });
-            return {success: true, tokenObject: tokenObject};
+            return {success: true, tokenObject: tokenObject, user: user};
         } else{ // wrong password
             // res.status(401).json({ success: false, message: 'You entered the wrong password' });
             return {success: false, message: 'You entered the wrong password'};

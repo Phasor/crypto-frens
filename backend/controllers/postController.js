@@ -121,9 +121,10 @@ exports.post_create_comment = async (req, res) => {
 }
 
 exports.post_like = async (req, res) => {
-    const user = req.body.user;
+    const token = req.headers.authorization.split(' ')[1];
+    const userID = getUserIDFromToken(token);
     try{
-        const post = await likePost(req.params.id, user);
+        const post = await likePost(req.params.id, userID);
         if(post.success) {
             return res.json({success: true, post: post.post});
         } else {

@@ -20,6 +20,9 @@ export default function Login() {
             console.log(data);
             if(data.success){
                 localStorage.setItem('token', data.token);
+                localStorage.setItem('username', data.user.username);
+                localStorage.setItem('userID', data.user._id);
+                localStorage.setItem('shortName', data.user.shortName);
                 setTimeout(()=> navigate('/home'),1000);
             }
         }catch(err){

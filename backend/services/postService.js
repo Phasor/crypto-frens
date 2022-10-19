@@ -110,6 +110,10 @@ exports.createComment = async (postID, payload, userID) => {
 
 exports.likePost = async (postID, userID) => {
     try{
+        const currentLikes = await Post.findById(postID).select('likes');
+        if(currentLikes.likes.includes(userID)){
+            return {success: false, message:'You already liked this post.'};
+        }
         const post = await Post.findByIdAndUpdate(postID, {$push: {likes: userID}}, {new: true});
         return {success: true, post: post};
     }catch(err){
