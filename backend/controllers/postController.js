@@ -4,7 +4,8 @@ const {
     getPostById,
     updatePost,
     deletePost,
-    createComment } = require('../services/postService');
+    createComment,
+    likePost } = require('../services/postService');
 const { verifyJWT } = require('../lib/utils');
 
 exports.get_posts = async (req, res) => {
@@ -113,6 +114,20 @@ exports.post_create_comment = async (req, res) => {
             return res.status(401).json({success: false, message: post.message});
         }
     }catch(err){
+        return res.status(500).json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.post_like = async (req, res) => {
+    const user = req.body.user;
+    try{
+        const post = await likePost(req.params.id, user);
+        if(post.success) {
+            return res.json({success: true, post: post.post});
+        } else {
+            return res.status(401).json({success: false, message: post.message});
+        }
+    } catch(err){
         return res.status(500).json({success: false, message: `${err.name}, ${err.message}`});
     }
 }

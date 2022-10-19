@@ -93,3 +93,12 @@ exports.createComment = async (postID, comment) => {
         return {success: false, message:`${err.name}, ${err.message}`};
     }
 }
+
+exports.likePost = async (postID, userID) => {
+    try{
+        const post = await Post.findByIdAndUpdate(postID, {$push: {likes: userID}}, {new: true});
+        return {success: true, post: post};
+    }catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+}
