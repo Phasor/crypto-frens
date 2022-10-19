@@ -37,7 +37,7 @@ exports.UpdateUser = async (userID, updatedUserDetails, token) => {
     // verify user has the right JWT
     const decodedToken = await utils.verifyJWT(token);
     console.log(`decodedToken: ${decodedToken}`);
-    console.log(`userID: ${userID}`);
+    // console.log(`userID: ${userID}`);
     console.log(`decodedToken.sub: ${decodedToken.sub}`);
     if(decodedToken.sub === userID){
         try{
@@ -72,7 +72,7 @@ exports.sendFriendRequest = async (userID, friendID) => {
 exports.acceptFriendRequest = async (userID, friendID) => {
     try{
         const userObjID = mongoose.Types.ObjectId(userID);
-        console.log(`userObjID: ${userObjID}`);
+        // console.log(`userObjID: ${userObjID}`);
         const friendObjID = mongoose.Types.ObjectId(friendID);
         console.log(`friendObjID: ${friendObjID}`);
         const user = await User.findById(userObjID);
