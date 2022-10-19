@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar';
 
 export default function Login() {
+    const navigate = useNavigate();
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -11,12 +12,16 @@ export default function Login() {
                 {method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
-                    username: e.target.email.value,
+                    username: e.target.username.value,
                     password: e.target.password.value,
                 })
             });
             const data = await response.json();
             console.log(data);
+            if(data.success){
+                localStorage.setItem('token', data.token);
+                setTimeout(()=> navigate('/home'),1000);
+            }
         }catch(err){
             console.log(err);
         }

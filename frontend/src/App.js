@@ -14,10 +14,10 @@ function App() {
   return (
     <Router>
         <Routes>
-            <Route exact path="/" element={<Home/>}/>
+            <Route exact path="/home" element={<Home/>}/>
             <Route exact path="/signup" element={<SignUp/>}/>
             <Route exact path="/post/create" element={<CreatePost/>}/>
-            <Route exact path="/auth/login" element={<Login/>}/>
+            <Route exact path="/" element={<Login/>}/>
             {/* No match route */}
             <Route path="*" element={<Navigate to="/" replace />}/>
         </Routes>

@@ -6,7 +6,7 @@ const {
     deletePost,
     createComment,
     likePost } = require('../services/postService');
-const { verifyJWT } = require('../lib/utils');
+const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
 
 exports.get_posts = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
@@ -106,8 +106,10 @@ exports.delete_post_by_id = async (req, res) => {
 }
 
 exports.post_create_comment = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const userID = getUserIDFromToken(token);
     try{
-        const post = await createComment(req.params.id, req.body);
+        const post = await createComment(req.params.id, req.body, userID);
         if(post.success) {
             return res.json({success: true, post: post.post});
         } else{

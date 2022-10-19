@@ -91,8 +91,14 @@ function verifyJWT(token) {
 //     return next()
 // }
 
+function getUserIDFromToken(token) {
+    const decodedToken = jsonwebtoken.decode(token);
+    return decodedToken.sub;
+}
+
 module.exports.validPassword = validPassword;
 module.exports.genPassword = genPassword;
 module.exports.issueJWT = issueJWT;
 module.exports.verifyJWT = verifyJWT;
+module.exports.getUserIDFromToken = getUserIDFromToken;
 // module.exports.isAdmin = isAdmin;

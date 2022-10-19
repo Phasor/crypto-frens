@@ -85,9 +85,23 @@ exports.deletePost = async (postID, userID) => {
     }
 }
 
-exports.createComment = async (postID, comment) => { 
+exports.createComment = async (postID, payload, userID) => { 
+    var authorEmail = '';
     try{
-        const post = await Post.findByIdAndUpdate(postID, {$push: {comments: comment}}, {new: true});
+        authorEmail = await User.findById(userID).select('username');
+    }catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+
+    const CommentToPost = {
+        comment: payload.comment,
+        author: userID,
+        authorEmail: authorEmail,
+        date: payload.date
+    }
+
+    try{
+        const post = await Post.findByIdAndUpdate(postID, {$push: {comments: CommentToPost}}, {new: true});
         return {success: true, post: post};
     }catch(err){
         return {success: false, message:`${err.name}, ${err.message}`};
