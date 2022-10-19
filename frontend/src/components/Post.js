@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import formatDate from '../utils/formatDate';
 
 export default function Post({setPosts, post}) {
     const [comment, setComment] = useState('');
@@ -46,7 +47,7 @@ export default function Post({setPosts, post}) {
             <h2>{post.title}</h2>
             <p>{post.content}</p>
             <p>{post.author.username}</p>
-            <p>{post.posted}</p>
+            <p>{formatDate(post.posted)}</p>
             <p>Likes: {post.length}</p>
         </div>
         <div>
@@ -61,8 +62,8 @@ export default function Post({setPosts, post}) {
             {post.comments.map((comment) => (
                 <div key={comment._id}>
                     <p>{comment.comment}</p>
-                    <p>{comment.author.username}</p>
-                    <p>{comment.date}</p>
+                    <p>{comment.authorEmail.username}</p>
+                    <p>{formatDate(comment.date)}</p>
                     <p>----------------------</p>
                 </div>
             ))}
