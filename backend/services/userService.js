@@ -93,3 +93,13 @@ exports.acceptFriendRequest = async (userID, friendID) => {
         return err;
     }
 }
+
+exports.getAllUsers = async () => {
+    try{
+        const users = await User.find();
+        console.log(`users: ${users}`);
+        return users;
+    }catch(err){
+        return err;
+    }
+}

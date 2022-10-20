@@ -7,6 +7,7 @@ const userController = require('../controllers/userController');
 router.post('/signup', userController.post_signup);
 
 // protected routes
+router.get('/all', passport.authenticate('jwt', {session: false}), userController.get_all_users);
 router.get('/:id', passport.authenticate('jwt', {session: false}), userController.get_by_id);
 router.put('/:id', passport.authenticate('jwt', {session: false}), userController.put_update_user);
 router.post('/:id/friend-request', passport.authenticate('jwt', {session: false}), userController.post_friend_request);

@@ -3,7 +3,8 @@ const {
     getUserById, 
     UpdateUser, 
     sendFriendRequest,
-    acceptFriendRequest } = require("../services/userService");
+    acceptFriendRequest,
+    getAllUsers } = require("../services/userService");
 
 exports.post_signup = async (req, res) => {
     try{
@@ -70,6 +71,15 @@ exports.post_friend_request_accept = async (req, res) => {
             return res.json({success: false, message: response.message});
         }
     }catch(err){
+        return res.json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.get_all_users = async (req, res) => {
+    try{
+        const users = await getAllUsers();
+        return res.json({success: true, users: users});
+    } catch(err){
         return res.json({success: false, message: `${err.name}, ${err.message}`});
     }
 }
