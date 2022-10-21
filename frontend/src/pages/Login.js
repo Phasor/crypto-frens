@@ -37,7 +37,7 @@ export default function Login() {
         <div>
             <NavBar/>
             <div>
-                <Link to="/">Home</Link>
+                <Link to="/home">Home</Link>
                 <h1>Log In</h1>
                 <form onSubmit={submitHandler}>
                     <label htmlFor="username">Email</label>

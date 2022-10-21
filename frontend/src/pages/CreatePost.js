@@ -37,7 +37,7 @@ export default function CreatePost() {
     <div>
         <div>
             <NavBar/>
-            <Link to="/">Home</Link>
+            <Link to="/home">Home</Link>
             <div>Create a Post</div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title</label>
