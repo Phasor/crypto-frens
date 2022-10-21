@@ -4,7 +4,8 @@ const {
     UpdateUser, 
     sendFriendRequest,
     acceptFriendRequest,
-    getAllUsers } = require("../services/userService");
+    getAllUsers,
+    getPendingFriends } = require("../services/userService");
 
 exports.post_signup = async (req, res) => {
     try{
@@ -80,6 +81,15 @@ exports.get_all_users = async (req, res) => {
         const users = await getAllUsers();
         return res.json({success: true, users: users});
     } catch(err){
+        return res.json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.get_pending_friends = async (req, res) => {
+    try{
+        const pendingFriends = await getPendingFriends(req.params.id);
+        return res.json({success: true, pendingFriends: pendingFriends.pendingFriendRequestsReceived});
+    }catch(err){
         return res.json({success: false, message: `${err.name}, ${err.message}`});
     }
 }

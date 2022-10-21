@@ -103,3 +103,13 @@ exports.getAllUsers = async () => {
         return err;
     }
 }
+
+exports.getPendingFriends = async (userID) => {
+    try{
+        const pendingFriends = await User.findById(userID).select('pendingFriendRequestsReceived');
+        //const pendingFriends = await User.find({_id: {$in: user.pendingFriendRequestsReceived}});
+        return pendingFriends;
+    } catch(err){
+        return err;
+    }
+}

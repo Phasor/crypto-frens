@@ -22,7 +22,7 @@ export default function CreatePost() {
                     })
                 });
             const data = await response.json();
-            if (data.success == true){
+            if (data.success === true){
                 setTimeout( () => navigate('/'), 2000 );
             }
             console.log(data);
@@ -49,6 +49,7 @@ export default function CreatePost() {
                 <button type="submit">Post</button>
             </form>
         </div>
+        {errors && <div>{errors}</div>}
     </div>
   )
 }

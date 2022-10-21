@@ -28,6 +28,7 @@ const addFriend = async (friend) => {
                     body: JSON.stringify({friendID: friend._id})
                 });
             // const data = await response.json();
+            console.log("Friend request sent");
         }
         catch(err){
             console.log(err);
