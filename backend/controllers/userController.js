@@ -6,7 +6,10 @@ const {
     acceptFriendRequest,
     getAllUsers,
     getPendingFriends,
-    getFriends } = require("../services/userService");
+    getFriends,
+    removeFriend } = require("../services/userService");
+
+const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
 
 exports.post_signup = async (req, res) => {
     try{
@@ -104,6 +107,23 @@ exports.get_friends = async (req, res) => {
     }
 }
 
-
+exports.delete_friend = async (req, res) => {
+    try{
+        const token = req.headers.authorization.split(' ')[1];
+        const userFromToken = getUserIDFromToken(token);
+        if(userFromToken === req.params.id){ // check if the user is the same as the one in the token
+            const response = await removeFriend(req.params.id, req.body.friendID);
+            if(response.success){
+                return res.json({success: true, user: response.user, friend: response.friend});
+            } else {
+                return res.json({success: false, message: response.message});
+            }
+        } else {
+            return res.status(401).json({success: false, message: "Unauthorised"});
+        }
+    } catch(err){
+        return res.json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
 
 

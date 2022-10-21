@@ -90,10 +90,68 @@ export default function Users() {
             const data = await response.json();
             if (data.success){
                 //refresh page
-                window.location.reload();
+                try{
+                    const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${localStorage.getItem('token')}`
+                        }   
+                    });
+                    const data = await response.json();
+                    if (data.success){
+                        setFriends(data.friends);
+                    } else {
+                        setErrors(data.message);
+                    }
+                } catch(err){
+                    setErrors(err.message);
+                }
             } else {
                 setErrors(data.message);
             }
+        }catch(err){
+            setErrors(err.message);
+            console.log(err);
+        }
+    }
+
+    const removeFriend = async (friendID) => {
+        try{
+            const userID = localStorage.getItem('userID');
+            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/deleteFriend`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({friendID: friendID})
+                }
+            )
+            const data = await response.json();
+            if (data.success){
+                try{
+                    const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${localStorage.getItem('token')}`
+                        }   
+                    });
+                    const data = await response.json();
+                    if (data.success){
+                        setFriends(data.friends);
+                    } else {
+                        setErrors(data.message);
+                    }
+                } catch(err){
+                    setErrors(err.message);
+                }
+            }
+
         }catch(err){
             setErrors(err.message);
             console.log(err);
@@ -115,6 +173,7 @@ export default function Users() {
                                     <p>{currentFriend.firstName}</p>
                                     <p>{currentFriend.lastName}</p>
                                     <p>{currentFriend.username}</p>
+                                    <button onClick={() => removeFriend(currentFriend._id)}>Remove</button>
                                 </div>
                             )
                         })}

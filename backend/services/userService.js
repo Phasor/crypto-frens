@@ -131,3 +131,21 @@ exports.getFriends = async (userID) => {
         return err;
     }
 }
+
+exports.removeFriend = async (userID, friendID) => {
+    try{
+        const userObjID = mongoose.Types.ObjectId(userID);
+        const friendObjID = mongoose.Types.ObjectId(friendID);
+        const user = await User.findById(userObjID);
+        const friend = await User.findById(friendObjID);
+        if (user && friend){
+            await user.update({$pull: {friends: friendObjID}});
+            await friend.update({$pull: {friends: userObjID}});
+            return {success: true, user: user, friend: friend};
+        } else {
+            return {success: false, message: "one or both users not found"};
+        }
+    }catch(err){
+        return err;
+    }
+}
