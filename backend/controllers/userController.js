@@ -5,7 +5,8 @@ const {
     sendFriendRequest,
     acceptFriendRequest,
     getAllUsers,
-    getPendingFriends,
+    getPendingFriendsReceived,
+    getPendingFriendsSent,
     getFriends,
     removeFriend } = require("../services/userService");
 
@@ -89,9 +90,18 @@ exports.get_all_users = async (req, res) => {
     }
 }
 
-exports.get_pending_friends = async (req, res) => {
+exports.get_pending_friends_recieved = async (req, res) => {
     try{
-        const pendingFriends = await getPendingFriends(req.params.id);
+        const pendingFriends = await getPendingFriendsReceived(req.params.id);
+        return res.json({success: true, pendingFriends: pendingFriends});
+    }catch(err){
+        return res.json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.get_pending_friends_sent = async (req, res) => {
+    try{
+        const pendingFriends = await getPendingFriendsSent(req.params.id);
         return res.json({success: true, pendingFriends: pendingFriends});
     }catch(err){
         return res.json({success: false, message: `${err.name}, ${err.message}`});

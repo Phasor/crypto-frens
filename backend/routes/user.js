@@ -8,7 +8,8 @@ router.post('/signup', userController.post_signup);
 
 // protected routes
 router.get('/all', passport.authenticate('jwt', {session: false}), userController.get_all_users);
-router.get('/:id/getPendingFriends', passport.authenticate('jwt', {session: false}), userController.get_pending_friends);
+router.get('/:id/getPendingFriendsReceived', passport.authenticate('jwt', {session: false}), userController.get_pending_friends_recieved);
+router.get('/:id/getPendingFriendsSent', passport.authenticate('jwt', {session: false}), userController.get_pending_friends_sent);
 router.post('/:id/deleteFriend', passport.authenticate('jwt', {session: false}), userController.delete_friend);
 router.get('/:id/getFriends', passport.authenticate('jwt', {session: false}), userController.get_friends);
 router.get('/:id', passport.authenticate('jwt', {session: false}), userController.get_by_id);

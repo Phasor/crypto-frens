@@ -104,12 +104,26 @@ exports.getAllUsers = async () => {
     }
 }
 
-exports.getPendingFriends = async (userID) => {
+exports.getPendingFriendsReceived = async (userID) => {
     try{
         const pendingFriendIDs = await User.findById(userID).select('pendingFriendRequestsReceived');
         const pendingFriends = [];
         for(let i = 0; i < pendingFriendIDs.pendingFriendRequestsReceived.length; i++){
             const pendingFriendDetails = await User.find({_id: pendingFriendIDs.pendingFriendRequestsReceived[i]}).select('firstName lastName username _id');
+            pendingFriends.push(pendingFriendDetails[0]);
+        }
+        return pendingFriends;
+    } catch(err){
+        return err;
+    }
+}
+
+exports.getPendingFriendsSent = async (userID) => {
+    try{
+        const pendingFriendIDs = await User.findById(userID).select('pendingFriendRequestsSent');
+        const pendingFriends = [];
+        for(let i = 0; i < pendingFriendIDs.pendingFriendRequestsSent.length; i++){
+            const pendingFriendDetails = await User.find({_id: pendingFriendIDs.pendingFriendRequestsSent[i]}).select('firstName lastName username _id');
             pendingFriends.push(pendingFriendDetails[0]);
         }
         return pendingFriends;

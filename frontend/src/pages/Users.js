@@ -7,8 +7,9 @@ export default function Users() {
     const [users, setUsers] = useState([]);
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [pendingFriends, setPendingFriends] = useState([]);
+    const [pendingFriendsReceived, setPendingFriendsReceived] = useState([]);
     const [friends, setFriends] = useState([]);
+    const [pendingFriendsSent, setPendingFriendsSent] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -32,9 +33,9 @@ export default function Users() {
     },[])
 
     useEffect(() => {
-        const getPendingFriends = async () => {
+        const getPendingFriendsReceived = async () => {
             const userID = localStorage.getItem('userID');
-            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getPendingFriends`,
+            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getPendingFriendsReceived`,
                 {method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
@@ -43,12 +44,12 @@ export default function Users() {
                 });
             const data = await response.json();
             if (data.success){
-                setPendingFriends(data.pendingFriends);
+                setPendingFriendsReceived(data.pendingFriends);
             } else {
                 setErrors(data.message);
             }
         }
-        getPendingFriends();
+        getPendingFriendsReceived();
     },[])
 
     useEffect(() => {
@@ -74,6 +75,31 @@ export default function Users() {
             }
         }
         getFriends();
+    },[])
+
+    useEffect(() => {
+        const getPendingFriendsSent = async() => {
+            const userID = localStorage.getItem('userID');
+            try{
+                const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getPendingFriendsSent`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `${localStorage.getItem('token')}`
+                    }
+                });
+                const data = await response.json();
+                if (data.success){
+                    setPendingFriendsSent(data.pendingFriends);
+                } else {
+                    setErrors(data.message);
+                }
+            } catch(err){
+                setErrors(err.message);
+            }
+        }
+        getPendingFriendsSent();
     },[])
 
     const acceptFriendRequest = async (friendID) => {
@@ -179,14 +205,27 @@ export default function Users() {
                         })}
                     </div>
                     <div>
-                        <h2>Pending Friend Requests</h2>
-                        {pendingFriends.map((friend) => {
+                        <h2>Pending Friend Requests Received</h2>
+                        {pendingFriendsReceived.map((friend) => {
                             return (
                                 <div key={friend._id}>
                                     <p>{friend.firstName}</p>
                                     <p>{friend.lastName}</p>
                                     <p>{friend.username}</p>
                                     <button onClick={() => acceptFriendRequest(friend._id)}>Accept</button>
+                                </div>
+                            )
+                            })
+                        }
+                    </div>
+                    <div>
+                        <h2>Pending Friend Requests Sent</h2>
+                        {pendingFriendsSent.map((friend) => {
+                            return (
+                                <div key={friend._id}>
+                                    <p>{friend.firstName}</p>
+                                    <p>{friend.lastName}</p>
+                                    <p>{friend.username}</p>
                                 </div>
                             )
                             })

@@ -23,7 +23,7 @@ export default function CreatePost() {
                 });
             const data = await response.json();
             if (data.success === true){
-                setTimeout( () => navigate('/'), 2000 );
+                setTimeout( () => navigate('/home'), 2000 );
             }
             console.log(data);
         } catch(err){

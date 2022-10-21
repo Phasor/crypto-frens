@@ -17,6 +17,7 @@ export default function NavBar() {
         <div>
             <strong><Link to="/home"><p>Crypto Frens</p></Link></strong>
             <div>
+                <Link to="/home"><button>Home</button></Link>
                 <Link to="/signup"><button>Sign Up</button></Link>
                 <Link to="login"><button>Log In</button></Link>
                 <button onClick={logout}>Sign Out</button>
