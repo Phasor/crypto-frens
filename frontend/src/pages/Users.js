@@ -196,9 +196,8 @@ export default function Users() {
                         {friends.map((currentFriend) => {
                             return (
                                 <div key={currentFriend._id}>
-                                    <p>{currentFriend.firstName}</p>
-                                    <p>{currentFriend.lastName}</p>
-                                    <p>{currentFriend.username}</p>
+                                    <p>Name: {`${currentFriend.firstName} ${currentFriend.lastName}`}</p>
+                                    <p>Username: {currentFriend.username}</p>
                                     <button onClick={() => removeFriend(currentFriend._id)}>Remove</button>
                                 </div>
                             )
@@ -209,9 +208,8 @@ export default function Users() {
                         {pendingFriendsReceived.map((friend) => {
                             return (
                                 <div key={friend._id}>
-                                    <p>{friend.firstName}</p>
-                                    <p>{friend.lastName}</p>
-                                    <p>{friend.username}</p>
+                                    <p>Name: {`${friend.firstName} ${friend.lastName}`}</p>
+                                    <p>Username: {friend.username}</p>
                                     <button onClick={() => acceptFriendRequest(friend._id)}>Accept</button>
                                 </div>
                             )
@@ -223,9 +221,8 @@ export default function Users() {
                         {pendingFriendsSent.map((friend) => {
                             return (
                                 <div key={friend._id}>
-                                    <p>{friend.firstName}</p>
-                                    <p>{friend.lastName}</p>
-                                    <p>{friend.username}</p>
+                                    <p>Name: {`${friend.firstName} ${friend.lastName}`}</p>
+                                    <p>Username:{friend.username}</p>
                                 </div>
                             )
                             })

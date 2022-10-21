@@ -9,7 +9,8 @@ export default function MyPosts() {
 useEffect(()=> {
     const getPosts = async () => {
         try{
-            const response = await fetch(`http://localhost:3000/api/v1/post/user/6352dc4239664efcd236f9bd`,
+            const userID = localStorage.getItem('userID');
+            const response = await fetch(`http://localhost:3000/api/v1/post/user/${userID}`,
             {
                 method: 'GET',
                 headers: {
