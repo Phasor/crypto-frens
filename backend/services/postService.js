@@ -17,16 +17,16 @@ exports.fetchPosts = async (userID) => {
     }
 }
 
-exports.createPost = async (req, res) => {
+exports.createPost = async (userID, post) => {
     try {
-        const post = await Post.create({
-            title: req.body.title,
-            content: req.body.content,
-            author: req.body.author
+        const newPost = await Post.create({
+            title: post.title,
+            content: post.content,
+            author: userID
         });
-        return post;
+        return newPost;
     } catch(err) {
-        return res.status(500).send(err.message);
+        return err;
     }
 }
 

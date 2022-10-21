@@ -29,18 +29,13 @@ exports.get_posts = async (req, res) => {
 }
 
 exports.create_post = async (req, res) => {
-    // check if decoded token belongs to the user, create post if so, else reject request
     const token = req.headers.authorization.split(' ')[1];
+    const userID = getUserIDFromToken(token);
     try{
-        const decodedToken = await verifyJWT(token);
-        if (decodedToken.sub === req.body.author) { // user is authorised
-            const post = await createPost(req, res);
-            return res.json({ success: true, post: post });
-        } else {
-            return res.status(401).send('You are not authorized to create a post as this author.');
-        }
+        const post = await createPost(userID, req.body);
+        return res.json({ success: true, post: post });
     } catch(err) {
-        return res.status(500).send(err.message);
+        return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
     }
 }
 

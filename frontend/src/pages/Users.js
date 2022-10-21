@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import User from '../components/User';
 
 export default function Users() {

@@ -34,13 +34,15 @@ export default function CreatePost() {
     <div>
         <div>
             <NavBar/>
-            <div>Create a Post</div>
             <Link to="/">Home</Link>
+            <div>Create a Post</div>
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title" placeholder='Title'/>
+                <br/>
                 <label htmlFor="content">Content</label>
-                <input type="text" name="content" id="content" placeholder='Content'/>
+                <textarea rows="10" cols="100 "name="content" id="content" placeholder='Content'/>
+                <br/>
                 <label htmlFor="author">Author</label>
                 <input type="text" name="author" id="author" placeholder='Author'/>
                 <button type="submit">Post</button>

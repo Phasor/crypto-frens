@@ -17,7 +17,7 @@ const addFriend = async (friend) => {
     if(localStorage.getItem('userID'))
     {
         try{
-            const response = await fetch(
+            await fetch(
                 `http://localhost:3000/api/v1/user/${senderID}/friend-request`,
                 {
                     method: 'POST',

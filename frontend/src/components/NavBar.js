@@ -21,7 +21,9 @@ export default function NavBar() {
                 <Link to="login"><button>Log In</button></Link>
                 <button onClick={logout}>Sign Out</button>
                 <Link to="/users"><button>User List</button></Link>
+                <Link to="/post/create"><button>Create Post</button></Link>
             </div>
+            {localStorage.getItem('username') ? <p>Welcome, {localStorage.getItem('username')}</p> : null}
             ____________________________________________________________________________________________________
         </div>
     </div>
