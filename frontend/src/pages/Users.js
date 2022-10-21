@@ -115,7 +115,7 @@ export default function Users() {
                 });
             const data = await response.json();
             if (data.success){
-                //refresh page
+                //refresh friend list
                 try{
                     const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
                     {
@@ -128,6 +128,26 @@ export default function Users() {
                     const data = await response.json();
                     if (data.success){
                         setFriends(data.friends);
+                    } else {
+                        setErrors(data.message);
+                    }
+                } catch(err){
+                    setErrors(err.message);
+                }
+                // refresh pending friends received
+                       
+                try{
+                    const response = await fetch(`http://localhost:3000/api/v1/user/${localStorage.getItem('userID')}/getPendingFriendsReceived`,
+                    {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${localStorage.getItem('token')}`
+                        }   
+                    });
+                    const data = await response.json();
+                    if (data.success){
+                        setPendingFriendsReceived(data.pendingFriends);
                     } else {
                         setErrors(data.message);
                     }
