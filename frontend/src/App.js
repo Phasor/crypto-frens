@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import CreatePost from './pages/CreatePost';
 import Login from './pages/Login';
+import Users from './pages/Users';
 
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route exact path="/signup" element={<SignUp/>}/>
             <Route exact path="/post/create" element={<CreatePost/>}/>
             <Route exact path="/" element={<Login/>}/>
+            <Route exact path="/users" element={<Users/>}/>
             {/* No match route */}
             <Route path="*" element={<Navigate to="/" replace />}/>
         </Routes>
