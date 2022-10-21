@@ -5,7 +5,8 @@ const {
     updatePost,
     deletePost,
     createComment,
-    likePost } = require('../services/postService');
+    likePost,
+    fetchAllUserPosts } = require('../services/postService');
 const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
 
 exports.get_posts = async (req, res) => {
@@ -127,5 +128,20 @@ exports.post_like = async (req, res) => {
         }
     } catch(err){
         return res.status(500).json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.get_post_by_user_id = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const userID = getUserIDFromToken(token);
+    if(userID == req.params.id) {
+        try {
+            const posts = await fetchAllUserPosts(userID);
+            return res.json({success: true, posts: posts});
+        } catch(err) {
+            return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
+        }
+    } else {
+        return res.status(401).json({success: false, message: 'Unauthorized'});
     }
 }

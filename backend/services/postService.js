@@ -120,3 +120,12 @@ exports.likePost = async (postID, userID) => {
         return {success: false, message:`${err.name}, ${err.message}`};
     }
 }
+
+exports.fetchAllUserPosts = async (userID) => {
+    try{
+        const posts = await Post.find({author: userID}).populate('author', 'username');
+        return posts;
+    }catch(err){
+        return err;
+    }
+}
