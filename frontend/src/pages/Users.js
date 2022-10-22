@@ -25,6 +25,7 @@ export default function Users() {
             const data = await response.json();
             if (data.success){
                 setUsers(data.users);
+                //console.log(data.users);
                 setLoading(false);
             } else {
                 setErrors(data.message);
@@ -199,6 +200,9 @@ export default function Users() {
                 } catch(err){
                     setErrors(err.message);
                 }
+                // remove user from users list
+                const newUsers = users.filter(user => user._id !== friendID);
+                setUsers([...newUsers]);
             }
 
         }catch(err){
@@ -259,6 +263,7 @@ export default function Users() {
                                 <User 
                                     key={user._id}
                                     user={user}
+                                    setPendingFriendsSent={setPendingFriendsSent}
                                 />
                             ))
                         }
