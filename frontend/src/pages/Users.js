@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
 // import { Link } from 'react-router-dom';
 import User from '../components/User';
+import { ToastContainer, toast } from 'react-toastify';
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -14,7 +15,7 @@ export default function Users() {
     useEffect(() => {
         const getUsers = async () => {
             const response = await fetch(
-                'http://localhost:3000/api/v1/user/all',
+                'http://localhost:3000/api/v1/user/all/excluding-friends',
                 {method: 'GET', 
                     headers: {
                         'Content-Type': 'application/json',
@@ -128,6 +129,7 @@ export default function Users() {
                     const data = await response.json();
                     if (data.success){
                         setFriends(data.friends);
+                        toast.success('Friend added successfully');
                     } else {
                         setErrors(data.message);
                     }
@@ -190,6 +192,7 @@ export default function Users() {
                     const data = await response.json();
                     if (data.success){
                         setFriends(data.friends);
+                        toast.success('Friend removed successfully');
                     } else {
                         setErrors(data.message);
                     }
@@ -250,7 +253,7 @@ export default function Users() {
 
                     </div>
                     <div>
-                        <h2>All Users</h2>
+                        <h2>All Other Users</h2>
                         {loading ? <p>Loading...</p> :
                             users.map((user) => (
                                 <User 
@@ -261,6 +264,18 @@ export default function Users() {
                         }
                     </div>
                     {errors && <p>{errors}</p>}
+                    <ToastContainer
+                        position="top-center"
+                        autoClose={5000}
+                        hideProgressBar
+                        newestOnTop={false}
+                        closeOnClick
+                        rtl={false}
+                        pauseOnFocusLoss
+                        draggable
+                        pauseOnHover
+                        theme="light"
+                    />
                 </div>
         </div>
     </div>

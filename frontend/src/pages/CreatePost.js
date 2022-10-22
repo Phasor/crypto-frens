@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 export default function CreatePost() {
     const [errors, setErrors] = useState(null);
@@ -40,6 +42,7 @@ export default function CreatePost() {
                 });
             const data = await response.json();
             if (data.success === true){
+                toast.success('Post created successfully');
                 setTimeout( () => navigate('/home'), 2000 );
             }
             console.log(data);
@@ -56,6 +59,18 @@ export default function CreatePost() {
             <NavBar/>
             <Link to="/home">Home</Link>
             <div>Create a Post</div>
+            <ToastContainer
+                position="top-center"
+                autoClose={5000}
+                hideProgressBar
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+            />
             <form onSubmit={handleSubmit}>
                 <label htmlFor="title">Title</label>
                 <input type="text" name="title" id="title" placeholder='Title'/>

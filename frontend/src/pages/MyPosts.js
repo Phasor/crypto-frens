@@ -40,6 +40,7 @@ useEffect(()=> {
             return (
                 <div key={post._id}>
                     <h2>{post.title}</h2>
+                    {post.imgURL && <img src={post.imgURL} alt={post.title}/>}
                     <p>{post.content}</p>
                     <p>{formatDate(post.posted)}</p>
                     <p>Likes: {post.likes.length}</p>
