@@ -74,6 +74,7 @@ export default function Post({setPosts, post}) {
     <>
         <div>
             <h2>{post.title}</h2>
+            <img src={post.imgURL} alt="" />
             <p>{post.content}</p>
             <p>{post.author.username}</p>
             <p>{formatDate(post.posted)}</p>

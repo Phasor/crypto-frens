@@ -3,14 +3,18 @@ const User = require('../models/user');
 const mongoose = require('mongoose');
 
 exports.fetchPosts = async (userID) => {
-    // fetch posts of users friends only
+    // fetch posts of users friends and the user himself
     try {
+        // get friends posts
         const friends = await User.findById(userID).select('friends');
         const allPosts = [];
         for (let i = 0; i < friends.friends.length; i++) {
             const posts = await Post.find({ author: friends.friends[i] }).populate('author', 'username');
             allPosts.push(...posts);
         }
+        // users posts
+        const userPosts = await Post.find({ author: userID }).populate('author', 'username');
+        allPosts.push(...userPosts);
         return allPosts;
     } catch(err) {
         return res.status(500).send(err.message);
@@ -22,7 +26,8 @@ exports.createPost = async (userID, post) => {
         const newPost = await Post.create({
             title: post.title,
             content: post.content,
-            author: userID
+            author: userID,
+            imgURL: post.imgURL,
         });
         return newPost;
     } catch(err) {

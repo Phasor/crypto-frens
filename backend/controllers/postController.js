@@ -13,8 +13,7 @@ exports.get_posts = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     try {
         // get user from JWT
-        const decodedToken = await verifyJWT(token);
-        const userID = decodedToken.sub;
+        const userID = getUserIDFromToken(token);
         if (userID) {     
             const posts = await fetchPosts(userID);
             return res.json({
