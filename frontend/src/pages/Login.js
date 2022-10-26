@@ -7,6 +7,12 @@ export default function Login() {
 
     const submitHandler = async (e) => {
         e.preventDefault();
+        // delete any local storage variables
+        localStorage.removeItem('token');
+        localStorage.removeItem('userID');
+        localStorage.removeItem('username');
+        localStorage.removeItem('shortName');
+        
         try{
             const response = await fetch('http://localhost:3000/api/v1/auth/login',
                 {method: 'POST',

@@ -163,3 +163,19 @@ exports.removeFriend = async (userID, friendID) => {
         return err;
     }
 }
+
+exports.getAllUsersExFriends = async (userID) => {
+    try{
+        const user = await User.findById(userID);
+        const friends = user.friends;
+        const pendingFriendRequestsSent = user.pendingFriendRequestsSent;
+        const pendingFriendRequestsReceived = user.pendingFriendRequestsReceived;
+        const allUsers = await User.find();
+        const allUsersExFriends = allUsers.filter(user => {
+            return !friends.includes(user._id) && !pendingFriendRequestsSent.includes(user._id) && !pendingFriendRequestsReceived.includes(user._id) && user._id != userID;
+        });
+        return allUsersExFriends;
+    }catch(err){
+        return err;
+    }
+}

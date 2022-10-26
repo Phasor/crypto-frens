@@ -32,7 +32,7 @@ export default function Users() {
             }
         }
         getUsers();
-    },[])
+    },[users])
 
     useEffect(() => {
         const getPendingFriendsReceived = async () => {
@@ -77,7 +77,7 @@ export default function Users() {
             }
         }
         getFriends();
-    },[])
+    },[friends])
 
     useEffect(() => {
         const getPendingFriendsSent = async() => {
@@ -258,8 +258,7 @@ export default function Users() {
                     </div>
                     <div>
                         <h2>All Other Users</h2>
-                        {loading ? <p>Loading...</p> :
-                            users.map((user) => (
+                        {users.map((user) => (
                                 <User 
                                     key={user._id}
                                     user={user}

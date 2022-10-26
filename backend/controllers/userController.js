@@ -8,7 +8,8 @@ const {
     getPendingFriendsReceived,
     getPendingFriendsSent,
     getFriends,
-    removeFriend } = require("../services/userService");
+    removeFriend,
+    getAllUsersExFriends } = require("../services/userService");
 
 const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
 
@@ -136,4 +137,14 @@ exports.delete_friend = async (req, res) => {
     }
 }
 
+exports.get_all_users_ex_friends = async (req, res) => {
+    try{
+        const token = req.headers.authorization.split(' ')[1];
+        const userID = getUserIDFromToken(token);
+        const users = await getAllUsersExFriends(userID);
+        return res.json({success: true, users: users});
+    }catch(err){
+        res.json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
 
