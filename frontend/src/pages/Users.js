@@ -164,26 +164,11 @@ export default function Users() {
             )
             const data = await response.json();
             if (data.success){
-                try{
-                    const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
-                    {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `${localStorage.getItem('token')}`
-                        }   
-                    });
-                    const data = await response.json();
-                    if (data.success){
-                        setFriends(data.friends);
-                        toast.success('Friend removed successfully');
-                    } else {
-                        setErrors(data.message);
-                    }
-                } catch(err){
-                    setErrors(err.message);
-                }
-                // remove user from users list
+                //refresh friend list
+                const newFriends = friends.filter((friend) => friend._id !== friendID);
+                setFriends([...newFriends]);
+
+                // remove user from all other users list
                 const newUsers = users.filter(user => user._id !== friendID);
                 setUsers([...newUsers]);
             }
@@ -201,68 +186,70 @@ export default function Users() {
         <div>
             <NavBar/>
                 <div>
-                    <div>
-                        <h2>Friends</h2>
-                        {friends.map((currentFriend) => {
-                            return (
-                                <div key={currentFriend._id}>
-                                    <p>Name: {`${currentFriend.firstName} ${currentFriend.lastName}`}</p>
-                                    <p>Username: {currentFriend.username}</p>
-                                    <button onClick={() => removeFriend(currentFriend._id)}>Remove</button>
-                                </div>
-                            )
-                        })}
-                    </div>
-                    <div>
-                        <h2>Pending Friend Requests Received</h2>
-                        {pendingFriendsReceived.map((friend) => {
-                            return (
-                                <div key={friend._id}>
-                                    <p>Name: {`${friend.firstName} ${friend.lastName}`}</p>
-                                    <p>Username: {friend.username}</p>
-                                    <button onClick={() => acceptFriendRequest(friend._id)}>Accept</button>
-                                </div>
-                            )
-                            })
-                        }
-                    </div>
-                    <div>
-                        <h2>Pending Friend Requests Sent</h2>
-                        {pendingFriendsSent.map((friend) => {
-                            return (
-                                <div key={friend._id}>
-                                    <p>Name: {`${friend.firstName} ${friend.lastName}`}</p>
-                                    <p>Username:{friend.username}</p>
-                                </div>
-                            )
-                            })
-                        }
-
-                    </div>
-                    <div>
-                        <h2>All Other Users</h2>
-                        {users.map((user) => (
-                                <User 
-                                    key={user._id}
-                                    user={user}
-                                    setPendingFriendsSent={setPendingFriendsSent}
-                                />
-                            ))
-                        }
-                    </div>
-                    {errors && <p>{errors}</p>}
-                    <ToastContainer
-                        position="top-center"
-                        autoClose={5000}
-                        hideProgressBar
-                        newestOnTop={false}
-                        closeOnClick
-                        rtl={false}
-                        pauseOnFocusLoss
-                        draggable
-                        pauseOnHover
-                        theme="light"
-                    />
+                    {loading? <div>Loading...</div> : 
+                    <>
+                        <div>
+                            <h2>Friends</h2>
+                            {friends.map((currentFriend) => {
+                                return (
+                                    <div key={currentFriend._id}>
+                                        <p>Name: {`${currentFriend.firstName} ${currentFriend.lastName}`}</p>
+                                        <p>Username: {currentFriend.username}</p>
+                                        <button onClick={() => removeFriend(currentFriend._id)}>Remove</button>
+                                    </div>
+                                )
+                            })}
+                        </div>
+                        <div>
+                            <h2>Pending Friend Requests Received</h2>
+                            {pendingFriendsReceived.map((friend) => {
+                                return (
+                                    <div key={friend._id}>
+                                        <p>Name: {`${friend.firstName} ${friend.lastName}`}</p>
+                                        <p>Username: {friend.username}</p>
+                                        <button onClick={() => acceptFriendRequest(friend._id)}>Accept</button>
+                                    </div>
+                                )
+                                })
+                            }
+                        </div>
+                        <div>
+                            <h2>Pending Friend Requests Sent</h2>
+                            {pendingFriendsSent.map((friend) => {
+                                return (
+                                    <div key={friend._id}>
+                                        <p>Name: {`${friend.firstName} ${friend.lastName}`}</p>
+                                        <p>Username:{friend.username}</p>
+                                    </div>
+                                )
+                                })
+                            }
+                        </div>
+                        <div>
+                            <h2>All Other Users</h2>
+                            {users.map((user) => (
+                                    <User 
+                                        key={user._id}
+                                        user={user}
+                                        setPendingFriendsSent={setPendingFriendsSent}
+                                    />
+                                ))
+                            }
+                        </div>
+                        {errors && <p>{errors}</p>}
+                        <ToastContainer
+                            position="top-center"
+                            autoClose={5000}
+                            hideProgressBar
+                            newestOnTop={false}
+                            closeOnClick
+                            rtl={false}
+                            pauseOnFocusLoss
+                            draggable
+                            pauseOnHover
+                            theme="light"
+                        />
+                    </>}
                 </div>
         </div>
     </div>
