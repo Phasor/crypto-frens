@@ -6,11 +6,11 @@ import { ToastContainer, toast } from 'react-toastify';
 
 export default function Users() {
     const [users, setUsers] = useState([]);
+    const [friends, setFriends] = useState([]);
+    const [pendingFriendsReceived, setPendingFriendsReceived] = useState([]);
+    const [pendingFriendsSent, setPendingFriendsSent] = useState([]);
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [pendingFriendsReceived, setPendingFriendsReceived] = useState([]);
-    const [friends, setFriends] = useState([]);
-    const [pendingFriendsSent, setPendingFriendsSent] = useState([]);
 
     useEffect(() => {
         const getUsers = async () => {
@@ -52,7 +52,7 @@ export default function Users() {
             }
         }
         getPendingFriendsReceived();
-    },[])
+    },[pendingFriendsReceived])
 
     useEffect(() => {
         const getFriends = async() => {
@@ -102,7 +102,7 @@ export default function Users() {
             }
         }
         getPendingFriendsSent();
-    },[])
+    },[pendingFriendsSent])
 
     const acceptFriendRequest = async (friendID) => {
         try{
@@ -138,25 +138,8 @@ export default function Users() {
                     setErrors(err.message);
                 }
                 // refresh pending friends received
-                       
-                try{
-                    const response = await fetch(`http://localhost:3000/api/v1/user/${localStorage.getItem('userID')}/getPendingFriendsReceived`,
-                    {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `${localStorage.getItem('token')}`
-                        }   
-                    });
-                    const data = await response.json();
-                    if (data.success){
-                        setPendingFriendsReceived(data.pendingFriends);
-                    } else {
-                        setErrors(data.message);
-                    }
-                } catch(err){
-                    setErrors(err.message);
-                }
+                const newPendingFriendsReceived = pendingFriendsReceived.filter((friend) => friend._id !== friendID);
+                setPendingFriendsReceived([...newPendingFriendsReceived]);
             } else {
                 setErrors(data.message);
             }
