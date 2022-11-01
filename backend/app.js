@@ -1,9 +1,10 @@
 var express = require('express');
-const cookieSession = require("cookie-session");
 var path = require('path');
 var logger = require('morgan');
 const cors = require('cors');
 const passport = require('passport');
+require("dotenv").config();
+
 
 //import routes
 const userRouter = require('./routes/user');
@@ -28,21 +29,7 @@ app.use(logger('dev'));
 app.use(express.json());  // Instead of using body-parser middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors(
-    {origin: "http://localhost:3002", credentials: true}
-)); // allows our front end application to make HTTP requests to Express application
-
-// ***************************************************************UPDATE KEY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-app.use(cookieSession({ name: "session", keys: ["lama"], maxAge: 24 * 60 * 60 * 100 }));
-
-// needed since we used sessions for google and fb auth
-passport.serializeUser((user, done) => {
-    done(null, user);
-  });
-  
-  passport.deserializeUser((user, done) => {
-    done(null, user);
-  });
+app.use(cors()); // allows our front end application to make HTTP requests to Express application
 
 
 // apply routes

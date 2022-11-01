@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import NavBar from '../components/NavBar';
+import NavBar from '../components/NavBar'
+import GoogleLogin from '../components/GoogleLogin'
 
 export default function Login() {
     const navigate = useNavigate();
@@ -52,6 +53,8 @@ export default function Login() {
                     <input type="password" name="password" id="password" placeholder='Password'/>
                     <button type="submit">Log In</button>
                 </form>
+                <br/>
+                <GoogleLogin/>
             </div>
         </div>
     </div>

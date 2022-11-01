@@ -15,8 +15,8 @@ const UserSchema  = new Schema({
     pendingFriendRequestsSent: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
     pendingFriendRequestsReceived: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
-    facebookId: { type: String, required: false },
-    googleId: { type: String, required: false },
+    method: { type: String, required: false, default: 'local' },
+    googleId: { type: String, required: false, default: 'na' },
 })
 
 // Virtual for user's URL

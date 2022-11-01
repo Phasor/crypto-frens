@@ -45,7 +45,7 @@ export default function SignUp() {
             <NavBar/>
             <div>
                 <h1>Sign Up</h1>
-                <Link to="/"> Home </Link>
+                <Link to="/"> Home</Link>
                 <form onSubmit={submitHandler}>
                     <label htmlFor="firstName">First Name</label>
                     <input type="text" name="firstName" id="firstName" placeholder='Benjamin'/>

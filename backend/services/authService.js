@@ -24,3 +24,17 @@ exports.login = async (username, password) => {
         return {success: false, message: `${error.name}, ${error.message}`};
     }
 }
+
+exports.googleLogin = async (req, res) => {
+    try{
+         // valid user, issue a JWT
+         const tokenObject = utils.issueJWT(req.user);
+         // console.log('tokenObject', tokenObject);
+         //const ID = utils.getUserIDFromToken(tokenObject.token);
+         //console.log('ID', ID);
+         return {success: true, tokenObject: tokenObject, user: req.user};
+    }catch(err){
+        console.log(err);
+        return {success: false, message: `${err.name}, ${err.message}`};
+    }
+}
