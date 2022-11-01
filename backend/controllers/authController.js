@@ -28,7 +28,7 @@ try{
     // console.log(`req.user: ${req.user}`);
     const user = await googleLogin(req, res);
     if(user.success){
-        res.redirect(`http://localhost:3002/home?token=${user.tokenObject.token}&firstName=${user.user.firstName}`);
+        res.redirect(`http://localhost:3002/home?token=${user.tokenObject.token}&firstName=${user.user.firstName}&id=${user.user._id}`);
     } else {
         res.redirect('http://localhost:3002/login/failed');
     }

@@ -13,14 +13,16 @@ export default function Home() {
     useEffect(() => {
         const setDataFromUrl = async () => {
             if(location.search){ // there is a query string, hence this is a Google auth login   
-                const rawToken = location.search.split("=")[1];
-                const removedFirstName = rawToken.split("&")[0];
+                const rawData = location.search.split("=")[1];
+                const removedFirstName = rawData.split("&")[0];
                 const tokenValue =  removedFirstName.replace("%20", " ");
                 // console.log(`tokenValue: ${tokenValue}`);
                 setTokenGoog(tokenValue);
                 localStorage.setItem("token", tokenGoog);
                 const firstNameValue = location.search.split("=")[2];
                 setFirstName(firstNameValue);
+                const userIDValue = location.search.split("=")[3];
+                localStorage.setItem("userID", userIDValue);
             }
         }
         setDataFromUrl();
