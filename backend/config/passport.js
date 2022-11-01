@@ -88,7 +88,7 @@ const strategy = new JwtStrategy(options, (payload, done) => {
 
             // if user exists return the user 
             if (existingUser) {
-                console.log('Found existing user...', existingUser);
+                console.log('Found existing user...');
                 return done(null, existingUser);
             }
         // if user does not exist create a new user 
@@ -100,7 +100,8 @@ const strategy = new JwtStrategy(options, (payload, done) => {
             profileImage: profile.photos[0].value,
             firstName: profile.name.givenName,
             lastName: profile.name.familyName,
-            shortName: profile.displayName,  
+            shortName: profile.displayName, 
+            username: profile.emails[0].value, 
         });
         await newUser.save();
         return done(null, newUser);

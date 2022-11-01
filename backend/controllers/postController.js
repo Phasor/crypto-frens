@@ -31,6 +31,7 @@ exports.get_posts = async (req, res) => {
 exports.create_post = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const userID = getUserIDFromToken(token);
+    console.log(`userID from token: ${userID}`);
     try{
         const post = await createPost(userID, req.body);
         return res.json({ success: true, post: post });

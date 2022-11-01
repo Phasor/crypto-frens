@@ -85,7 +85,7 @@ export default function CreatePost() {
                 <button type="submit">Post</button>
             </form>
         </div>
-    {errors && <div>{errors}</div>}
+    
     </div>
   )
 }

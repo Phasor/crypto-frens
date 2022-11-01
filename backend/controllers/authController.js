@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
 
 exports.googleAuthCallback = async (req, res) => {
 try{
-    console.log(`req.user: ${req.user}`);
+    // console.log(`req.user: ${req.user}`);
     const user = await googleLogin(req, res);
     if(user.success){
         res.redirect(`http://localhost:3002/home?token=${user.tokenObject.token}&firstName=${user.user.firstName}`);

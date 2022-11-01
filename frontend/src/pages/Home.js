@@ -14,7 +14,8 @@ export default function Home() {
         const setDataFromUrl = async () => {
             if(location.search){ // there is a query string, hence this is a Google auth login   
                 const rawToken = location.search.split("=")[1];
-                const tokenValue =  rawToken.replace("%", " ");
+                const removedFirstName = rawToken.split("&")[0];
+                const tokenValue =  removedFirstName.replace("%20", " ");
                 // console.log(`tokenValue: ${tokenValue}`);
                 setTokenGoog(tokenValue);
                 localStorage.setItem("token", tokenGoog);
