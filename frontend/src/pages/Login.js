@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import GoogleLogin from '../components/GoogleLogin'
 
@@ -50,11 +50,11 @@ export default function Login() {
                         <form onSubmit={submitHandler} className=" border rounded-md p-2 md:m-5 my-10">
                             <div className='flex items-center outline-none justify-between'>
                                 <label htmlFor="username">Email</label>
-                                <input className="ml-2 py-1" type="email" name="username" placeholder='ben@gmail.com' id="username"/>
+                                <input className="ml-2 p-1" type="email" name="username" placeholder='ben@gmail.com' id="username"/>
                             </div>
                             <div className='flex items-center outline-none justify-between'>
                                 <label htmlFor="password">Password</label>
-                                <input className="ml-2 py-1" type="password" name="password" id="password" placeholder='Password'/>
+                                <input className="ml-2 p-1" type="password" name="password" id="password" placeholder='Password'/>
                             </div>
                             <button type="submit" className='w-full mt-2 bg-gray-500 hover:bg-blue-500 rounded-lg p-1 text-white'>Log In</button>
                         </form>

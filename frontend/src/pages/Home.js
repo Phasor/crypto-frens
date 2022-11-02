@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import NavBar from '../components/NavBar';
 import PostList from '../components/PostList';
 import { Link, useLocation } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import Feed from '../components/Feed';
 
 export default function Home() {
     const username = localStorage.getItem('username');
@@ -32,11 +34,9 @@ export default function Home() {
     <div>
         <div>
             <NavBar/>
-            <div>
-                <h1>Home</h1>
-                {firstName ? <p>Welcome {firstName}</p> : <p>Welcome {username}</p>}
-                <Link to="/post/create"><button>Create Post</button></Link>
-                <PostList/> 
+            <div className='w-full h-screen flex'>
+                <Sidebar/>
+                <Feed/>
             </div>
         </div>
     </div>
