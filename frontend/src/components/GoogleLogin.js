@@ -12,8 +12,8 @@ export default function GoogleLogin() {
     }
 
   return (
-    <div>
-        <button onClick={handleGoogleLogin}>Login with Google</button>
+    <div className=''>
+        <img src="/googleSigninButton.png" alt="google sign in button" onClick={handleGoogleLogin} width={240} className="p-2 cursor-pointer hover:animate-pulse"/>
     </div>
   )
 }

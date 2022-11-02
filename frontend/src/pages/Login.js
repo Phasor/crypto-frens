@@ -43,18 +43,30 @@ export default function Login() {
     <div>
         <div>
             <NavBar/>
-            <div>
-                <Link to="/home">Home</Link>
-                <h1>Log In</h1>
-                <form onSubmit={submitHandler}>
-                    <label htmlFor="username">Email</label>
-                    <input type="email" name="username" placeholder='ben@gmail.com' id="username"/>
-                    <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder='Password'/>
-                    <button type="submit">Log In</button>
-                </form>
+            <div className='w-full h-screen flex justify-center'>
+                <div className='flex-col mt-20'>
+                    <h1 className='text-2xl'>Log In</h1>
+                    <div className='flex border rounded-md mt-2'>
+                        <form onSubmit={submitHandler} className=" border rounded-md p-2 m-5 my-10">
+                            <div className='flex items-center outline-none justify-between'>
+                                <label htmlFor="username">Email</label>
+                                <input className="ml-2 py-1" type="email" name="username" placeholder='ben@gmail.com' id="username"/>
+                            </div>
+                            <div className='flex items-center outline-none justify-between'>
+                                <label htmlFor="password">Password</label>
+                                <input className="ml-2 py-1" type="password" name="password" id="password" placeholder='Password'/>
+                            </div>
+                            <button type="submit" className='w-full mt-2 bg-gray-500 hover:bg-blue-500 rounded-lg p-1 text-white'>Log In</button>
+                        </form>
+                        <div className='flex mx-4 items-center justify-center  bg-gray-200 rounded-full w-[1px] my-3'>
+                            <p className='text-2xl'>OR</p>
+                        </div>
+                        <div className='flex items-center p-4'>
+                            <GoogleLogin/>
+                        </div>
+                    </div>
+                </div>
                 <br/>
-                <GoogleLogin/>
             </div>
         </div>
     </div>

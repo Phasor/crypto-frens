@@ -33,7 +33,7 @@ export default function NavBar() {
         {/* Centre */}
         <div className='flex justify-center flex-grow'>
             <div className='flex space-x-6 md:space-x-2'>
-                <HeaderIcon active={true} Icon={HomeIcon}/>
+                <Link to='/home'><HeaderIcon active={true} Icon={HomeIcon}/></Link>
                 <HeaderIcon Icon={UsersIcon}/>
                 <HeaderIcon Icon={Cog8ToothIcon}/>
             </div>
@@ -41,8 +41,8 @@ export default function NavBar() {
 
         {/* right */}
         <div className='flex items-center sm:space-x-2 whitespace-nowrap'>
-            <Link to="login"><button className="bg-gray-400 rounded-lg text-white p-2 hover:bg-blue-500">Log In</button></Link>
-            <Link to="/signup"><button className="bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Sign Up</button></Link>
+            <Link to="login"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 hover:bg-blue-500">Log In</button></Link>
+            <Link to="/signup"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Sign Up</button></Link>
         </div>
 
         {/* <div>
