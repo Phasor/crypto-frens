@@ -44,10 +44,10 @@ export default function Login() {
         <div>
             <NavBar/>
             <div className='w-full h-screen flex justify-center'>
-                <div className='flex-col mt-20'>
+                <div className='flex-col mt-20 p-4'>
                     <h1 className='text-2xl'>Log In</h1>
                     <div className='flex border rounded-md mt-2'>
-                        <form onSubmit={submitHandler} className=" border rounded-md p-2 m-5 my-10">
+                        <form onSubmit={submitHandler} className=" border rounded-md p-2 md:m-5 my-10">
                             <div className='flex items-center outline-none justify-between'>
                                 <label htmlFor="username">Email</label>
                                 <input className="ml-2 py-1" type="email" name="username" placeholder='ben@gmail.com' id="username"/>
@@ -59,9 +59,9 @@ export default function Login() {
                             <button type="submit" className='w-full mt-2 bg-gray-500 hover:bg-blue-500 rounded-lg p-1 text-white'>Log In</button>
                         </form>
                         <div className='flex mx-4 items-center justify-center  bg-gray-200 rounded-full w-[1px] my-3'>
-                            <p className='text-2xl'>OR</p>
+                            <p className='md:text-2xl'>OR</p>
                         </div>
-                        <div className='flex items-center p-4'>
+                        <div className='flex items-center md:p-4'>
                             <GoogleLogin/>
                         </div>
                     </div>
