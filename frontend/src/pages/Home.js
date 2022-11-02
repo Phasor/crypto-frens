@@ -7,7 +7,6 @@ export default function Home() {
     const username = localStorage.getItem('username');
     const [tokenGoog, setTokenGoog] = useState('');
     const [firstName, setFirstName] = useState('');
-    const [ready, setReady] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -24,7 +23,6 @@ export default function Home() {
                 setFirstName(firstNameValue);
                 const userIDValue = location.search.split("=")[3];
                 localStorage.setItem("userID", userIDValue);
-                setReady(true);
             }
         }
         setDataFromUrl();
