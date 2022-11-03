@@ -15,6 +15,8 @@ exports.fetchPosts = async (userID) => {
         // users posts
         const userPosts = await Post.find({ author: userID }).populate('author', 'username');
         allPosts.push(...userPosts);
+        // sort posts by date
+        allPosts.sort((a, b) => b.posted - a.posted);
         return allPosts;
     } catch(err) {
         return res.status(500).send(err.message);

@@ -30,7 +30,7 @@ export default function PostList() {
     },[])
 
   return (
-    <div>
+    <div className='mt-8'>
         {loading ? <p>Loading...</p> : 
             posts.map((post) => (
                 <Post
