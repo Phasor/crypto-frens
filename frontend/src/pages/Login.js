@@ -46,7 +46,7 @@ export default function Login() {
             <div className='w-full h-screen flex justify-center'>
                 <div className='flex-col mt-20 p-4'>
                     <h1 className='text-2xl'>Log In</h1>
-                    <div className='flex border rounded-md mt-2'>
+                    <div className='flex border rounded-md mt-2 shadow-md'>
                         <form onSubmit={submitHandler} className=" border rounded-md p-2 md:m-5 my-10">
                             <div className='flex items-center outline-none justify-between'>
                                 <label htmlFor="username">Email</label>

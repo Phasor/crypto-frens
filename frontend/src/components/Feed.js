@@ -4,12 +4,14 @@ import InputBox from './InputBox'
 
 export default function Feed() {
   return (
-    <div className='flex-grow h-screen pt-6 pb-6'>
-        {/* New post box */}
-        <InputBox/>
+    <div className='flex-grow h-screen pt-6 pb-6 bg-gray-100'>
+        <div className='p-6'>
+            {/* New post box */}
+            <InputBox/>
 
-        {/* Posts */}
-        <PostList/>
+            {/* Posts */}
+            <PostList/>
+        </div>
     </div>
   )
 }
