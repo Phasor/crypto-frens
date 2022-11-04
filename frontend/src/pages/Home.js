@@ -34,7 +34,7 @@ export default function Home() {
     <div>
         <div>
             <NavBar/>
-            <div className='w-full h-screen flex'>
+            <div className='w-full h-screen flex justify-center'>
                 <Sidebar/>
                 <Feed/>
             </div>

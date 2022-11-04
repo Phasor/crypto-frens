@@ -46,17 +46,17 @@ export default function Login() {
             <div className='w-full h-screen flex justify-center'>
                 <div className='flex-col mt-20 p-4'>
                     <h1 className='text-2xl'>Log In</h1>
-                    <div className='flex border rounded-md mt-2 shadow-md'>
-                        <form onSubmit={submitHandler} className=" border rounded-md p-2 md:m-5 my-10">
+                    <div className='flex border rounded-md mt-2 shadow-md p-2'>
+                        <form onSubmit={submitHandler} className=" border rounded-md p-2 md:p-4 md:m-5 my-10">
                             <div className='flex items-center outline-none justify-between'>
                                 <label htmlFor="username">Email</label>
-                                <input className="ml-2 p-1" type="email" name="username" placeholder='ben@gmail.com' id="username"/>
+                                <input className="border rounded-md outline-none ml-2 p-1 text-gray-500" type="email" name="username" placeholder='ben@gmail.com' id="username"/>
                             </div>
-                            <div className='flex items-center outline-none justify-between'>
+                            <div className='flex items-center outline-none justify-between mt-2'>
                                 <label htmlFor="password">Password</label>
-                                <input className="ml-2 p-1" type="password" name="password" id="password" placeholder='Password'/>
+                                <input className="border rounded-md outline-none ml-2 p-1" type="password" name="password" id="password" placeholder='Password'/>
                             </div>
-                            <button type="submit" className='w-full mt-2 bg-gray-500 hover:bg-blue-500 rounded-lg p-1 text-white'>Log In</button>
+                            <button type="submit" className='w-full mt-4 bg-gray-500 hover:bg-blue-500 rounded-lg p-1 text-white'>Log In</button>
                         </form>
                         <div className='flex mx-4 items-center justify-center  bg-gray-200 rounded-full w-[1px] my-3'>
                             <p className='md:text-2xl'>OR</p>

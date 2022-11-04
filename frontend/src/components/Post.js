@@ -71,11 +71,13 @@ export default function Post({setPosts, post}) {
     
 
   return (
-    <div className='flex flex-col'>
-        <div className='bg-white p-2 mt-5 rounded-t-xl shadow-md '>
-            <div className='relative h-56 md:h-96 bg-white'>
-                {post.imgURL && <img src={post.imgURL} alt="" layout="fill" className='object-cover'/>}
-            </div>
+    <div className=''>
+        <div className='flex flex-col bg-white p-2 mt-5 rounded-t-xl shadow-md '>
+            {post.imgURL && (
+                <div className='h-56 md:h-96 bg-white border border-yellow-500 '>
+                    <img src={post.imgURL} alt="" className='h-full w-full object-cover border border-black'/>
+                </div>
+            )}
             <p className='p-2 font-medium'>{post.content}</p>
             <p className='p-2 font-medium'>{post.author.username}</p>
         </div>
