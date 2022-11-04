@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import formatDate from '../utils/formatDate';
+import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
+import { HeartIcon as HeartIconOutline, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
+
 
 export default function Post({setPosts, post}) {
     const [comment, setComment] = useState('');
+    const [postLiked, setPostLiked] = useState(false);
+    const [showComments, setShowComments] = useState(false);
 
     const postComment = async (e) => {
         e.preventDefault();
@@ -62,6 +67,7 @@ export default function Post({setPosts, post}) {
                 );
                 const refreshedPostsJson = await refreshedPosts.json();
                 setPosts(refreshedPostsJson.posts);
+                setPostLiked(!postLiked);
             }
         }catch(err){
             console.log(err);
@@ -72,14 +78,55 @@ export default function Post({setPosts, post}) {
 
   return (
     <div className=''>
-        <div className='flex flex-col bg-white p-2 mt-5 rounded-t-xl shadow-md '>
+        <div className='flex flex-col bg-white p-3 mt-5 rounded-t-xl shadow-md '>
             {post.imgURL && (
-                <div className='h-56 md:h-96 bg-white border border-yellow-500 '>
-                    <img src={post.imgURL} alt="" className='h-full w-full object-cover border border-black'/>
+                <div className='h-56 md:h-96 bg-white'>
+                    <img src={post.imgURL} alt="" className='h-full w-full object-cover'/>
                 </div>
             )}
             <p className='p-2 font-medium'>{post.content}</p>
-            <p className='p-2 font-medium'>{post.author.username}</p>
+            <div className='flex justify-start space-x-4 mt-1 p-1 w-100%'>
+                {!postLiked ? 
+                (
+                    <>
+                        <HeartIconOutline onClick={likePost}  className='h-6 w-6 cursor-pointer transform hover:scale-110'/>
+                        <ChatBubbleOvalLeftIcon className='h-6 w-6' onClick={() => setShowComments(!showComments)} />
+                    </>
+                ) : 
+                (   
+                    <>
+                        <HeartIconSolid className='h-6 w-6 cursor-pointer text-red-500 transform hover:scale-110'/>
+                        <ChatBubbleOvalLeftIcon className='h-6 w-6' onClick={() => setShowComments(!showComments)}/>
+                    </>
+                )} 
+            </div>
+
+            {/* Comment section */}
+            { showComments && (
+                <>
+                    {/* List of existing comments */}
+                    <div className='flex flex-col space-y-2'>
+                        {post.comments.map((comment) => (
+                            <div key={comment._id}>
+                            <p>{comment.comment}</p>
+                            <p>{comment.authorEmail.username}</p>
+                            <p>{formatDate(comment.date)}</p>
+                            </div>
+                        ))}
+                    </div>
+                    {/* New comment  */}
+                    <div>
+                        <form onSubmit={postComment}>
+                            <input placeholder="Add comment" className="w-full bg-gray-100 border rounded-md p-1 mt-4 outline-none text-gray-600" type="text" name="comment" id="comment" value={comment} onChange={(e) => setComment(e.target.value)}/>
+                        </form>
+                    </div>
+                </>
+            )}
+
+            <div className='flex justify-between '>
+                <p className='p-2'>{post.author.username}</p>
+                <p className='p-2'>{formatDate(post.posted)}</p>
+            </div>
         </div>
     </div>
 
