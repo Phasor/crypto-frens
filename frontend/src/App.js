@@ -16,19 +16,21 @@ import Failed from './pages/Failed';
 function App() {
     
   return (
-    <Router>
-        <Routes>
-            <Route exact path="/home" element={<Home/>}/>
-            <Route exact path="/signup" element={<SignUp/>}/>
-            <Route exact path="/post/create" element={<CreatePost/>}/>
-            <Route exact path="/" element={<Login/>}/>
-            <Route exact path="/users" element={<Users/>}/>
-            <Route exact path="/user/myposts" element={<MyPosts/>}/>
-            <Route exact path="/login/failed" element={<Failed/>}/>
-            {/* No match route */}
-            <Route path="*" element={<Navigate to="/" replace />}/>
-        </Routes>
-    </Router>
+    <div className="h-screen bg-gray-100 overflow-hidden">
+        <Router>
+            <Routes>
+                <Route exact path="/home" element={<Home/>}/>
+                <Route exact path="/signup" element={<SignUp/>}/>
+                <Route exact path="/post/create" element={<CreatePost/>}/>
+                <Route exact path="/" element={<Login/>}/>
+                <Route exact path="/users" element={<Users/>}/>
+                <Route exact path="/user/myposts" element={<MyPosts/>}/>
+                <Route exact path="/login/failed" element={<Failed/>}/>
+                {/* No match route */}
+                <Route path="*" element={<Navigate to="/" replace />}/>
+            </Routes>
+        </Router>
+    </div> 
   );
 }
 

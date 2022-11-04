@@ -114,9 +114,9 @@ export default function InputBox() {
                     {/* <button onSubmit={(e) => handleSubmit(e)} className='hidden' type="submit"></button> */}
                 </form>
                 {imgPreview && (
-                    <div >
+                    <div onClick={removeImage} className="flex flex-col text-center filter hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer" >
                         <img src={imgPreview} alt="post preview" height={60} width={60} className='rounded-3xl overflow-hidden'/>
-                        <p onClick={removeImage} className="text-red-500 hover:text-red-700 cursor-pointer">Remove</p>
+                        <p className="text-red-500 hover:text-red-700">Remove</p>
                     </div>
                 )}
             </div>
@@ -141,33 +141,5 @@ export default function InputBox() {
         </div>
         {errors && <p>{errors}</p>}
     </>
-
-    // <div>
-    //         <ToastContainer
-    //             position="top-center"
-    //             autoClose={5000}
-    //             hideProgressBar
-    //             newestOnTop={false}
-    //             closeOnClick
-    //             rtl={false}
-    //             pauseOnFocusLoss
-    //             draggable
-    //             pauseOnHover
-    //             theme="light"
-    //         />
-    //         <form onSubmit={handleSubmit}>
-    //             <label htmlFor="title">Title</label>
-    //             <input type="text" name="title" id="title" placeholder='Title'/>
-    //             <br/>
-    //             <label htmlFor="content">Content</label>
-    //             <textarea rows="10" cols="100 "name="content" id="content" placeholder='Content'/>
-    //             <br/>
-    //             <p>Upload Image:</p>
-    //             <input type="file"  onChange={(e) => {setImage(e.target.files[0])}}/>
-    //             <br/>
-    //             <br/>
-    //             <button type="submit">Post</button>
-    //         </form>
-    //     </div>
   )
 }

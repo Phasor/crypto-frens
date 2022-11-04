@@ -71,34 +71,44 @@ export default function Post({setPosts, post}) {
     
 
   return (
-    <>
-        <div>
-            <h2>{post.title}</h2>
-            <img src={post.imgURL} alt="" />
-            <p>{post.content}</p>
-            <p>{post.author.username}</p>
-            <p>{formatDate(post.posted)}</p>
-            <p>Likes: {post.likes.length}</p>
+    <div className='flex flex-col'>
+        <div className='bg-white p-2 mt-5 rounded-t-xl shadow-md '>
+            <div className='relative h-56 md:h-96 bg-white'>
+                {post.imgURL && <img src={post.imgURL} alt="" layout="fill" className='object-cover'/>}
+            </div>
+            <p className='p-2 font-medium'>{post.content}</p>
+            <p className='p-2 font-medium'>{post.author.username}</p>
         </div>
-        <div><button onClick={likePost}>Like</button></div>
-        <div>
-            <form onSubmit={postComment}>
-                <input placeholder="leave comment..." type="text" name="comment" id="comment" value={comment} onChange={(e) => setComment(e.target.value)}/>
-                <button type="submit" onClick={postComment}>Comment</button>
-            </form>
-        </div>
-        <div>
-            <p>Comments</p>
-            <p>____________________________________________</p>
-            {post.comments.map((comment) => (
-                <div key={comment._id}>
-                    <p>{comment.comment}</p>
-                    <p>{comment.authorEmail.username}</p>
-                    <p>{formatDate(comment.date)}</p>
-                    <p>----------------------</p>
-                </div>
-            ))}
-        </div>
-    </>
+    </div>
+
+    // <div className="flex flex-col">
+    //     <div>
+    //         <h2>{post.title}</h2>
+    //         <img src={post.imgURL} alt="" />
+    //         <p>{post.content}</p>
+    //         <p>{post.author.username}</p>
+    //         <p>{formatDate(post.posted)}</p>
+    //         <p>Likes: {post.likes.length}</p>
+    //     </div>
+    //     <div><button onClick={likePost}>Like</button></div>
+    //     <div>
+    //         <form onSubmit={postComment}>
+    //             <input placeholder="leave comment..." type="text" name="comment" id="comment" value={comment} onChange={(e) => setComment(e.target.value)}/>
+    //             <button type="submit" onClick={postComment}>Comment</button>
+    //         </form>
+    //     </div>
+    //     <div>
+    //         <p>Comments</p>
+    //         <p>____________________________________________</p>
+    //         {post.comments.map((comment) => (
+    //             <div key={comment._id}>
+    //                 <p>{comment.comment}</p>
+    //                 <p>{comment.authorEmail.username}</p>
+    //                 <p>{formatDate(comment.date)}</p>
+    //                 <p>----------------------</p>
+    //             </div>
+    //         ))}
+    //     </div>
+    // </div>
   )
 }
