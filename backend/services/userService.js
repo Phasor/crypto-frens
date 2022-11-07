@@ -137,7 +137,7 @@ exports.getFriends = async (userID) => {
         const friendIDs = await User.findById(userID).select('friends');
         const friends = [];
         for(let i = 0; i < friendIDs.friends.length; i++){
-            const friendDetails = await User.find({_id: friendIDs.friends[i]}).select('firstName lastName username _id');
+            const friendDetails = await User.find({_id: friendIDs.friends[i]}).select('firstName lastName username _id profileImage');
             friends.push(friendDetails[0]);
         }
         return friends;

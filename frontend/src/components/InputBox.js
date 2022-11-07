@@ -13,7 +13,7 @@ export default function InputBox() {
 
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+         e.preventDefault();
         // check to see if we have a post body, return if not
         if (!inputRef.current.value){
             console.log('no post body');

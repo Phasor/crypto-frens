@@ -11,7 +11,7 @@ const UserSchema  = new Schema({
     salt: { type: String, required: true, default: 'default' },
     joinDate: { type: Date, default: Date.now },
     birthDay: { type: Date, required: false},
-    profileImage: { type: String, data: Buffer, required: false },
+    profileImage: { type: String, data: Buffer, required: false, default: 'https://res.cloudinary.com/duzlvcryq/image/upload/v1667867820/cryptofrens/wh7gm2gfn8lvfqqfiyqy.png' },
     pendingFriendRequestsSent: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
     pendingFriendRequestsReceived: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
     friends: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
