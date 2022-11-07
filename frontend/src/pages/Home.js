@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
 import NavBar from '../components/NavBar';
-import PostList from '../components/PostList';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Feed from '../components/Feed';
+import FriendsList from '../components/FriendsList';
 
 export default function Home() {
-    const username = localStorage.getItem('username');
     const [tokenGoog, setTokenGoog] = useState('');
     const [firstName, setFirstName] = useState('');
     const location = useLocation();
@@ -37,6 +36,7 @@ export default function Home() {
             <div className='w-full h-screen flex justify-center'>
                 <Sidebar/>
                 <Feed/>
+                <FriendsList/>
             </div>
         </div>
     </div>

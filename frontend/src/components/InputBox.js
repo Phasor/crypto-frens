@@ -11,30 +11,6 @@ export default function InputBox() {
     const inputRef = useRef(null);
     const imgInputRef = useRef(null);
 
-    // useEffect(()=> {
-    //     const uploadImage = async () => {
-    //         if(image){
-    //             console.log('uploading image');
-    //             const formData = new FormData();
-    //             formData.append('file', image);
-    //             formData.append("upload_preset", "rgydp4v2");
-    //             try{
-    //                 const response = await fetch(`${CLOUDINARY_ENDPOINT}/duzlvcryq/image/upload`,
-    //                     {
-    //                         method: 'POST',
-    //                         body: formData
-    //                     });
-    //                 const data = await response.json();
-    //                 console.log(data);
-    //                 setImgURL(data.secure_url);
-    //             } catch(err){
-    //                 console.log(err);
-    //                 setErrors(err);
-    //             }
-    //         }
-    //     }
-    //     uploadImage(); 
-    // }, [image, imgURL]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
