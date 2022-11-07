@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import formatDate from '../utils/formatDate';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartIconOutline, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
@@ -8,6 +8,17 @@ export default function Post({setPosts, post}) {
     const [comment, setComment] = useState('');
     const [postLiked, setPostLiked] = useState(false);
     const [showComments, setShowComments] = useState(false);
+
+    useEffect(() => {
+        const checkIfLiked = () => {
+            if(localStorage.getItem('userID')) {
+                if(post.likes.includes(localStorage.getItem('userID'))){
+                    setPostLiked(true);
+                }
+            }
+        }
+        checkIfLiked();
+    }, [postLiked, post.likes]);
 
     const postComment = async (e) => {
         e.preventDefault();
@@ -67,7 +78,7 @@ export default function Post({setPosts, post}) {
                 );
                 const refreshedPostsJson = await refreshedPosts.json();
                 setPosts(refreshedPostsJson.posts);
-                setPostLiked(!postLiked);
+                setPostLiked(true);
             }
         }catch(err){
             console.log(err);
@@ -90,16 +101,17 @@ export default function Post({setPosts, post}) {
                 (
                     <>
                         <HeartIconOutline onClick={likePost}  className='h-6 w-6 cursor-pointer transform hover:scale-110'/>
-                        <ChatBubbleOvalLeftIcon className='h-6 w-6' onClick={() => setShowComments(!showComments)} />
+                        <ChatBubbleOvalLeftIcon className='h-6 w-6 transform hover:scale-110' onClick={() => setShowComments(!showComments)} />
                     </>
                 ) : 
                 (   
                     <>
                         <HeartIconSolid className='h-6 w-6 cursor-pointer text-red-500 transform hover:scale-110'/>
-                        <ChatBubbleOvalLeftIcon className='h-6 w-6' onClick={() => setShowComments(!showComments)}/>
+                        <ChatBubbleOvalLeftIcon className='h-6 w-6 transform hover:scale-110' onClick={() => setShowComments(!showComments)}/>
                     </>
                 )} 
             </div>
+                <p className='pl-2 text-sm'>Likes: {post.likes.length}</p>
 
             {/* Comment section */}
             { showComments && (
@@ -107,10 +119,10 @@ export default function Post({setPosts, post}) {
                     {/* List of existing comments */}
                     <div className='flex flex-col space-y-2'>
                         {post.comments.map((comment) => (
-                            <div key={comment._id}>
-                            <p>{comment.comment}</p>
-                            <p>{comment.authorEmail.username}</p>
-                            <p>{formatDate(comment.date)}</p>
+                            <div className='flex flex-col p-2 border-b border-gray-100' key={comment._id}>
+                            <p className='text-sm'>{comment.authorEmail.username}</p>
+                            <p className='font-medium '>{comment.comment}</p>
+                            <p className='text-sm'>{formatDate(comment.date)}</p>
                             </div>
                         ))}
                     </div>

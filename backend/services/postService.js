@@ -8,13 +8,16 @@ exports.fetchPosts = async (userID) => {
         // get friends posts
         const friends = await User.findById(userID).select('friends');
         const allPosts = [];
-        for (let i = 0; i < friends.friends.length; i++) {
+        for (let i = 0; i < friends.friends.length; i++) { // for each friend
+            // get each friends' posts
             const posts = await Post.find({ author: friends.friends[i] }).populate('author', 'username');
+            // add each friends' posts to allPosts
             allPosts.push(...posts);
-        }
+        } // end of for loop
+
         // users posts
         const userPosts = await Post.find({ author: userID }).populate('author', 'username');
-        allPosts.push(...userPosts);
+         allPosts.push(...userPosts);
         // sort posts by date
         allPosts.sort((a, b) => b.posted - a.posted);
         return allPosts;

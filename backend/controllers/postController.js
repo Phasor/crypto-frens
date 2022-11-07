@@ -16,6 +16,7 @@ exports.get_posts = async (req, res) => {
         const userID = getUserIDFromToken(token);
         if (userID) {     
             const posts = await fetchPosts(userID);
+            // console.log(`posts: ${posts}`);
             return res.json({
                 success: true,
                 posts: posts
