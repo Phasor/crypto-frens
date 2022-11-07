@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { CameraIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid';
@@ -7,35 +7,34 @@ export default function InputBox() {
     const [errors, setErrors] = useState(null);
     const [image, setImage] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
-    const [imgURL, setImgURL] = useState(null);
     const CLOUDINARY_ENDPOINT='https://api.cloudinary.com/v1_1';
     const inputRef = useRef(null);
     const imgInputRef = useRef(null);
 
-    useEffect(()=> {
-        const uploadImage = async () => {
-            if(image){
-                console.log('uploading image');
-                const formData = new FormData();
-                formData.append('file', image);
-                formData.append("upload_preset", "rgydp4v2");
-                try{
-                    const response = await fetch(`${CLOUDINARY_ENDPOINT}/duzlvcryq/image/upload`,
-                        {
-                            method: 'POST',
-                            body: formData
-                        });
-                    const data = await response.json();
-                    console.log(data);
-                    setImgURL(data.secure_url);
-                } catch(err){
-                    console.log(err);
-                    setErrors(err);
-                }
-            }
-        }
-        uploadImage(); 
-    }, [image]);
+    // useEffect(()=> {
+    //     const uploadImage = async () => {
+    //         if(image){
+    //             console.log('uploading image');
+    //             const formData = new FormData();
+    //             formData.append('file', image);
+    //             formData.append("upload_preset", "rgydp4v2");
+    //             try{
+    //                 const response = await fetch(`${CLOUDINARY_ENDPOINT}/duzlvcryq/image/upload`,
+    //                     {
+    //                         method: 'POST',
+    //                         body: formData
+    //                     });
+    //                 const data = await response.json();
+    //                 console.log(data);
+    //                 setImgURL(data.secure_url);
+    //             } catch(err){
+    //                 console.log(err);
+    //                 setErrors(err);
+    //             }
+    //         }
+    //     }
+    //     uploadImage(); 
+    // }, [image, imgURL]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -44,6 +43,10 @@ export default function InputBox() {
             console.log('no post body');
             return;
         } 
+        let imgURL = "";
+        if (image){
+            imgURL = await UploadImage(image);
+        }
 
         //send post data to server
         try{
@@ -75,6 +78,27 @@ export default function InputBox() {
         imgInputRef.current.value = null;
         removeImage();
     }
+
+    const UploadImage = async (image) => {
+        console.log('uploading image');
+        const formData = new FormData();
+        formData.append('file', image);
+        formData.append("upload_preset", "rgydp4v2");
+        try{
+            const response = await fetch(`${CLOUDINARY_ENDPOINT}/duzlvcryq/image/upload`,
+                {
+                    method: 'POST',
+                    body: formData
+                });
+            const data = await response.json();
+            console.log(data);
+            return data.secure_url;
+        } catch(err){
+            console.log(err);
+            setErrors(err);
+        }
+    }
+        
 
     const addImageToPost = (e) => {
         const reader = new FileReader();
