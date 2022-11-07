@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { CameraIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid';
@@ -7,10 +7,35 @@ export default function InputBox() {
     const [errors, setErrors] = useState(null);
     const [image, setImage] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
-    const [imgURL, setImgURL] = useState("");
+    const [imgURL, setImgURL] = useState(null);
     const CLOUDINARY_ENDPOINT='https://api.cloudinary.com/v1_1';
     const inputRef = useRef(null);
     const imgInputRef = useRef(null);
+
+    useEffect(()=> {
+        const uploadImage = async () => {
+            if(image){
+                console.log('uploading image');
+                const formData = new FormData();
+                formData.append('file', image);
+                formData.append("upload_preset", "rgydp4v2");
+                try{
+                    const response = await fetch(`${CLOUDINARY_ENDPOINT}/duzlvcryq/image/upload`,
+                        {
+                            method: 'POST',
+                            body: formData
+                        });
+                    const data = await response.json();
+                    console.log(data);
+                    setImgURL(data.secure_url);
+                } catch(err){
+                    console.log(err);
+                    setErrors(err);
+                }
+            }
+        }
+        uploadImage(); 
+    }, [image]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -19,30 +44,6 @@ export default function InputBox() {
             console.log('no post body');
             return;
         } 
-        
-        // check if we have an image, if so, upload it to cloudinary
-        if(image){ 
-            //upload image to Cloudinary
-            console.log('uploading image');
-            try{
-                const imgData = new FormData();
-                imgData.append("file", image);
-                imgData.append("upload_preset", "rgydp4v2");
-                const imgResponse = await fetch(`${CLOUDINARY_ENDPOINT}/duzlvcryq/image/upload`,
-                    {
-                        method: 'POST',
-                        body: imgData
-                    });
-                const imgJson = await imgResponse.json();
-                // console.log(imgJson);
-                const imgURLvalue = await imgJson.secure_url;
-                setImgURL(imgURLvalue);
-                // console.log(`The imageURL is: ${imgURL}`);
-            } catch(err){
-                console.log(err);
-                setErrors(err);
-            }
-        }
 
         //send post data to server
         try{
