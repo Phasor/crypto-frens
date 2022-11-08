@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import Post from '../components/Post'
 
-export default function PostList() {
+export default function PostList({refreshFeed}) {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errors, setErrors] = useState(null);
     
 
     useEffect(() => {
+
         const getPosts = async () => {
             const response = await fetch(
                 'http://localhost:3000/api/v1/post/all',
@@ -27,7 +28,7 @@ export default function PostList() {
             }
         }
         getPosts();
-    },[])
+    }, [refreshFeed]);
 
   return (
     <div className='mt-8'>

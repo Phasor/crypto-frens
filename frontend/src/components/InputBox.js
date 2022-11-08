@@ -3,8 +3,9 @@ import { ToastContainer, toast } from 'react-toastify';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { CameraIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid';
 
-export default function InputBox() {
+export default function InputBox({ setRefreshFeed, refreshFeed }) {
     const [errors, setErrors] = useState(null);
+    const [error, setError] = useState(null);
     const [image, setImage] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
     const CLOUDINARY_ENDPOINT='https://api.cloudinary.com/v1_1';
@@ -17,6 +18,7 @@ export default function InputBox() {
         // check to see if we have a post body, return if not
         if (!inputRef.current.value){
             console.log('no post body');
+            setError('Please enter a post.');
             return;
         } 
         let imgURL = "";
@@ -53,6 +55,7 @@ export default function InputBox() {
         inputRef.current.value = "";
         imgInputRef.current.value = null;
         removeImage();
+        setRefreshFeed(!refreshFeed);
     }
 
     const UploadImage = async (image) => {
@@ -141,6 +144,7 @@ export default function InputBox() {
             </div>
         </div>
         {errors && <p>{errors}</p>}
+        {error && <p className='text-red-500 font-medium p-2'>{error}</p>}
     </>
   )
 }

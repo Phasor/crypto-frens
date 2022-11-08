@@ -27,7 +27,7 @@ export default function FriendsList() {
             {friends && friends.map((friend) => (
                 <div key={friend._id} className="flex space-x-2 p-1 border-b md:min-w-[200px] rounded-2xl hover:bg-gray-200 cursor-pointer ">
                     <div>
-                        <img src={friend.profileImage} referrerpolicy="no-referrer" alt="" className="p-2 rounded-full h-12 w-12"/>
+                        <img src={friend.profileImage} referrerPolicy="no-referrer" alt="" className="p-2 rounded-full h-12 w-12"/>
                     </div>
                     <p className=" text-gray-500 p-2 font-medium">{friend.firstName} {friend.lastName}</p>
                 </div>
