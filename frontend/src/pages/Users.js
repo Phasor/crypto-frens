@@ -3,6 +3,7 @@ import NavBar from '../components/NavBar';
 // import { Link } from 'react-router-dom';
 import User from '../components/User';
 import { ToastContainer, toast } from 'react-toastify';
+import Sidebar from '../components/Sidebar';
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -32,7 +33,7 @@ export default function Users() {
             }
         }
         getUsers();
-    },[users])
+    },[])
 
     useEffect(() => {
         const getPendingFriendsReceived = async () => {
@@ -52,7 +53,7 @@ export default function Users() {
             }
         }
         getPendingFriendsReceived();
-    },[pendingFriendsReceived])
+    },[])
 
     useEffect(() => {
         const getFriends = async() => {
@@ -77,7 +78,7 @@ export default function Users() {
             }
         }
         getFriends();
-    },[friends])
+    },[])
 
     useEffect(() => {
         const getPendingFriendsSent = async() => {
@@ -102,7 +103,7 @@ export default function Users() {
             }
         }
         getPendingFriendsSent();
-    },[pendingFriendsSent])
+    },[])
 
     const acceptFriendRequest = async (friendID) => {
         try{
@@ -183,11 +184,71 @@ export default function Users() {
 
     return (
     <div>
-        <div>
             <NavBar/>
-                <div>
-                    {loading? <div>Loading...</div> : 
-                    <>
+                <div className='flex'>
+                    {/* Sidebar */}
+                    <Sidebar/>
+                  
+                    {/* Center Panel */}
+                    <div className='flex flex-col flex-grow p-3 items-center border-2'>
+
+                        {/* Current Friends */}
+                        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
+                            <h2 className='font-medium mb-2'>Current Friends</h2>
+                            {friends.map(friend => {
+                                return (
+                                    <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
+                                        <img src={friend.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
+                                        <p>{friend.firstName} {friend.lastName}</p>
+                                    </div>
+                                ) 
+                            })}
+                        </div>
+
+                        {/* Friend Requests Received */}
+                        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
+                            <h2 className='font-medium mb-2'>Friend Requests Received</h2>
+                            {pendingFriendsReceived.map(friend => {
+                                return (
+                                    <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
+                                        <img src={friend.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
+                                        <p>{friend.firstName} {friend.lastName}</p>
+                                        <button onClick={() => acceptFriendRequest(friend._id)} className='bg-blue-500 text-white px-2 py-1 rounded-lg'>Accept</button>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        {/* Friend Requests Sent */}
+                        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
+                            <h2 className='font-medium mb-2'>Friend Requests Sent</h2>
+                            {pendingFriendsSent.map(friend => {
+                                return (
+                                    <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
+                                        <img src={friend.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
+                                        <p>{friend.firstName} {friend.lastName}</p>
+                                    </div>
+                                )
+                            })}
+                        </div>
+
+                        {/* All None Friend Users */}
+                        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
+                            <h2 className='font-medium mb-2'>Other Users - make new friends!</h2>
+                            {users.map((user) => (
+                                    <User 
+                                        key={user._id}
+                                        user={user}
+                                        setPendingFriendsSent={setPendingFriendsSent}
+                                    />
+                                ))
+                            }
+                        </div>
+
+
+
+                    </div>
+                    {/* <div> 
                         <div>
                             <h2>Friends</h2>
                             {friends.map((currentFriend) => {
@@ -249,9 +310,8 @@ export default function Users() {
                             pauseOnHover
                             theme="light"
                         />
-                    </>}
+                    </div> */}
                 </div>
-        </div>
     </div>
     )
 }

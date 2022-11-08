@@ -64,10 +64,7 @@ const addFriend = async (friend) => {
 
 
   return (
-    <div>
-        <h3>{user.firstName} {user.lastName}</h3>
-        <p>Joined: {formatDate(user.joinDate)}</p>
-        <button onClick={() => addFriend(user)}>Add Friend</button>
+    <>
         <ToastContainer
                 position="top-center"
                 autoClose={5000}
@@ -80,6 +77,15 @@ const addFriend = async (friend) => {
                 pauseOnHover
                 theme="light"
             />
-    </div>
+        <div className='flex justify-between items-center'>
+            <div className='flex space-x-4 items-center rounded hover:bg-gray-100'>
+                <img src={user.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
+                <p className='font-medium'>{user.firstName} {user.lastName}</p>
+            </div>
+            <div className='flex justify-end'>
+                <button className='rounded bg-blue-500 p-2 text-white hover:bg-blue-600 shadow' onClick={() => addFriend(user)}>Add Friend</button>
+            </div>
+        </div>
+    </>
   )
 }
