@@ -64,7 +64,7 @@ export default function Post({setPosts, post}) {
                 'Authorization': `${localStorage.getItem('token')}`},
             });
             const data = await response.json();
-            console.log(data);
+            // console.log(data);
             if(data.success){
                 // refresh the posts to show the new like
                 const refreshedPosts = await fetch(
@@ -84,6 +84,35 @@ export default function Post({setPosts, post}) {
             console.log(err);
         }
     }
+
+    const unlikePost = async (e) => {
+        try{
+            const response = await fetch(`http://localhost:3000/api/v1/post/${post._id}/unlike`,
+                {method: 'POST',
+                headers: {'Content-Type': 'application/json',
+                'Authorization': `${localStorage.getItem('token')}`},
+            });
+            const data = await response.json();
+            if(data.success){
+                // refresh the posts to show the new unlike
+                const refreshedPosts = await fetch(
+                    'http://localhost:3000/api/v1/post/all',
+                    {type: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `${localStorage.getItem('token')}`
+                        }
+                    }
+                );
+                const refreshedPostsJson = await refreshedPosts.json();
+                setPosts(refreshedPostsJson.posts);
+                setPostLiked(false);
+            }
+        }catch(err){
+            console.log(err);
+        }
+    }
+
 
     
 
@@ -106,7 +135,7 @@ export default function Post({setPosts, post}) {
                 ) : 
                 (   
                     <>
-                        <HeartIconSolid className='h-6 w-6 cursor-pointer text-red-500 transform hover:scale-110'/>
+                        <HeartIconSolid onClick={unlikePost} className='h-6 w-6 cursor-pointer text-red-500 transform hover:scale-110'/>
                         <ChatBubbleOvalLeftIcon className='h-6 w-6 transform hover:scale-110' onClick={() => setShowComments(!showComments)}/>
                     </>
                 )} 

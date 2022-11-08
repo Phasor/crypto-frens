@@ -12,5 +12,6 @@ router.delete('/:id', passport.authenticate('jwt', {session: false}), postContro
 router.post('/create', passport.authenticate('jwt', {session: false}), postController.create_post);
 router.post('/:id/comment', passport.authenticate('jwt', {session: false}), postController.post_create_comment);
 router.post('/:id/like', passport.authenticate('jwt', {session: false}), postController.post_like);
+router.post('/:id/unlike', passport.authenticate('jwt', {session: false}), postController.post_unlike);
 
 module.exports = router;

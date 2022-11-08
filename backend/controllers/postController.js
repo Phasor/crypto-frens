@@ -6,7 +6,8 @@ const {
     deletePost,
     createComment,
     likePost,
-    fetchAllUserPosts } = require('../services/postService');
+    fetchAllUserPosts,
+    unlikePost } = require('../services/postService');
 const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
 
 exports.get_posts = async (req, res) => {
@@ -122,6 +123,21 @@ exports.post_like = async (req, res) => {
     const userID = getUserIDFromToken(token);
     try{
         const post = await likePost(req.params.id, userID);
+        if(post.success) {
+            return res.json({success: true, post: post.post});
+        } else {
+            return res.status(401).json({success: false, message: post.message});
+        }
+    } catch(err){
+        return res.status(500).json({success: false, message: `${err.name}, ${err.message}`});
+    }
+}
+
+exports.post_unlike = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const userID = getUserIDFromToken(token);
+    try{
+        const post = await unlikePost(req.params.id, userID);
         if(post.success) {
             return res.json({success: true, post: post.post});
         } else {

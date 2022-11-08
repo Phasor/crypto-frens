@@ -131,6 +131,21 @@ exports.likePost = async (postID, userID) => {
     }
 }
 
+exports.unlikePost = async (postID, userID) => {
+    try{
+        // check if post is like by user
+        const post = await Post.findById(postID).select('likes');
+        if(!post.likes.includes(userID)){
+            return {success: false, message:'You have not liked this post.'};
+        } else{
+            const updatedPost = await Post.findByIdAndUpdate(postID, {$pull: {likes: userID}}, {new: true});
+            return {success: true, post: updatedPost};
+        }
+    }catch(err){
+        return {success: false, message:`${err.name}, ${err.message}`};
+    }
+}
+
 exports.fetchAllUserPosts = async (userID) => {
     try{
         const posts = await Post.find({author: userID}).populate('author', 'username');

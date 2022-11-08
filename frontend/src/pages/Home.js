@@ -8,7 +8,6 @@ import FriendsList from '../components/FriendsList';
 export default function Home() {
     const [tokenGoog, setTokenGoog] = useState('');
     const [firstName, setFirstName] = useState('');
-    const [refreshFeed, setRefreshFeed] = useState(false);
     const location = useLocation();
 
     useEffect(() => {
@@ -36,7 +35,7 @@ export default function Home() {
             <NavBar/>
             <div className='w-full h-screen flex justify-center'>
                 <Sidebar/>
-                <Feed setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed}/>
+                <Feed />
                 <FriendsList />
             </div>
         </div>
