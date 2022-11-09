@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import User from './User';
 
-export default function NonFriendList() {
-    const [users, setUsers] = useState([]);
+export default function NonFriendList({users, setUsers}) {
+    
     const [error, setError] = useState([]);
+    console.log('non friend list rendered')
 
     useEffect(() => {
     const getUsers = async () => {
@@ -24,7 +24,7 @@ export default function NonFriendList() {
         }
     }
     getUsers();
-},[])
+},[setUsers])
 
 const addFriend = async (friend) => {
     const senderID = localStorage.getItem('userID');
@@ -42,29 +42,11 @@ const addFriend = async (friend) => {
                     body: JSON.stringify({friendID: friend._id})
                 });
             const data = await response.json();
-            // if (data.success === true){
-            //     // toast.success('Friend request sent successfully');
-
-            //     // update the user's pending friend request sent list
-            //     const userID = localStorage.getItem('userID');
-            //     try{
-            //         const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getPendingFriendsSent`,
-            //         {
-            //             method: 'GET',
-            //             headers: {
-            //                 'Content-Type': 'application/json',
-            //                 'Authorization': `${localStorage.getItem('token')}`
-            //             }
-            //         });
-            //         const data = await response.json();
-            //         if (data.success){
-            //             setPendingFriendsSent(data.pendingFriends);
-            //         }    
-            //     } catch(err){
-            //         console.log(err);
-            //     }        
-            console.log("Friend request sent");
+            if (data.success === true){
+                setUsers(users.filter(user => user._id !== friend._id));
             }
+            console.log("Friend request sent");
+        }   
         catch(err){
             console.log(err);
         }
@@ -90,6 +72,7 @@ const addFriend = async (friend) => {
                     </div>
                 )
             })}
+            {error && <p className='text-red-500'>{error}</p>}
         </div>
   )
 }
