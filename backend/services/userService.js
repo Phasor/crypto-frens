@@ -55,6 +55,12 @@ exports.sendFriendRequest = async (userID, friendID) => {
     try{
         const user = await User.findById(userID);
         const friend = await User.findById(friendID);
+
+        // check if friend is already a friend
+        if(user.friends.includes(friendID)){
+            return {success: false, message: "You are already friends with this user"};
+        }
+        
         if(user && friend){
             user.pendingFriendRequestsSent.push(friendID);
             friend.pendingFriendRequestsReceived.push(userID);
@@ -114,7 +120,7 @@ exports.getPendingFriendsReceived = async (userID) => {
         const pendingFriendIDs = await User.findById(userID).select('pendingFriendRequestsReceived');
         const pendingFriends = [];
         for(let i = 0; i < pendingFriendIDs.pendingFriendRequestsReceived.length; i++){
-            const pendingFriendDetails = await User.find({_id: pendingFriendIDs.pendingFriendRequestsReceived[i]}).select('firstName lastName username _id');
+            const pendingFriendDetails = await User.find({_id: pendingFriendIDs.pendingFriendRequestsReceived[i]}).select('firstName lastName username _id profileImage');
             pendingFriends.push(pendingFriendDetails[0]);
         }
         return pendingFriends;
@@ -128,7 +134,7 @@ exports.getPendingFriendsSent = async (userID) => {
         const pendingFriendIDs = await User.findById(userID).select('pendingFriendRequestsSent');
         const pendingFriends = [];
         for(let i = 0; i < pendingFriendIDs.pendingFriendRequestsSent.length; i++){
-            const pendingFriendDetails = await User.find({_id: pendingFriendIDs.pendingFriendRequestsSent[i]}).select('firstName lastName username _id');
+            const pendingFriendDetails = await User.find({_id: pendingFriendIDs.pendingFriendRequestsSent[i]}).select('firstName lastName username _id profileImage');
             pendingFriends.push(pendingFriendDetails[0]);
         }
         return pendingFriends;

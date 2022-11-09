@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 
-export default function FriendRequestsList() {
-    const [pendingFriendsReceived, setPendingFriendsReceived] = useState([]);
+export default function FriendRequestsList({pendingFriendsReceived, setPendingFriendsReceived}) {
     const [error, setError] = useState([]);
 
     useEffect(() => {
@@ -23,7 +22,7 @@ export default function FriendRequestsList() {
             }
         }
         getPendingFriendsReceived();
-    },[])
+    },[setPendingFriendsReceived])
 
     const acceptFriendRequest = async (friendID) => {
     try{
@@ -37,6 +36,10 @@ export default function FriendRequestsList() {
                 body: JSON.stringify({friendID: friendID})
             });
         const data = await response.json();
+        if(data.success){
+            // remove friend from pending friends list
+            setPendingFriendsReceived(pendingFriendsReceived.filter(friend => friend._id !== friendID));
+        }
     }catch(err){
         setError(err.message);
         console.log(err);
@@ -74,6 +77,7 @@ export default function FriendRequestsList() {
                 )
             })}
         </div>
+        {error && <p className='text-red-500'>{error}</p>}
     </>
   )
 }

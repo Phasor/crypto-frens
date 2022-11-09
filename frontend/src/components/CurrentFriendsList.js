@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
-export default function CurrentFriendsList({friend}) {
-    const [friends, setFriends] = useState([]);
+export default function CurrentFriendsList({friends, setFriends, pendingFriendsReceived}) {
+    
     const [error, setError] = useState([]);
 
     useEffect(() => {
@@ -27,7 +27,7 @@ export default function CurrentFriendsList({friend}) {
         }
     }
     getFriends();
-},[])
+},[pendingFriendsReceived, setFriends])
 
 const removeFriend = async (friendID) => {
     try{

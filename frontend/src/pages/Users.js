@@ -8,6 +8,8 @@ import FriendsSentList from '../components/FriendsSentList';
 
 export default function Users() {
     const [users, setUsers] = useState([]);
+    const [friends, setFriends] = useState([]);
+    const [pendingFriendsReceived, setPendingFriendsReceived] = useState([]);
     console.log('parent render')
 
     return (
@@ -19,8 +21,8 @@ export default function Users() {
                     
                     {/* Center Panel */}
                     <div className='flex flex-col flex-grow p-3 items-center border-2'>                        
-                        <CurrentFriendsList/>
-                        <FriendRequestsList/>
+                        <CurrentFriendsList friends={friends} setFriends={setFriends} pendingFriendsReceived={pendingFriendsReceived}/>
+                        <FriendRequestsList pendingFriendsReceived={pendingFriendsReceived} setPendingFriendsReceived={setPendingFriendsReceived}/>
                         <FriendsSentList users={users}/>
                         <NonFriendList users={users} setUsers={setUsers}/>
                     </div>
