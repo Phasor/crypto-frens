@@ -6,6 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import Sidebar from '../components/Sidebar';
 import CurrentFriendsList from '../components/CurrentFriendsList';
 import FriendRequestsList from '../components/FriendRequestsList';
+import NonFriendList from '../components/NonFriendList';
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -14,28 +15,29 @@ export default function Users() {
     const [pendingFriendsSent, setPendingFriendsSent] = useState([]);
     const [errors, setErrors] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [refreshPage, setRefreshPage] = useState(false);
 
-    useEffect(() => {
-        const getUsers = async () => {
-            const response = await fetch(
-                'http://localhost:3000/api/v1/user/all/excluding-friends',
-                {method: 'GET', 
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${localStorage.getItem('token')}`
-                    }
-                });
-            const data = await response.json();
-            if (data.success){
-                setUsers(data.users);
-                //console.log(data.users);
-                setLoading(false);
-            } else {
-                setErrors(data.message);
-            }
-        }
-        getUsers();
-    },[])
+    // useEffect(() => {
+    //     const getUsers = async () => {
+    //         const response = await fetch(
+    //             'http://localhost:3000/api/v1/user/all/excluding-friends',
+    //             {method: 'GET', 
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `${localStorage.getItem('token')}`
+    //                 }
+    //             });
+    //         const data = await response.json();
+    //         if (data.success){
+    //             setUsers(data.users);
+    //             //console.log(data.users);
+    //             setLoading(false);
+    //         } else {
+    //             setErrors(data.message);
+    //         }
+    //     }
+    //     getUsers();
+    // },[])
 
     // useEffect(() => {
     //     const getPendingFriendsReceived = async () => {
@@ -152,38 +154,6 @@ export default function Users() {
     //     }
     // }
 
-    const removeFriend = async (friendID) => {
-        try{
-            const userID = localStorage.getItem('userID');
-            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/deleteFriend`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({friendID: friendID})
-                }
-            )
-            const data = await response.json();
-            if (data.success){
-                //refresh friend list
-                const newFriends = friends.filter((friend) => friend._id !== friendID);
-                setFriends([...newFriends]);
-
-                // remove user from all other users list
-                const newUsers = users.filter(user => user._id !== friendID);
-                setUsers([...newUsers]);
-            }
-
-        }catch(err){
-            setErrors(err.message);
-            console.log(err);
-        }
-    }
-
-
-
     return (
     <div>
             <NavBar/>
@@ -209,10 +179,8 @@ export default function Users() {
                         
                         <CurrentFriendsList/>
                         <FriendRequestsList/>
+                        <NonFriendList/>
                       
-
-
-
 
                         {/* Friend Requests Sent */}
                         <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
@@ -227,7 +195,7 @@ export default function Users() {
                             })}
                         </div>
 
-                        {/* All None Friend Users */}
+                        {/* All None Friend Users
                         <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
                             <h2 className='font-medium mb-2'>Other Users - make new friends!</h2>
                             {users.map((user) => (
@@ -238,7 +206,7 @@ export default function Users() {
                                     />
                                 ))
                             }
-                        </div>
+                        </div> */}
 
 
 
