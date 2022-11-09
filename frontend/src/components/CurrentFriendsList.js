@@ -44,13 +44,9 @@ const removeFriend = async (friendID) => {
         )
         const data = await response.json();
         if (data.success){
-            //refresh friend list
+            // remove friend from friends list
             const newFriends = friends.filter((friend) => friend._id !== friendID);
-            setFriends([...newFriends]);
-
-            // // remove user from all other users list
-            // const newUsers = users.filter(user => user._id !== friendID);
-            // setUsers([...newUsers]);
+            setFriends(newFriends);
         }
 
     }catch(err){

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-export default function NonFriendList({users, setUsers}) {
+export default function NonFriendList({users, setUsers, friends}) {
     
     const [error, setError] = useState([]);
     console.log('non friend list rendered')
@@ -24,7 +24,7 @@ export default function NonFriendList({users, setUsers}) {
         }
     }
     getUsers();
-},[setUsers])
+},[setUsers, friends])
 
 const addFriend = async (friend) => {
     const senderID = localStorage.getItem('userID');
