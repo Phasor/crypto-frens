@@ -78,14 +78,19 @@ exports.acceptFriendRequest = async (userID, friendID) => {
         const user = await User.findById(userObjID);
         const friend = await User.findById(friendObjID);
         if (user && friend){
-            // remove request from both send/receive request arrays
-            await User.updateOne({_id:userObjID},{$pull: {pendingFriendRequestsReceived : friendObjID }});
-            await User.updateOne({_id:friendObjID}, {$pull: {pendingFriendRequestsSent: userObjID}});
+            // check if friend is already a friend
+            if(user.friends.includes(friendObjID)){
+                return {success: false, message: "You are already friends with this user"};
+            } else {
+                // remove request from both send/receive request arrays
+                await User.updateOne({_id:userObjID},{$pull: {pendingFriendRequestsReceived : friendObjID }});
+                await User.updateOne({_id:friendObjID}, {$pull: {pendingFriendRequestsSent: userObjID}});
 
-            // add friends to both users' friends list
-            await user.update({$push: {friends: friendObjID}});
-            await friend.update({$push: {friends: userObjID}});
-            return {success: true, user: user, friend: friend};
+                // add friends to both users' friends list
+                await user.update({$push: {friends: friendObjID}});
+                await friend.update({$push: {friends: userObjID}});
+                return {success: true, user: user, friend: friend};
+            }
         } else {
             return {success: false, message: "one or both users not found"};
         }

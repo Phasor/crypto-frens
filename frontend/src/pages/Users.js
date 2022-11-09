@@ -4,6 +4,8 @@ import NavBar from '../components/NavBar';
 import User from '../components/User';
 import { ToastContainer, toast } from 'react-toastify';
 import Sidebar from '../components/Sidebar';
+import CurrentFriendsList from '../components/CurrentFriendsList';
+import FriendRequestsList from '../components/FriendRequestsList';
 
 export default function Users() {
     const [users, setUsers] = useState([]);
@@ -35,50 +37,50 @@ export default function Users() {
         getUsers();
     },[])
 
-    useEffect(() => {
-        const getPendingFriendsReceived = async () => {
-            const userID = localStorage.getItem('userID');
-            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getPendingFriendsReceived`,
-                {method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${localStorage.getItem('token')}`
-                    }
-                });
-            const data = await response.json();
-            if (data.success){
-                setPendingFriendsReceived(data.pendingFriends);
-            } else {
-                setErrors(data.message);
-            }
-        }
-        getPendingFriendsReceived();
-    },[])
+    // useEffect(() => {
+    //     const getPendingFriendsReceived = async () => {
+    //         const userID = localStorage.getItem('userID');
+    //         const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getPendingFriendsReceived`,
+    //             {method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `${localStorage.getItem('token')}`
+    //                 }
+    //             });
+    //         const data = await response.json();
+    //         if (data.success){
+    //             setPendingFriendsReceived(data.pendingFriends);
+    //         } else {
+    //             setErrors(data.message);
+    //         }
+    //     }
+    //     getPendingFriendsReceived();
+    // },[])
 
-    useEffect(() => {
-        const getFriends = async() => {
-            const userID = localStorage.getItem('userID');
-            try{
-                const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
-                {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${localStorage.getItem('token')}`
-                    }   
-                });
-                const data = await response.json();
-                if (data.success){
-                    setFriends(data.friends);
-                } else {
-                    setErrors(data.message);
-                }
-            } catch(err){
-                setErrors(err.message);
-            }
-        }
-        getFriends();
-    },[])
+    // useEffect(() => {
+    //     const getFriends = async() => {
+    //         const userID = localStorage.getItem('userID');
+    //         try{
+    //             const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
+    //             {
+    //                 method: 'GET',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `${localStorage.getItem('token')}`
+    //                 }   
+    //             });
+    //             const data = await response.json();
+    //             if (data.success){
+    //                 setFriends(data.friends);
+    //             } else {
+    //                 setErrors(data.message);
+    //             }
+    //         } catch(err){
+    //             setErrors(err.message);
+    //         }
+    //     }
+    //     getFriends();
+    // },[])
 
     useEffect(() => {
         const getPendingFriendsSent = async() => {
@@ -105,50 +107,50 @@ export default function Users() {
         getPendingFriendsSent();
     },[])
 
-    const acceptFriendRequest = async (friendID) => {
-        try{
-            const userID = localStorage.getItem('userID');
-            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/friend-request/accept`,
-                {method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `${localStorage.getItem('token')}`
-                    },
-                    body: JSON.stringify({friendID: friendID})
-                });
-            const data = await response.json();
-            if (data.success){
-                //refresh friend list
-                try{
-                    const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
-                    {
-                        method: 'GET',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `${localStorage.getItem('token')}`
-                        }   
-                    });
-                    const data = await response.json();
-                    if (data.success){
-                        setFriends(data.friends);
-                        toast.success('Friend added successfully');
-                    } else {
-                        setErrors(data.message);
-                    }
-                } catch(err){
-                    setErrors(err.message);
-                }
-                // refresh pending friends received
-                const newPendingFriendsReceived = pendingFriendsReceived.filter((friend) => friend._id !== friendID);
-                setPendingFriendsReceived([...newPendingFriendsReceived]);
-            } else {
-                setErrors(data.message);
-            }
-        }catch(err){
-            setErrors(err.message);
-            console.log(err);
-        }
-    }
+    // const acceptFriendRequest = async (friendID) => {
+    //     try{
+    //         const userID = localStorage.getItem('userID');
+    //         const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/friend-request/accept`,
+    //             {method: 'POST',
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     'Authorization': `${localStorage.getItem('token')}`
+    //                 },
+    //                 body: JSON.stringify({friendID: friendID})
+    //             });
+    //         const data = await response.json();
+    //         if (data.success){
+    //             //refresh friend list
+    //             try{
+    //                 const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`,
+    //                 {
+    //                     method: 'GET',
+    //                     headers: {
+    //                         'Content-Type': 'application/json',
+    //                         'Authorization': `${localStorage.getItem('token')}`
+    //                     }   
+    //                 });
+    //                 const data = await response.json();
+    //                 if (data.success){
+    //                     setFriends(data.friends);
+    //                     toast.success('Friend added successfully');
+    //                 } else {
+    //                     setErrors(data.message);
+    //                 }
+    //             } catch(err){
+    //                 setErrors(err.message);
+    //             }
+    //             // refresh pending friends received
+    //             const newPendingFriendsReceived = pendingFriendsReceived.filter((friend) => friend._id !== friendID);
+    //             setPendingFriendsReceived([...newPendingFriendsReceived]);
+    //         } else {
+    //             setErrors(data.message);
+    //         }
+    //     }catch(err){
+    //         setErrors(err.message);
+    //         console.log(err);
+    //     }
+    // }
 
     const removeFriend = async (friendID) => {
         try{
@@ -193,31 +195,24 @@ export default function Users() {
                     <div className='flex flex-col flex-grow p-3 items-center border-2'>
 
                         {/* Current Friends */}
-                        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
+                        {/* <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
                             <h2 className='font-medium mb-2'>Current Friends</h2>
                             {friends.map(friend => {
                                 return (
                                     <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                                        <img src={friend.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
+                                        <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'/>
                                         <p>{friend.firstName} {friend.lastName}</p>
                                     </div>
                                 ) 
                             })}
-                        </div>
+                        </div> */}
+                        
+                        <CurrentFriendsList/>
+                        <FriendRequestsList/>
+                      
 
-                        {/* Friend Requests Received */}
-                        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
-                            <h2 className='font-medium mb-2'>Friend Requests Received</h2>
-                            {pendingFriendsReceived.map(friend => {
-                                return (
-                                    <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                                        <img src={friend.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
-                                        <p>{friend.firstName} {friend.lastName}</p>
-                                        <button onClick={() => acceptFriendRequest(friend._id)} className='bg-blue-500 text-white px-2 py-1 rounded-lg'>Accept</button>
-                                    </div>
-                                )
-                            })}
-                        </div>
+
+
 
                         {/* Friend Requests Sent */}
                         <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
@@ -225,7 +220,7 @@ export default function Users() {
                             {pendingFriendsSent.map(friend => {
                                 return (
                                     <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                                        <img src={friend.profileImage} alt=""  className='h-10 w-10 rounded-full'/>
+                                        <img src={friend.profileImage}  referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'/>
                                         <p>{friend.firstName} {friend.lastName}</p>
                                     </div>
                                 )
