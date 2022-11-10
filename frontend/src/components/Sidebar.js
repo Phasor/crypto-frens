@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SidebarRow from './SidebarRow'
-import { UserPlusIcon, UserGroupIcon, HomeIcon } from '@heroicons/react/24/solid';
+import { UserPlusIcon, UserGroupIcon, HomeIcon, WrenchIcon } from '@heroicons/react/24/solid';
 import { NewspaperIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
@@ -38,6 +38,7 @@ export default function Sidebar() {
             <Link to="/home"><SidebarRow Icon={HomeIcon} title="Feed" /></Link>
             <Link to="/users"><SidebarRow Icon={UserPlusIcon} title="Manage Friends" /></Link>
             <SidebarRow Icon={NewspaperIcon} title="My Posts" />
+            <SidebarRow Icon={WrenchIcon} title="Settings" />
         </div>
     </div>
   )

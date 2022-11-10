@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { HomeIcon, UsersIcon, Cog8ToothIcon } from '@heroicons/react/24/solid';
@@ -6,6 +6,13 @@ import HeaderIcon from './HeaderIcon';
 
 export default function NavBar() {
     const navigate = useNavigate();
+    const [loggedIn, setLoggedIn] = useState(false);
+
+    useEffect(() => {
+        if (localStorage.getItem('token')) {
+            setLoggedIn(true);
+        }
+    }, [loggedIn])
 
     const logout = () => {
         localStorage.removeItem('token');
@@ -32,17 +39,25 @@ export default function NavBar() {
 
         {/* Centre */}
         <div className='flex justify-center flex-grow'>
-            <div className='flex space-x-6 md:space-x-2'>
-                <Link to='/home'><HeaderIcon active={true} Icon={HomeIcon}/></Link>
-                <HeaderIcon Icon={UsersIcon}/>
-                <HeaderIcon Icon={Cog8ToothIcon}/>
-            </div>
+            {loggedIn && (
+                <div className='flex space-x-6 md:space-x-2'>
+                    <Link to='/home'><HeaderIcon active={true} Icon={HomeIcon}/></Link>
+                    <HeaderIcon Icon={UsersIcon}/>
+                    <HeaderIcon Icon={Cog8ToothIcon}/>
+                </div>
+            )}
         </div>
 
         {/* right */}
         <div className='flex items-center sm:space-x-2 whitespace-nowrap'>
-            <Link to="login"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 hover:bg-blue-500">Log In</button></Link>
-            <Link to="/signup"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Sign Up</button></Link>
+            {loggedIn ? (
+                <button onClick={logout}  className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Log Out</button>
+            ) : (
+                <>
+                    <Link to="/login"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 hover:bg-blue-500">Log In</button></Link>
+                    <Link to="/signup"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Sign Up</button></Link>
+                </>
+            )}
         </div>
 
         {/* <div>
