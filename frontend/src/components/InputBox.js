@@ -36,7 +36,7 @@ export default function InputBox({ setRefreshFeed, refreshFeed }) {
                         'Authorization': localStorage.getItem('token')
                     },
                     body: JSON.stringify({
-                        content: e.target.content.value,
+                        content: inputRef.current.value,
                         imgURL: imgURL
                     })
                 });
@@ -115,7 +115,7 @@ export default function InputBox({ setRefreshFeed, refreshFeed }) {
                 <form onSubmit={(e) => handleSubmit(e)} className='flex flex-1'>
                     <input ref={inputRef} name="content" id="content" type="text" placeholder="What's on your mind?" 
                     className='rounded-full h-12 bg-gray-100 flex-grow px-2 outline-none'/>
-                    {/* <button onSubmit={(e) => handleSubmit(e)} className='hidden' type="submit"></button> */}
+                    
                 </form>
                 {imgPreview && (
                     <div onClick={removeImage} className="flex flex-col text-center filter hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer" >
@@ -127,17 +127,19 @@ export default function InputBox({ setRefreshFeed, refreshFeed }) {
             
             {/* Bottom half */}
             <div className='flex justify-evenly p-3 border-t'>
+                {/* Picture Upload */}
                 <div className='inputIcon' onClick={() => imgInputRef.current.click()}>
                     <CameraIcon className='h-7 text-red-500'/>
                     <p className='text-xs sm:text-sm xl:text-base' >Picture</p>
-                    {/* <input ref={imgInputRef} className='hidden' id="inputTag" type="file"  onChange={(e) => {setImage(e.target.files[0])}}/> */}
                     <input ref={imgInputRef} className='hidden' id="inputTag" type="file"  
                     onChange={(e) => {
                         addImageToPost(e);
                         setImage(e.target.files[0]);
                     }}/>
                 </div>
-                <div className='inputIcon'>
+
+                {/* Text only post */}
+                <div className='inputIcon' onClick={handleSubmit}>
                     <ChatBubbleLeftIcon className='h-7 text-red-500'/>
                     <p className='text-xs sm:text-sm xl:text-base' >Text</p>
                 </div>
