@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import NavBar from '../components/NavBar';
 import formatDate from '../utils/formatDate'
+import Sidebar from '../components/Sidebar';
+import FriendsList from '../components/FriendsList';
+import MyPostList from '../components/MyPostList';
 
 export default function MyPosts() {
     const [posts, setPosts] = useState([]);
@@ -34,20 +37,14 @@ useEffect(()=> {
 
   return (
     <div>
+    <div>
         <NavBar/>
-        <h1>My Posts</h1>
-        {posts.map((post) => {
-            return (
-                <div key={post._id}>
-                    <h2>{post.title}</h2>
-                    {post.imgURL && <img src={post.imgURL} alt={post.title}/>}
-                    <p>{post.content}</p>
-                    <p>{formatDate(post.posted)}</p>
-                    <p>Likes: {post.likes.length}</p>
-                </div>
-            )
-        })}
-        {errors ? <p>{errors}</p> : null}
+        <div className='w-full h-screen flex justify-center'>
+            <Sidebar/>
+            <MyPostList/>
+            <FriendsList />
+        </div>
     </div>
+</div>
   )
 }

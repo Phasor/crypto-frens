@@ -133,14 +133,3 @@ export default function SignUp() {
     </div>
   )
 }
-
-// firstName: { type: String, required: true },
-// lastName: { type: String, required: true },
-// shortName: { type: String, required: true },
-// username: { type: String, required: true },
-// password: { type: String, required: true },
-// joinDate: { type: Date, default: Date.now },
-// birthDay: { type: Date, required: false },
-// profileImage: { type: String, data: Buffer, required: false },
-// pendingFriendRequests: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
-// friends: [{ type: Schema.Types.ObjectId, ref: 'User', required: false }],
