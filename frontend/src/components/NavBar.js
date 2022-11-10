@@ -42,8 +42,8 @@ export default function NavBar() {
             {loggedIn && (
                 <div className='flex space-x-6 md:space-x-2'>
                     <Link to='/home'><HeaderIcon active={true} Icon={HomeIcon}/></Link>
-                    <HeaderIcon Icon={UsersIcon}/>
-                    <HeaderIcon Icon={Cog8ToothIcon}/>
+                    <Link to="/users"><HeaderIcon Icon={UsersIcon}/></Link>
+                    <Link to="/settings"><HeaderIcon Icon={Cog8ToothIcon}/></Link>
                 </div>
             )}
         </div>

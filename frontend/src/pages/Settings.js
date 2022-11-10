@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react'
 import NavBar from '../components/NavBar'
+import Sidebar from '../components/Sidebar';
 import { useNavigate } from 'react-router-dom'
 import { ArrowUpTrayIcon } from '@heroicons/react/24/solid';
 import { ToastContainer, toast } from 'react-toastify';
@@ -141,7 +142,7 @@ export default function Settings() {
 
 
   return (
-    <div className='w-full h-screen'>
+    <div>
         <ToastContainer
             position="top-center"
             autoClose={5000}
@@ -155,47 +156,50 @@ export default function Settings() {
             theme="light"
         />
             <NavBar/>
-            <div className='w-full flex justify-center items-center'>
-                <form className='flex flex-col w-[90%] md:w-[50%] lg:w-[30%] xl:w-[25%] mt-6 lg:mt-20 rounded-lg bg-white shadow-lg' onSubmit={submitHandler}>
-                    <h1 className='font-medium text-xl px-4 py-2' >Update Profile</h1>
-                    <div className='px-8 py-2 flex flex-col'>
-                        <label htmlFor="firstName">First Name</label>
-                        <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="text" name="firstName" id="firstName" value={firstName} onChange={(e) => {setFirstName(e.target.value)}} />
-                        <label htmlFor="lastName">Last Name</label>
-                        <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="text" name="lastName" id="lastName" value={lastName} onChange={(e) => {setLastName(e.target.value)}} />
-                        <label htmlFor="shortName">Short Name</label>
-                        <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="text" name="shortName" id="shortName" value={shortName} onChange={(e) => {setShortName(e.target.value)}}/>
-                        <label htmlFor="username">Email</label>
-                        <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="email" name="username" id="username" value={username} onChange={(e) => {setUsername(e.target.value)}}/>
+            <div className='flex justify-center'>
+                <Sidebar/>
+                <div className='flex flex-1 justify-center'>
+                    <form className='flex flex-col border max-h-[60%] xl:max-h-[50%] lg:max-h-[60%] w-[90%] md:w-[50%] lg:w-[30%] xl:w-[25%] mt-5 lg:mt-20  rounded-lg bg-white shadow-lg' onSubmit={submitHandler}>
+                        <h1 className='font-medium text-xl px-4 py-2' >Update Profile</h1>
+                        <div className='px-4 py-2 flex flex-col'>
+                            <label htmlFor="firstName">First Name</label>
+                            <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="text" name="firstName" id="firstName" value={firstName} onChange={(e) => {setFirstName(e.target.value)}} />
+                            <label htmlFor="lastName">Last Name</label>
+                            <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="text" name="lastName" id="lastName" value={lastName} onChange={(e) => {setLastName(e.target.value)}} />
+                            <label htmlFor="shortName">Short Name</label>
+                            <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="text" name="shortName" id="shortName" value={shortName} onChange={(e) => {setShortName(e.target.value)}}/>
+                            <label htmlFor="username">Email</label>
+                            <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-700 border' type="email" name="username" id="username" value={username} onChange={(e) => {setUsername(e.target.value)}}/>
 
-                        {/* Image uploader */}
-                        <div className='flex items-center space-x-5'>
-                            <div onClick={() => imageRef.current.click()} className="font-medium mb-2 cursor-pointer py-1" >
-                                    <div className='flex items-center space-x-2 bg-gray-200 hover:bg-gray-300 rounded-xl px-1 py-2'>
-                                        <p>Upload Profile Image</p>
-                                        <ArrowUpTrayIcon className='h-6 w-6'/>
-                                    </div>
-                                    <input ref={imageRef} className="hidden" type="file" id="inputTag" name="profileImage" value=""
-                                        onChange={(e)=>{
-                                            addImageToPost(e);
-                                            setImage(e.target.files[0]);
-                                        }}
-                                    />
-                            </div>
-                            {imgPreview && (
-                                <div onClick={removeImage} className="flex flex-col items-center text-center filter hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer" >
-                                    <img src={imgPreview} alt="post preview" height={40} width={40} className='rounded-2xl overflow-hidden'/>
-                                    <p className="text-red-700 hover:text-red-800">Remove</p>
+                            {/* Image uploader */}
+                            <div className='flex items-center space-x-5'>
+                                <div onClick={() => imageRef.current.click()} className="font-medium mb-2 cursor-pointer py-1" >
+                                        <div className='flex items-center space-x-2 bg-gray-200 hover:bg-gray-300 rounded-xl px-1 py-2'>
+                                            <p>Upload Profile Image</p>
+                                            <ArrowUpTrayIcon className='h-6 w-6'/>
+                                        </div>
+                                        <input ref={imageRef} className="hidden" type="file" id="inputTag" name="profileImage" value=""
+                                            onChange={(e)=>{
+                                                addImageToPost(e);
+                                                setImage(e.target.files[0]);
+                                            }}
+                                        />
                                 </div>
-                            )}
+                                {imgPreview && (
+                                    <div onClick={removeImage} className="flex flex-col items-center text-center filter hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer" >
+                                        <img src={imgPreview} alt="post preview" height={40} width={40} className='rounded-2xl overflow-hidden'/>
+                                        <p className="text-red-700 hover:text-red-800">Remove</p>
+                                    </div>
+                                )}
+                            </div>
+                            
+                            <button className='bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg shadow px-2 py-1 my-6 text-lg' type="submit">Update</button>
                         </div>
                         
-                        <button className='bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg shadow px-2 py-1 mb-2 text-lg mt-2' type="submit">Update</button>
-                    </div>
-                </form>
-                {error ? <p>{error}</p> : null}
+                    </form>
+                    {error ? <p>{error}</p> : null}
+                </div>
             </div>
-            
         </div>
   )
 }

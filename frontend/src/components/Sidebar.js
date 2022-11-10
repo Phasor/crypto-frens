@@ -31,13 +31,11 @@ export default function Sidebar() {
         <div className='mt-6'>
             <div className='p-4 space-x-3 flex'>
                 {user && <img className='h-8 w-8 rounded-full' src={user.profileImage} alt="" />}
-                <p className='font-medium'>{user.firstName} {user.lastName}</p>
-                <p>{user.username}</p>
+                <p className='font-medium hidden sm:inline-flex'>{user.firstName} {user.lastName}</p>
             </div>
-            {/* <SidebarRow Icon={UserGroupIcon} title="Friends"/> */}
             <Link to="/home"><SidebarRow Icon={HomeIcon} title="Feed" /></Link>
             <Link to="/users"><SidebarRow Icon={UserPlusIcon} title="Manage Friends" /></Link>
-            <SidebarRow Icon={NewspaperIcon} title="My Posts" />
+            <Link to="/user/myposts"><SidebarRow Icon={NewspaperIcon} title="My Posts" /></Link>
             <Link to="/settings"><SidebarRow Icon={WrenchIcon} title="Settings" /></Link>
         </div>
     </div>
