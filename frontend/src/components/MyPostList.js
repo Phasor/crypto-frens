@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import { Bars } from  'react-loader-spinner'
 import Post from '../components/Post'
 
 export default function MyPostList() {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [errors, setErrors] = useState(null);
-    
 
     useEffect(() => {
         const userID = localStorage.getItem('userID');
@@ -33,7 +33,20 @@ export default function MyPostList() {
   return (
     <div className='flex-grow h-screen pt-6 pb-6 bg-gray-100 overflow-y-auto scrollbar-hide'>
         <div className='mx-auto max-w-md md:max-w-lg lg:max-w-2xl'>
-            {loading ? <p>Loading...</p> : 
+            {loading ? 
+                // loading spinner 
+                <div className='flex justify-center items-center mt-20'>
+                    <Bars
+                        height="60"
+                        width="60"
+                        color="#4fa94d"
+                        ariaLabel="bars-loading"
+                        wrapperStyle={{}}
+                        wrapperClass=""
+                        visible={true}
+                    />
+                </div>
+            : 
                 posts.map((post) => (
                     <Post
                         key={post._id} 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Bars } from  'react-loader-spinner'
 import Post from '../components/Post'
 
 export default function PostList({refreshFeed}) {
@@ -32,7 +33,21 @@ export default function PostList({refreshFeed}) {
 
   return (
     <div className='mt-8'>
-        {loading ? <p>Loading...</p> : 
+        {loading ? 
+            // loading spinner 
+            <div className='flex justify-center items-center mt-20'>
+            <Bars
+                height="60"
+                width="60"
+                color="#4fa94d"
+                ariaLabel="bars-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+                visible={true}
+            />
+            </div>
+        
+         : 
             posts.map((post) => (
                 <Post
                     key={post._id} 
