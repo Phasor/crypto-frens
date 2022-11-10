@@ -64,22 +64,37 @@ export default function Settings() {
         }
         try{
             const userID = localStorage.getItem('userID');
-            const response = await fetch(`http://localhost:3000/api/v1/user/${userID}`, 
-                {method: 'PUT',
-                headers: {'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token')},
-                body: JSON.stringify({
-                    firstName: e.target.firstName.value,
-                    lastName: e.target.lastName.value,
-                    shortName: e.target.shortName.value,
-                    username: e.target.username.value,
-                    profileImage: imgURL,
-                })
-            });
+            let response = "";
+            // check if image was updated
+            if(image){ //need to update image
+                response = await fetch(`http://localhost:3000/api/v1/user/${userID}`, 
+                    {method: 'PUT',
+                    headers: {'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token')},
+                    body: JSON.stringify({
+                        firstName: e.target.firstName.value,
+                        lastName: e.target.lastName.value,
+                        shortName: e.target.shortName.value,
+                        username: e.target.username.value,
+                        profileImage: imgURL,
+                    })
+                });
+            } else{ // no need to update image
+                response = await fetch(`http://localhost:3000/api/v1/user/${userID}`, 
+                    {method: 'PUT',
+                    headers: {'Content-Type': 'application/json', 'Authorization': localStorage.getItem('token')},
+                    body: JSON.stringify({
+                        firstName: e.target.firstName.value,
+                        lastName: e.target.lastName.value,
+                        shortName: e.target.shortName.value,
+                        username: e.target.username.value,
+                    })
+                });
+            }
             const data = await response.json();
             if(data.success === true){
                 console.log(`data: ${data}`);
                 toast.success('Profile updated successfully');
-                setTimeout( () => navigate('/home'), 1000 );
+                setTimeout( () => navigate('/home'), 2000 );
             }
             else{
                 setError(data.errors);
