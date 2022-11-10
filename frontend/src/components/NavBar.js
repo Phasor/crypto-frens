@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useLayoutEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { HomeIcon, UsersIcon, Cog8ToothIcon } from '@heroicons/react/24/solid';
@@ -8,7 +8,7 @@ export default function NavBar() {
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (localStorage.getItem('token')) {
             setLoggedIn(true);
         }
@@ -59,23 +59,6 @@ export default function NavBar() {
                 </>
             )}
         </div>
-
-        {/* <div>
-            <strong><Link to="/home"><p>Crypto Frens</p></Link></strong>
-            <div>
-                <Link to="/home"><button>Home</button></Link>
-                <Link to="login"><button>Log In</button></Link>
-                <Link to="/signup"><button>Sign Up</button></Link>
-                <button onClick={logout}>Sign Out</button>
-                <Link to="/users"><button>User List</button></Link>
-                <Link to="/post/create"><button>Create Post</button></Link>
-                <Link to="/user/myposts"><button>My Posts</button></Link>
-            </div>
-            {localStorage.getItem('username') ? <p>Welcome, {localStorage.getItem('username')}</p> : null}
-            ____________________________________________________________________________________________________
-        </div> */}
-
-
     </div>
   )
 }
