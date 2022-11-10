@@ -16,7 +16,7 @@ const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
 exports.post_signup = async (req, res) => {
     try{
         const user = await createUser(req.body);
-        console.log(`req.body received from client: ${req.body}`);
+        // console.log(`req.body received from client: ${req.body}`);
         return res.json({
             success: true,
             user: user

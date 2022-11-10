@@ -38,7 +38,7 @@ export default function Sidebar() {
             <Link to="/home"><SidebarRow Icon={HomeIcon} title="Feed" /></Link>
             <Link to="/users"><SidebarRow Icon={UserPlusIcon} title="Manage Friends" /></Link>
             <SidebarRow Icon={NewspaperIcon} title="My Posts" />
-            <SidebarRow Icon={WrenchIcon} title="Settings" />
+            <Link to="/settings"><SidebarRow Icon={WrenchIcon} title="Settings" /></Link>
         </div>
     </div>
   )
