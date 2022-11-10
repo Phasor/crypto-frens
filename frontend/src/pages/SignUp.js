@@ -21,7 +21,7 @@ export default function SignUp() {
         // upload profile image if required
         let imgURL = "";
         if (image){
-            imgURL = await UploadImage(image);
+            imgURL = await UploadImage(image); // returns image URL on Cloudinary
         }
         try{
             const response = await fetch('http://localhost:3000/api/v1/user/signup', 
@@ -33,7 +33,7 @@ export default function SignUp() {
                     shortName: e.target.shortName.value,
                     username: e.target.username.value,
                     password: e.target.password.value,
-                    profileImg: imgURL,
+                    profileImage: imgURL,
                 })
             });
             const data = await response.json();
