@@ -40,28 +40,28 @@ export default function SignUp() {
 
 
   return (
-    <div>
-        <div>
-            <NavBar/>
-            <div>
-                <h1>Sign Up</h1>
-                <Link to="/"> Home</Link>
-                <form onSubmit={submitHandler}>
+    <div className='w-full h-screen'>
+        <NavBar/>
+        <div className='w-full flex justify-center items-center'>
+            <form className='flex flex-col w-[90%] md:w-[50%] lg:w-[30%] xl:w-[25%] mt-6 lg:mt-20 rounded-lg bg-white shadow-lg' onSubmit={submitHandler}>
+                <h1 className='font-medium text-xl px-4 py-2' >Sign Up</h1>
+                <div className='px-8 py-2 flex flex-col'>
                     <label htmlFor="firstName">First Name</label>
-                    <input type="text" name="firstName" id="firstName" placeholder='Benjamin'/>
+                    <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-500 border' type="text" name="firstName" id="firstName" placeholder='Benjamin'/>
                     <label htmlFor="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName" placeholder='Smith'/>
+                    <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-500 border' type="text" name="lastName" id="lastName" placeholder='Smith'/>
                     <label htmlFor="shortName">Short Name</label>
-                    <input type="text" name="shortName" id="shortName" placeholder='Ben'/>
+                    <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-500 border' type="text" name="shortName" id="shortName" placeholder='Ben'/>
                     <label htmlFor="username">Email</label>
-                    <input type="email" name="username" id="username" placeholder='ben@test.com'/>
+                    <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-500 border' type="email" name="username" id="username" placeholder='ben@test.com'/>
                     <label htmlFor="password">Password</label>
-                    <input type="password" name="password" id="password" placeholder='password'/>
-                    <button type="submit">Sign Up</button>
-                </form>
-                {errors ? <p>{errors}</p> : null}
-            </div>
+                    <input className='rounded-lg px-2 py-1 mb-3 outline-none text-gray-500 border' type="password" name="password" id="password" placeholder='password'/>
+                    <button className='bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg shadow px-2 py-1 mb-2 text-lg mt-2' type="submit">Sign Up</button>
+                </div>
+            </form>
+            {errors ? <p>{errors}</p> : null}
         </div>
+        
     </div>
   )
 }
