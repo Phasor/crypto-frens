@@ -12,6 +12,7 @@ import Users from './pages/Users';
 import MyPosts from "./pages/MyPosts";
 import Failed from './pages/Failed';
 import Settings from './pages/Settings';
+import UserDetail from './pages/UserDetail';
 
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
                 <Route exact path="/user/myposts" element={<MyPosts/>}/>
                 <Route exact path="/settings" element={<Settings/>}/>
                 <Route exact path="/login/failed" element={<Failed/>}/>
+                <Route exact path="/user/:id" element={<UserDetail/>}/>
                 {/* No match route */}
                 <Route path="*" element={<Navigate to="/" replace />}/>
             </Routes>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 
 export default function FriendsList() {
     const [friends, setFriends] = useState([]);
@@ -25,12 +26,14 @@ export default function FriendsList() {
         <div className='hidden lg:flex flex-col w-60 p-2 mt-5'>
             <h2 className='p-2 font-medium text-gray-500'>Contacts</h2>
             {friends && friends.map((friend) => (
-                <div key={friend._id} className="flex space-x-2 p-1 border-b md:min-w-[200px] rounded-2xl hover:bg-gray-200 cursor-pointer ">
-                    <div>
-                        <img src={friend.profileImage} referrerPolicy="no-referrer" alt="" className="p-2 rounded-full h-12 w-12"/>
-                    </div>
+                <Link to={`/user/${friend._id}`}>
+                    <div key={friend._id} className="flex space-x-2 p-1 border-b md:min-w-[200px] rounded-2xl hover:bg-gray-200 cursor-pointer ">
+                        <div>
+                            <img src={friend.profileImage} referrerPolicy="no-referrer" alt="" className="p-2 rounded-full h-12 w-12"/>
+                        </div>
                     <p className=" text-gray-500 p-2 font-medium">{friend.firstName} {friend.lastName}</p>
-                </div>
+                    </div>
+                </Link>
             ))}
         </div>
     </div>

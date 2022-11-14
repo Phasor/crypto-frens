@@ -174,8 +174,8 @@ export default function Settings() {
                             {/* Image uploader */}
                             <div className='flex items-center space-x-5'>
                                 <div onClick={() => imageRef.current.click()} className="font-medium mb-2 cursor-pointer py-1" >
-                                        <div className='flex items-center space-x-2 bg-gray-200 hover:bg-gray-300 rounded-xl px-1 py-2'>
-                                            <p>Upload Profile Image</p>
+                                        <div className='flex items-center space-x-2 bg-gray-200 hover:bg-gray-300 rounded-xl p-2'>
+                                            <p>Change Profile Image</p>
                                             <ArrowUpTrayIcon className='h-6 w-6'/>
                                         </div>
                                         <input ref={imageRef} className="hidden" type="file" id="inputTag" name="profileImage" value=""
