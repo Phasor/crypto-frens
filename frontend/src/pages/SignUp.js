@@ -38,8 +38,12 @@ export default function SignUp() {
             });
             const data = await response.json();
             if(data.success === true){
-                console.log(`data: ${data}`);
-                setTimeout( () => navigate('/'), 2000 );
+                console.log(`data: ${JSON.stringify(data)}`);
+                localStorage.setItem('token', data.user.token);
+                localStorage.setItem('username', data.user.user.username);
+                localStorage.setItem('userID', data.user.user._id);
+                localStorage.setItem('shortName', data.user.user.shortName);
+                setTimeout(()=> navigate('/home'),1000);
             }
             else{
                 setErrors(data.errors);

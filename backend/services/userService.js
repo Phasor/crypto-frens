@@ -18,7 +18,9 @@ exports.createUser = async (user) => {
         const response = await newUser.save();
         // issue user with JWT
         const jwt = utils.issueJWT(response);
-        return { success: true, user:user, token: jwt.token, expiresIn: jwt.expires };
+       //  return { success: true, user:user, token: jwt.token, expiresIn: jwt.expires };
+         return { user:response, token: jwt.token, expiresIn: jwt.expires };
+
      } catch (err) {
         return { success: false, message: `${err.name}, ${err.message}`};
      }
