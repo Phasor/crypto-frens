@@ -9,6 +9,7 @@ const {
     fetchAllUserPosts,
     unlikePost } = require('../services/postService');
 const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
+const {body, validationResult} = require('express-validator');
 
 exports.get_posts = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
@@ -30,17 +31,44 @@ exports.get_posts = async (req, res) => {
     }
 }
 
-exports.create_post = async (req, res) => {
-    const token = req.headers.authorization.split(' ')[1];
-    const userID = getUserIDFromToken(token);
-    console.log(`userID from token: ${userID}`);
-    try{
-        const post = await createPost(userID, req.body);
-        return res.json({ success: true, post: post });
-    } catch(err) {
-        return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
+// exports.create_post = async (req, res) => {
+//     const token = req.headers.authorization.split(' ')[1];
+//     const userID = getUserIDFromToken(token);
+//     console.log(`userID from token: ${userID}`);
+//     try{
+//         const post = await createPost(userID, req.body);
+//         return res.json({ success: true, post: post });
+//     } catch(err) {
+//         return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
+//     }
+// }
+
+
+exports.create_post = [
+    // validate and sanitize fields
+    body('content', 'Post content must not be empty.').trim().isLength({ min: 1 }).escape(),
+
+    // process request after validation and sanitization
+    async (req, res) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // there are input errors
+            res.status(400).json({ success: false, message: errors.array() });
+            return;
+        } else {
+            // data from form is valid
+            const token = req.headers.authorization.split(' ')[1];
+            const userID = getUserIDFromToken(token);
+            // console.log(`userID from token: ${userID}`);
+            try{
+                const post = await createPost(userID, req.body);
+                return res.json({ success: true, post: post });
+            } catch(err) {
+                return res.status(500).json({ success: false, message: `${err.name}, ${err.message}` });
+            }
+        }
     }
-}
+]
 
 exports.get_post_by_id = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
