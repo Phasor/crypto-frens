@@ -4,7 +4,7 @@ import { ArrowUpTrayIcon } from '@heroicons/react/24/solid';
 import NavBar from '../components/NavBar'
 
 export default function SignUp() {
-    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState(null);
     const [image, setImage] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
     const navigate = useNavigate();
@@ -42,11 +42,11 @@ export default function SignUp() {
                 setTimeout( () => navigate('/'), 2000 );
             }
             else{
-                setError(data.errors);
+                setErrors(data.errors);
             }
         } catch(err){
             console.log(err);
-            setError(err);
+            setErrors(err);
         }
     }
 
@@ -76,7 +76,7 @@ export default function SignUp() {
             return data.secure_url;
         } catch(err){
             console.log(err);
-            setError(err);
+            setErrors(err);
         }
     }
 
@@ -127,8 +127,16 @@ export default function SignUp() {
                     <button className='bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg shadow px-2 py-1 mb-2 text-lg mt-2' type="submit">Sign Up</button>
                 </div>
             </form>
-            {error ? <p>{error}</p> : null}
         </div>
+            {errors &&  (
+                <div className='flex justify-center'>
+                        <ul className='text-red-500 text-lg font-medium mt-5'>
+                            {errors.map((error, index) => {
+                                return <li key={index}>{error.msg}</li>
+                            })}
+                        </ul>
+                </div>
+            )}
         
     </div>
   )

@@ -12,19 +12,49 @@ const {
     getAllUsersExFriends } = require("../services/userService");
 
 const { verifyJWT, getUserIDFromToken } = require('../lib/utils');
+const { body, validationResult } = require('express-validator');
 
-exports.post_signup = async (req, res) => {
-    try{
-        const user = await createUser(req.body);
-        // console.log(`req.body received from client: ${req.body}`);
-        return res.json({
-            success: true,
-            user: user
-        });
-    } catch(err) {
-        return res.json({success:false, message: `${err.name}, ${err.message}`});
+// exports.post_signup = async (req, res) => {
+//     try{
+//         const user = await createUser(req.body);
+//         // console.log(`req.body received from client: ${req.body}`);
+//         return res.json({
+//             success: true,
+//             user: user
+//         });
+//     } catch(err) {
+//         return res.json({success:false, message: `${err.name}, ${err.message}`});
+//     }
+// }
+
+
+exports.post_signup = [
+    // validate and sanitize fields
+    body('username', 'Email must be specified.').trim().isLength({ min: 1 }).isEmail().withMessage("Email is not valid.").escape(),
+    body('firstName', 'First name must be specified.').trim().isLength({ min: 1 }).escape(),
+    body('lastName', 'Last name must be specified.').trim().isLength({ min: 1 }).escape(),
+    body('password', 'Password must not be empty.').trim().isAlphanumeric().isLength({ min: 4 }).withMessage("Password must be at least 4 characters long.").escape(),
+
+    // process request after validation and sanitization
+    async (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            // there are input errors
+            return res.json({success:false, errors: errors.array()});
+        } else {
+            try{
+                const user = await createUser(req.body);
+                // console.log(`req.body received from client: ${req.body}`);
+                return res.json({
+                    success: true,
+                    user: user
+                });
+            } catch(err) {
+                return res.json({success:false, message: `${err.name}, ${err.message}`});
+            }
+        }
     }
-}
+]
 
 exports.get_by_id = async (req, res) => {
     try{
