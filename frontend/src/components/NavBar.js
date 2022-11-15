@@ -4,15 +4,19 @@ import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import { HomeIcon, UsersIcon, Cog8ToothIcon } from '@heroicons/react/24/solid';
 import HeaderIcon from './HeaderIcon';
 
-export default function NavBar() {
+export default function NavBar({setDataFromUrl}){
     const navigate = useNavigate();
     const [loggedIn, setLoggedIn] = useState(false);
 
     useLayoutEffect(() => {
-        if (localStorage.getItem('token')) {
-            setLoggedIn(true);
+        const checkLoggedIn = async () => {
+            await setDataFromUrl();
+            if (localStorage.getItem('token')) {
+                setLoggedIn(true);
+            }
         }
-    }, [loggedIn])
+        checkLoggedIn();
+    }, [setDataFromUrl])
 
     const logout = () => {
         localStorage.removeItem('token');

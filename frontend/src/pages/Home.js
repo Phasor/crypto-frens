@@ -41,7 +41,7 @@ export default function Home() {
   return (
     <div>
         <div>
-            <NavBar/>
+            <NavBar setDataFromUrl={setDataFromUrl}/>
             <div className='w-full h-screen flex justify-center'>
                 <Sidebar setDataFromUrl={setDataFromUrl}/>
                 <Feed setDataFromUrl={setDataFromUrl}/>
