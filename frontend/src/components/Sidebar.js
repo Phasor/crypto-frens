@@ -2,13 +2,14 @@ import React, { useEffect, useState } from 'react'
 import SidebarRow from './SidebarRow'
 import { UserPlusIcon, HomeIcon, WrenchIcon } from '@heroicons/react/24/solid';
 import { NewspaperIcon } from '@heroicons/react/24/outline';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; 
 
-export default function Sidebar({}) {
+export default function Sidebar({setDataFromUrl}) {
     const [user, setUser] = useState({});
 
     useEffect(()=> {
         const fetchUser = async () => {
+            await setDataFromUrl();
             const response = await fetch(`http://localhost:3000/api/v1/user/${localStorage.getItem('userID')}`,
             {
                 method: 'GET',
@@ -23,7 +24,7 @@ export default function Sidebar({}) {
         } 
         }
         fetchUser();
-    },[])
+    },[setDataFromUrl])
 
 
   return (

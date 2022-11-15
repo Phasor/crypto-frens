@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import NavBar from '../components/NavBar'
 import Sidebar from '../components/Sidebar';
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { ArrowUpTrayIcon } from '@heroicons/react/24/solid';
 import { ToastContainer, toast } from 'react-toastify';
 
@@ -17,6 +17,20 @@ export default function Settings() {
     const imageRef = useRef(null);
     const CLOUDINARY_ENDPOINT='https://api.cloudinary.com/v1_1';
     const title = "Crypto Frens - Update Profile";
+    const location = useLocation();
+
+    const setDataFromUrl = async () => {
+        if(location.search){ // there is a query string, hence this is a Google auth login, not a local auth login
+            const rawData = location.search.split("=")[1];
+            const firstElem = rawData.split("&")[0];
+            const tokenValue =  firstElem.replace("%20", " ");
+            // console.log(`tokenValue: ${tokenValue}`);
+            // setTokenGoog(tokenValue);
+            localStorage.setItem("token", tokenValue);
+            const userIDValue = location.search.split("=")[3];
+            localStorage.setItem("userID", userIDValue);
+        }
+    }
 
 
     useEffect(() => {
@@ -157,7 +171,10 @@ export default function Settings() {
         />
             <NavBar/>
             <div className='flex justify-center'>
-                <Sidebar/>
+
+                {/* Sidebar */}
+                <Sidebar setDataFromUrl={setDataFromUrl}/>
+
                 <div className='flex flex-1 justify-center'>
                     <form className='flex flex-col border max-h-[60%] xl:max-h-[50%] lg:max-h-[60%] w-[90%] md:w-[50%] lg:w-[30%] xl:w-[25%] mt-5 lg:mt-20  rounded-lg bg-white shadow-lg' onSubmit={submitHandler}>
                         <h1 className='font-medium text-xl px-4 py-2' >Update Profile</h1>

@@ -8,7 +8,6 @@ import FriendsList from '../components/FriendsList';
 export default function Home() {
     const [tokenGoog, setTokenGoog] = useState('');
     const location = useLocation();
-    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         const setDataFromUrl = async () => {
@@ -21,14 +20,12 @@ export default function Home() {
                 localStorage.setItem("token", tokenGoog);
                 const userIDValue = location.search.split("=")[3];
                 localStorage.setItem("userID", userIDValue);
-                setReady(true);
-                // window.location.reload();
             }
         }
         setDataFromUrl();
     }, [tokenGoog, location.search]);
 
-    const setDataFromUrl2 = async () => {
+    const setDataFromUrl = async () => {
         if(location.search){ // there is a query string, hence this is a Google auth login, not a local auth login
             const rawData = location.search.split("=")[1];
             const firstElem = rawData.split("&")[0];
@@ -38,8 +35,6 @@ export default function Home() {
             localStorage.setItem("token", tokenGoog);
             const userIDValue = location.search.split("=")[3];
             localStorage.setItem("userID", userIDValue);
-            setReady(true);
-            // window.location.reload();
         }
     }
 
@@ -48,9 +43,9 @@ export default function Home() {
         <div>
             <NavBar/>
             <div className='w-full h-screen flex justify-center'>
-                <Sidebar/>
-                <Feed setDataFromUrl2={setDataFromUrl2}/>
-                <FriendsList />
+                <Sidebar setDataFromUrl={setDataFromUrl}/>
+                <Feed setDataFromUrl={setDataFromUrl}/>
+                <FriendsList setDataFromUrl={setDataFromUrl} />
             </div>
         </div>
     </div>
