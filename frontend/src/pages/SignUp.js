@@ -1,12 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ArrowUpTrayIcon } from '@heroicons/react/24/solid';
+import { RotatingLines } from  'react-loader-spinner'
 import NavBar from '../components/NavBar'
 
 export default function SignUp() {
     const [errors, setErrors] = useState(null);
     const [image, setImage] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const imageRef = useRef(null);
     const CLOUDINARY_ENDPOINT='https://api.cloudinary.com/v1_1';
@@ -52,7 +54,7 @@ export default function SignUp() {
                     })
                 });
             }
-
+            setLoading(true);
             const data = await response.json();
             if(data.success === true){
                 // console.log(`data: ${JSON.stringify(data)}`);
@@ -125,7 +127,7 @@ export default function SignUp() {
                     
                     {/* Image uploader */}
                     <div className='flex items-center space-x-5'>
-                        <div onClick={() => imageRef.current.click()} className="font-medium mb-2 cursor-pointer py-1" >
+                        <div onClick={() => imageRef.current.click()} className="font-medium cursor-pointer" >
                                 <div className='flex items-center space-x-2 bg-gray-200 hover:bg-gray-300 rounded-xl px-1 py-2'>
                                     <p>Upload Profile Image</p>
                                     <ArrowUpTrayIcon className='h-6 w-6'/>
@@ -137,6 +139,20 @@ export default function SignUp() {
                                     }}
                                 />
                         </div>
+                        {/* Loading spinner */}
+                        { loading && (
+                                <div className='flex items-center text-center justify-center'>
+                                    <RotatingLines
+                                        strokeColor="grey"
+                                        strokeWidth="5"
+                                        animationDuration="0.75"
+                                        width="30"
+                                        visible={true}
+                                    />
+                                </div>
+                            )
+                        }
+                        {/* Image preview */}
                         {imgPreview && (
                             <div onClick={removeImage} className="flex flex-col items-center text-center filter hover:brightness-110 transition duration-150 transform hover:scale-105 cursor-pointer" >
                                 <img src={imgPreview} alt="post preview" height={40} width={40} className='rounded-2xl overflow-hidden'/>
@@ -145,7 +161,7 @@ export default function SignUp() {
                         )}
                     </div>
                     
-                    <button className='bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg shadow px-2 py-1 mb-2 text-lg mt-2' type="submit">Sign Up</button>
+                    <button className='bg-blue-500 hover:bg-blue-600 text-white text-center font-medium rounded-lg shadow px-2 py-1 my-4 text-lg' type="submit">Sign Up</button>
                 </div>
             </form>
         </div>
