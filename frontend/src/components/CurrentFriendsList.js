@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
 export default function CurrentFriendsList({friends, setFriends, pendingFriendsReceived}) {
-    
     const [error, setError] = useState([]);
 
     useEffect(() => {

@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 export default function FriendsSentList({users}) {
     const [pendingFriendsSent, setPendingFriendsSent] = useState([]);
     const [error, setError] = useState(null);
-    console.log('friends sent list rendered')
 
     useEffect(() => {
         const getPendingFriendsSent = async() => {

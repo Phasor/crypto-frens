@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import NavBar from '../components/NavBar';
 import Sidebar from '../components/Sidebar';
 import CurrentFriendsList from '../components/CurrentFriendsList';
@@ -10,7 +10,6 @@ export default function Users() {
     const [users, setUsers] = useState([]);
     const [friends, setFriends] = useState([]);
     const [pendingFriendsReceived, setPendingFriendsReceived] = useState([]);
-    console.log('parent render')
 
     return (
         <div>

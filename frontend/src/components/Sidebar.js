@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import SidebarRow from './SidebarRow'
-import { UserPlusIcon, UserGroupIcon, HomeIcon, WrenchIcon } from '@heroicons/react/24/solid';
+import { UserPlusIcon, HomeIcon, WrenchIcon } from '@heroicons/react/24/solid';
 import { NewspaperIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
 
 export default function FriendRequestsList({pendingFriendsReceived, setPendingFriendsReceived}) {
     const [error, setError] = useState([]);
@@ -47,20 +46,7 @@ export default function FriendRequestsList({pendingFriendsReceived, setPendingFr
 }
 
   return (
-    <>
-        <ToastContainer
-        position="top-center"
-        autoClose={5000}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        />
-                           
+    <>                     
         <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
             <h2 className='font-medium mb-2'>Friend Requests Received</h2>
             {pendingFriendsReceived.map(friend => {

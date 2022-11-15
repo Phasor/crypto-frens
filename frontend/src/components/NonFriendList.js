@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 export default function NonFriendList({users, setUsers, friends}) {
-    
     const [error, setError] = useState([]);
-    console.log('non friend list rendered')
 
     useEffect(() => {
     const getUsers = async () => {

@@ -7,7 +7,6 @@ import FriendsList from '../components/FriendsList';
 
 export default function Home() {
     const [tokenGoog, setTokenGoog] = useState('');
-    const [firstName, setFirstName] = useState('');
     const location = useLocation();
 
     useEffect(() => {
@@ -19,9 +18,9 @@ export default function Home() {
                 // console.log(`tokenValue: ${tokenValue}`);
                 setTokenGoog(tokenValue);
                 localStorage.setItem("token", tokenGoog);
-                const firstNameRaw = location.search.split("=")[2];
-                const firstNameValue = firstNameRaw.split("&")[0];
-                setFirstName(firstNameValue);
+                // const firstNameRaw = location.search.split("=")[2];
+                // const firstNameValue = firstNameRaw.split("&")[0];
+                // setFirstName(firstNameValue);
                 const userIDValue = location.search.split("=")[3];
                 localStorage.setItem("userID", userIDValue);
             }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ArrowUpTrayIcon } from '@heroicons/react/24/solid';
 import NavBar from '../components/NavBar'
 
@@ -38,7 +38,7 @@ export default function SignUp() {
             });
             const data = await response.json();
             if(data.success === true){
-                console.log(`data: ${JSON.stringify(data)}`);
+                // console.log(`data: ${JSON.stringify(data)}`);
                 localStorage.setItem('token', data.user.token);
                 localStorage.setItem('username', data.user.user.username);
                 localStorage.setItem('userID', data.user.user._id);
