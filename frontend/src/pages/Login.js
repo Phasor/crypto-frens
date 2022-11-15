@@ -42,6 +42,12 @@ export default function Login() {
         }
     }
 
+    const testUserLogin = () => {
+        localStorage.setItem('token','Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2MzYxYWM3MGYwOTU3ODMxYWJlZjk4MWEiLCJpYXQiOjE2Njg1MDU2OTU1NDAsImV4cCI6MTY2ODUwNTc4MTk0MH0.AKVvf_Hhja_xWcwPJMCxOyeAY-IrBbduOLxNG0O7e2VJnjvgSEOfGwcUDZvre0gvEVzWEj8TN0taMX4_LDNSerRAx7YLyuCut1VrIgmIofecG9WWgiV0FWBz21SlX5YQRUFVKBjmmvUCxa-33HdFlZCxUI5BFJeavmy-aLF_WwZ0AMZCWlPvvY8f2GGo0JY7Iw0sY5Cy7iktOsSzwaB67-SvosgjLfCtehelbLZvXf9837D-jsOONYx1YFNgV0lHAAZJLqwMJ2y1_sY9KmDzapOVaG9GJALv_-J6GrOSq1gRs_ZwX2L8UZbKe31KhsOanPJpOAjlwMq1_mqiWgC7j7wPbFlCqAW6NCIsySq3Avpfa4Dx7Jn7aeJwH2wTKS75gtnFyfFQS9-h9sgJfeuHcq2F9OfhABP77P09me276cnW1wW28MIkcNHIlzJhhd7iWXSZvQyK-J5oVVIKUTAVd2PNw5FkdUWE_A56_8mwLcq8mjKDcb4cjsozcswQxvze4HxQcqc18j7OVWgqfgSL5lg1_eY6l7Kli8VRIG4EKXzy8B0yF4qYgn31rDyrgKjn9RyLybg3H02oJvH_tBsmyqTDtldCV5NIQ-PAYPTQ63wzBCeUi3_PGQwT3Rjw2sPnqQfiqgMCgUNhMH-QsARpxS8VRutJs91fIKvkR8AyggQ');
+        localStorage.setItem('username', 'a@test.com');
+        localStorage.setItem('userID', '6361ac70f0957831abef981a');
+        setTimeout(()=> navigate('/home'),1000);
+    }
 
 
   return (
@@ -69,6 +75,10 @@ export default function Login() {
                         <div className='flex items-center md:p-4'>
                             <GoogleLogin/>
                         </div>
+                    </div>
+                    <div className='mt-5'>
+                        <p className='text-md'>Just looking around? Log in as test user below.</p>
+                        <button onClick={testUserLogin} className='bg-blue-500 hover:bg-blue-600 shadow-md border text-white p-2 rounded-lg mt-2'>Test User</button>
                     </div>
                     {error && <p className='text-red-500 p-1'>{error}</p>}
                 </div>

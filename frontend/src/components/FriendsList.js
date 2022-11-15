@@ -26,8 +26,8 @@ export default function FriendsList() {
         <div className='hidden lg:flex flex-col w-60 p-2 mt-5'>
             <h2 className='p-2 font-medium text-gray-500'>Contacts</h2>
             {friends && friends.map((friend) => (
-                <Link to={`/user/${friend._id}`}>
-                    <div key={friend._id} className="flex space-x-2 p-1 border-b md:min-w-[200px] rounded-2xl hover:bg-gray-200 cursor-pointer ">
+                <Link to={`/user/${friend._id}`} key={friend._id}>
+                    <div className="flex space-x-2 p-1 border-b md:min-w-[200px] rounded-2xl hover:bg-gray-200 cursor-pointer ">
                         <div>
                             <img src={friend.profileImage} referrerPolicy="no-referrer" alt="" className="p-2 rounded-full h-12 w-12"/>
                         </div>
