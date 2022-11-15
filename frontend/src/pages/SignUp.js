@@ -24,7 +24,10 @@ export default function SignUp() {
             imgURL = await UploadImage(image); // returns image URL on Cloudinary
         }
         try{
-            const response = await fetch('http://localhost:3000/api/v1/user/signup', 
+            // check if image uploaded, if it is then pass profileImg value, else not (default will be used)
+            let response = {};
+            if (imgURL === ""){
+                response = await fetch('http://localhost:3000/api/v1/user/signup', 
                 {method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({
@@ -33,9 +36,23 @@ export default function SignUp() {
                     shortName: e.target.shortName.value,
                     username: e.target.username.value,
                     password: e.target.password.value,
-                    profileImage: imgURL,
                 })
-            });
+                });
+            } else {
+                response = await fetch('http://localhost:3000/api/v1/user/signup', 
+                    {method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        firstName: e.target.firstName.value,
+                        lastName: e.target.lastName.value,
+                        shortName: e.target.shortName.value,
+                        username: e.target.username.value,
+                        password: e.target.password.value,
+                        profileImage: imgURL,
+                    })
+                });
+            }
+
             const data = await response.json();
             if(data.success === true){
                 // console.log(`data: ${JSON.stringify(data)}`);
@@ -65,7 +82,7 @@ export default function SignUp() {
     }
 
     const UploadImage = async (image) => {
-        console.log('uploading image');
+        // console.log('uploading image');
         const formData = new FormData();
         formData.append('file', image);
         formData.append("upload_preset", "rgydp4v2");

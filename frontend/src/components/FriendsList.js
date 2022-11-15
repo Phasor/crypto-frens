@@ -31,7 +31,7 @@ export default function FriendsList() {
                         <div>
                             <img src={friend.profileImage} referrerPolicy="no-referrer" alt="" className="p-2 rounded-full h-12 w-12"/>
                         </div>
-                    <p className=" text-gray-500 p-2 font-medium">{friend.firstName} {friend.lastName}</p>
+                        <p className=" text-gray-500 p-2 font-medium">{friend.firstName} {friend.lastName}</p>
                     </div>
                 </Link>
             ))}

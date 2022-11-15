@@ -3,7 +3,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { CameraIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid';
 
-export default function InputBox({ setRefreshFeed, refreshFeed }) {
+export default function InputBox({setRefreshFeed, refreshFeed}) {
     const [errors, setErrors] = useState(null);
     const [error, setError] = useState(null);
     const [image, setImage] = useState(null);
