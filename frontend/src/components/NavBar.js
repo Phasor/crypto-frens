@@ -10,7 +10,7 @@ export default function NavBar({setDataFromUrl}){
 
     useLayoutEffect(() => {
         const checkLoggedIn = async () => {
-            await setDataFromUrl();
+            if(typeof setDataFromUrl !== "undefined") await setDataFromUrl();
             if (localStorage.getItem('token')) {
                 setLoggedIn(true);
             }
