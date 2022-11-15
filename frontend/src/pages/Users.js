@@ -23,7 +23,7 @@ export default function Users() {
                         <CurrentFriendsList friends={friends} setFriends={setFriends} pendingFriendsReceived={pendingFriendsReceived}/>
                         <FriendRequestsList pendingFriendsReceived={pendingFriendsReceived} setPendingFriendsReceived={setPendingFriendsReceived}/>
                         <FriendsSentList users={users}/>
-                        <NonFriendList users={users} setUsers={setUsers} friends={friends}/>
+                        <NonFriendList users={users} setUsers={setUsers} friends={friends} />
                     </div>
                 </div>
         </div>

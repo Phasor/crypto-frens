@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 export default function NonFriendList({users, setUsers, friends}) {
     const [error, setError] = useState([]);
+    const [unfilteredUsers, setUnfilteredUsers] = useState([]);
 
     useEffect(() => {
     const getUsers = async () => {
@@ -16,6 +17,7 @@ export default function NonFriendList({users, setUsers, friends}) {
         const data = await response.json();
         if (data.success){
             setUsers(data.users);
+            setUnfilteredUsers(data.users);
             //console.log(data.users);
         } else {
             setError(data.message);
@@ -54,9 +56,27 @@ const addFriend = async (friend) => {
     }
 }
 
+    const filterUsers = (e) => {
+        e.preventDefault();
+        const search = e.target.searchterm.value;
+        if(search.length > 0){
+            console.log(`searching for ${search}`);
+            const filteredUsers = users.filter(user => {
+                return user.firstName.toLowerCase().includes(search.toLowerCase()) || user.lastName.toLowerCase().includes(search.toLowerCase());
+            });
+            setUsers(filteredUsers);
+        } else {
+            // remove search filter
+            setUsers(unfilteredUsers)
+        }
+    }
+
   return (
         <div className='max-h-[400px] md:max-h-[500px] overflow-y-auto p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
             <h2 className='font-medium mb-2'>All Other Users - make new friends!</h2>
+            <form onSubmit={filterUsers}>
+                <input className="rounded-full py-1 px-2 text-gray-500 outline-none border" type="text" name="searchterm" placeholder="Search Users" />
+            </form>
             {users.map(user => {
                 return (
                     <div key={user._id} className='flex justify-between my-2'>
