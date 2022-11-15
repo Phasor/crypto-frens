@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 
-export default function FriendsList() {
+export default function FriendsList({setDataFromUrl}) {
     const [friends, setFriends] = useState([]);
 
     useEffect(() => {
         const getFriends = async () => {
+            await setDataFromUrl();
             const userID = localStorage.getItem("userID");
             const response = await fetch(`http://localhost:3000/api/v1/user/${userID}/getFriends`, {
                 method: 'GET',
@@ -19,7 +20,7 @@ export default function FriendsList() {
             setFriends(data.friends);
         }
         getFriends();
-    }, []);
+    }, [setDataFromUrl]);
 
   return (
     <div>
