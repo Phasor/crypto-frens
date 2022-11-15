@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import PostList from './PostList'
 import InputBox from './InputBox'
 
-export default function Feed() {
+export default function Feed({setDataFromUrl2}) {
 const [refreshFeed, setRefreshFeed] = useState(true);
 
   return (
@@ -12,7 +12,7 @@ const [refreshFeed, setRefreshFeed] = useState(true);
             <InputBox setRefreshFeed={setRefreshFeed} refreshFeed={refreshFeed}/>
 
             {/* Posts */}
-            <PostList refreshFeed={refreshFeed}/>
+            <PostList refreshFeed={refreshFeed} setDataFromUrl2={setDataFromUrl2} />
         </div>
     </div>
   )

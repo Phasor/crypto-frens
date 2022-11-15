@@ -67,7 +67,7 @@ export default function Login() {
                                 <label htmlFor="password">Password</label>
                                 <input className="border rounded-md outline-none ml-2 p-1" type="password" name="password" id="password" placeholder='Password'/>
                             </div>
-                            <button type="submit" className='w-full mt-4 bg-gray-500 hover:bg-blue-500 rounded-lg p-1 text-white'>Log In</button>
+                            <button type="submit" className='w-full mt-4 bg-blue-500 hover:bg-blue-600 rounded-lg px-2 py-1  text-white shadow-lg border'>Log In</button>
                         </form>
                         <div className='flex mx-4 items-center justify-center  bg-gray-200 rounded-full w-[1px] my-3'>
                             <p className='md:text-2xl'>OR</p>
@@ -78,7 +78,7 @@ export default function Login() {
                     </div>
                     <div className='mt-5'>
                         <p className='text-md'>Just looking around? Log in as test user below.</p>
-                        <button onClick={testUserLogin} className='bg-blue-500 hover:bg-blue-600 shadow-md border text-white p-2 rounded-lg mt-2'>Test User</button>
+                        <button onClick={testUserLogin} className='bg-blue-500 hover:bg-blue-600 shadow-md border text-white px-2 py-1 rounded-lg mt-2'>Test User</button>
                     </div>
                     {error && <p className='text-red-500 p-1'>{error}</p>}
                 </div>

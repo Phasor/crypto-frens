@@ -4,7 +4,7 @@ import { UserPlusIcon, HomeIcon, WrenchIcon } from '@heroicons/react/24/solid';
 import { NewspaperIcon } from '@heroicons/react/24/outline';
 import { Link } from 'react-router-dom';
 
-export default function Sidebar() {
+export default function Sidebar({}) {
     const [user, setUser] = useState({});
 
     useEffect(()=> {

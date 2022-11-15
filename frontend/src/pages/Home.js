@@ -8,6 +8,7 @@ import FriendsList from '../components/FriendsList';
 export default function Home() {
     const [tokenGoog, setTokenGoog] = useState('');
     const location = useLocation();
+    const [ready, setReady] = useState(false);
 
     useEffect(() => {
         const setDataFromUrl = async () => {
@@ -18,15 +19,29 @@ export default function Home() {
                 // console.log(`tokenValue: ${tokenValue}`);
                 setTokenGoog(tokenValue);
                 localStorage.setItem("token", tokenGoog);
-                // const firstNameRaw = location.search.split("=")[2];
-                // const firstNameValue = firstNameRaw.split("&")[0];
-                // setFirstName(firstNameValue);
                 const userIDValue = location.search.split("=")[3];
                 localStorage.setItem("userID", userIDValue);
+                setReady(true);
+                // window.location.reload();
             }
         }
         setDataFromUrl();
     }, [tokenGoog, location.search]);
+
+    const setDataFromUrl2 = async () => {
+        if(location.search){ // there is a query string, hence this is a Google auth login, not a local auth login
+            const rawData = location.search.split("=")[1];
+            const firstElem = rawData.split("&")[0];
+            const tokenValue =  firstElem.replace("%20", " ");
+            // console.log(`tokenValue: ${tokenValue}`);
+            setTokenGoog(tokenValue);
+            localStorage.setItem("token", tokenGoog);
+            const userIDValue = location.search.split("=")[3];
+            localStorage.setItem("userID", userIDValue);
+            setReady(true);
+            // window.location.reload();
+        }
+    }
 
   return (
     <div>
@@ -34,7 +49,7 @@ export default function Home() {
             <NavBar/>
             <div className='w-full h-screen flex justify-center'>
                 <Sidebar/>
-                <Feed />
+                <Feed setDataFromUrl2={setDataFromUrl2}/>
                 <FriendsList />
             </div>
         </div>
