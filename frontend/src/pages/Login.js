@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import GoogleLogin from '../components/GoogleLogin'
 
@@ -56,7 +56,11 @@ export default function Login() {
             <NavBar/>
             <div className='w-full h-screen flex justify-center'>
                 <div className='flex-col mt-20 p-4'>
-                    <h1 className='text-2xl'>Log In</h1>
+                    <div className='mb-10'>
+                        <h2 className='text-2xl'>New?</h2>
+                        <Link to="/signup"><button className='mt-2 py-1 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-lg border'>Sign Up</button></Link>
+                    </div>
+                    <h2 className='text-2xl'>Log In</h2>
                     <div className='flex border rounded-md mt-2 shadow-md p-2 bg-white'>
                         <form onSubmit={submitHandler} className=" border rounded-md p-2 md:p-4 md:m-5 my-10">
                             <div className='flex items-center outline-none justify-between'>
