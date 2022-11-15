@@ -140,7 +140,10 @@ export default function Post({setPosts, post}) {
                     </>
                 )} 
             </div>
+            <div className='flex'>
                 <p className='pl-2 text-sm'>Likes: {post.likes.length}</p>
+                <p className='pl-2 text-sm'> Comments: {post.comments.length}</p>
+            </div>
 
             {/* Comment section */}
             { showComments && (
