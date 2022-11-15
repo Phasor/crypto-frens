@@ -55,14 +55,14 @@ const addFriend = async (friend) => {
 }
 
   return (
-        <div className='p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
-            <h2 className='font-medium mb-2'>Other Users - make new friends!</h2>
+        <div className='max-h-[400px] md:max-h-[500px] overflow-y-auto p-4 my-5 w-full shadow-md bg-white rounded-lg md:max-w-[750px]'>
+            <h2 className='font-medium mb-2'>All Other Users - make new friends!</h2>
             {users.map(user => {
                 return (
                     <div key={user._id} className='flex justify-between my-2'>
                         <div className='flex flex-1 space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
                             <img src={user.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'/>
-                            <p className='font-medium'>{user.firstName} {user.lastName}</p>
+                            <p className=''>{user.firstName} {user.lastName}</p>
                         </div>
                         <div>
                             <button onClick={() => addFriend(user)} className='bg-blue-500 hover:bg-blue-600 text-white p-2 rounded shadow-lg'>Send Friend Request</button>

@@ -19,7 +19,7 @@ export default function Users() {
                     <Sidebar/>
                     
                     {/* Center Panel */}
-                    <div className='flex flex-col flex-grow p-3 items-center border-2'>                        
+                    <div className='flex flex-col flex-grow p-3 items-center'>                        
                         <CurrentFriendsList friends={friends} setFriends={setFriends} pendingFriendsReceived={pendingFriendsReceived}/>
                         <FriendRequestsList pendingFriendsReceived={pendingFriendsReceived} setPendingFriendsReceived={setPendingFriendsReceived}/>
                         <FriendsSentList users={users}/>
