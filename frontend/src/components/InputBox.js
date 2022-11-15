@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
+import { RotatingLines } from  'react-loader-spinner'
 import { PencilIcon } from '@heroicons/react/24/outline';
 import { CameraIcon, ChatBubbleLeftIcon } from '@heroicons/react/24/solid';
 
@@ -8,6 +9,7 @@ export default function InputBox({setRefreshFeed, refreshFeed}) {
     const [error, setError] = useState(null);
     const [image, setImage] = useState(null);
     const [imgPreview, setImgPreview] = useState(null);
+    const [loading, setLoading] = useState(false);
     const CLOUDINARY_ENDPOINT='https://api.cloudinary.com/v1_1';
     const inputRef = useRef(null);
     const imgInputRef = useRef(null);
@@ -21,6 +23,7 @@ export default function InputBox({setRefreshFeed, refreshFeed}) {
             setError('Please enter a post.');
             return;
         } 
+        setLoading(true);
         let imgURL = "";
         if (image){
             imgURL = await UploadImage(image);
@@ -43,6 +46,7 @@ export default function InputBox({setRefreshFeed, refreshFeed}) {
             const data = await response.json();
             if (data.success === true){
                 toast.success('Post created successfully');
+                setLoading(false);
             } else{
                 toast.error(data.message);
             }
@@ -111,7 +115,11 @@ export default function InputBox({setRefreshFeed, refreshFeed}) {
         <div className='bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6'>   
             {/* Top half */}
             <div className='flex space-x-4 p-4 items-center justify-between'>
-                <PencilIcon height={40} width={40}/>
+                {loading ? 
+                    <RotatingLines strokeColor="grey" strokeWidth="5" animationDuration="0.75"width="30" visible={true} />
+                    :
+                    <PencilIcon height={40} width={40}/>
+                }
                 <form onSubmit={(e) => handleSubmit(e)} className='flex flex-1'>
                     <input ref={inputRef} name="content" id="content" type="text" placeholder="What's on your mind?" 
                     className='rounded-full h-12 bg-gray-100 flex-grow px-2 outline-none'/>
