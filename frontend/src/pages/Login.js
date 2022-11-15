@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import GoogleLogin from '../components/GoogleLogin'
 
 export default function Login() {
     const navigate = useNavigate();
+    const [error, setError] = useState("");
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -31,9 +32,13 @@ export default function Login() {
                 localStorage.setItem('userID', data.user._id);
                 localStorage.setItem('shortName', data.user.shortName);
                 setTimeout(()=> navigate('/home'),1000);
+            } else {
+                setError(data.message);
+                console.log(data.message);
             }
         }catch(err){
             console.log(err);
+            setError(err.message);
         }
     }
 
@@ -65,6 +70,7 @@ export default function Login() {
                             <GoogleLogin/>
                         </div>
                     </div>
+                    {error && <p className='text-red-500 p-1'>{error}</p>}
                 </div>
                 <br/>
             </div>
