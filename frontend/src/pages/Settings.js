@@ -169,7 +169,7 @@ export default function Settings() {
             pauseOnHover
             theme="light"
         />
-            <NavBar/>
+            <NavBar setDataFromUrl={setDataFromUrl}/>
             <div className='flex justify-center'>
 
                 {/* Sidebar */}

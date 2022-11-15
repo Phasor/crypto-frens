@@ -28,7 +28,7 @@ export default function Users() {
 
     return (
         <div>
-            <NavBar/>
+            <NavBar setDataFromUrl={setDataFromUrl}/>
                 <div className='flex'>
                     {/* Sidebar */}
                     <Sidebar setDataFromUrl={setDataFromUrl}/>

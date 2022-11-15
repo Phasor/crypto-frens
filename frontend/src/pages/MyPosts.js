@@ -23,7 +23,7 @@ export default function MyPosts() {
   return (
     <div>
     <div>
-        <NavBar/>
+        <NavBar setDataFromUrl={setDataFromUrl}/>
         <div className='w-full h-screen flex justify-center'>
             <Sidebar setDataFromUrl={setDataFromUrl}/>
             <MyPostList/>
