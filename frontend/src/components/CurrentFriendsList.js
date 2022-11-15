@@ -61,7 +61,7 @@ const removeFriend = async (friendID) => {
                 return( 
                     <div className='flex justify-between'>
                         <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                            {friend.profileImage && <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'/>}
+                            {friend.profileImage && <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'></img>}
                             <p>{friend.firstName} {friend.lastName}</p>
                         </div>
                         <div>

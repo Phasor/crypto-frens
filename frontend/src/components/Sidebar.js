@@ -31,7 +31,7 @@ export default function Sidebar({setDataFromUrl}) {
     <div className='p-2 max-w-[600px] xl:min-w-[300px] bg-gray-100 border-r-2 border-gray-200 h-screen'>
         <div className='mt-6'>
             <div className='p-4 space-x-3 flex'>
-                {user && <img className='h-8 w-8 rounded-full' src={user.profileImage} referrerPolicy="no-referrer" alt="" />}
+                {user && <img className='h-8 w-8 rounded-full' src={user.profileImage} referrerPolicy="no-referrer" alt="" ></img>}
                 <p className='font-medium hidden sm:inline-flex'>{user.firstName} {user.lastName}</p>
             </div>
             <Link to="/home"><SidebarRow Icon={HomeIcon} title="Feed" /></Link>

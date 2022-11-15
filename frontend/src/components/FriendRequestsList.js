@@ -53,7 +53,7 @@ export default function FriendRequestsList({pendingFriendsReceived, setPendingFr
                 return (
                     <div key={friend._id} className='flex justify-between'>
                         <div className='flex flex-1 space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                            <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'/>
+                            <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'></img>
                             <p className='font-medium'>{friend.firstName} {friend.lastName}</p>
                         </div>
                         <div>
