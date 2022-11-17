@@ -95,9 +95,11 @@ exports.acceptFriendRequest = async (userID, friendID) => {
                 await User.updateOne({_id:friendObjID}, {$pull: {pendingFriendRequestsSent: userObjID}});
 
                 // add friends to both users' friends list
-                await user.update({$push: {friends: friendObjID}});
-                await friend.update({$push: {friends: userObjID}});
-                return {success: true, user: user, friend: friend};
+                await user.updateOne({$push: {friends: friendObjID}});
+                await friend.updateOne({$push: {friends: userObjID}});
+                const newUser = await User.findById(userObjID);
+                const newFriend = await User.findById(friendObjID);
+                return {success: true, user: newUser, friend: newFriend};
             }
         } else {
             return {success: false, message: "one or both users not found"};

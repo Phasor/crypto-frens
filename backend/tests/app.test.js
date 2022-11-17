@@ -144,5 +144,22 @@ describe('User paths', () => {
         })
     })
 
+    describe("given user 2 accepts user 1's friend request", () => {
+        it("the friends list of both users should be updated", async () => {
+            const response = await request(app)
+            .post(`/api/v1/user/${User2ID}/friend-request/accept`)
+            .set('Content-Type','application/json')
+            .set('Authorization', User1Token)
+            .send({
+                friendID: User1ID
+            })
+            .then(response => {
+                expect(200)
+                // console.log(`response: ${JSON.stringify(response.body)}`)
+                expect(response.body.user.friends).toContain(User1ID)
+                expect(response.body.friend.friends).toContain(User2ID)
+            })
+        })
+    })
 
 })
