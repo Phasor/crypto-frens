@@ -40,6 +40,7 @@ var User1Token = '';
 var User1ID = '';
 var User2Token = '';
 var User2ID = '';
+var Post1ID = '';
 
 describe('User paths', () => {
     
@@ -162,4 +163,108 @@ describe('User paths', () => {
         })
     })
 
+    describe("given user 1 has 1 friend", () => {
+        it("their friends list should contain 1 friend", async () => {
+            const response = await request(app)
+            .get(`/api/v1/user/${User1ID}/getFriends`)
+            .set('Content-Type','application/json')
+            .set('Authorization', User1Token)
+            .then(response => {
+                expect(200)
+                expect(response.body.friends.length).toEqual(1)
+            })
+        })
+    })
 })
+
+describe('Post paths', () => {
+    describe("given user 1 creates a new post", () => {
+        it("should return the new post details", async () => {
+            const response = await request(app)
+                .post('/api/v1/post/create')
+                .set('Content-Type','application/json')
+                .set('Authorization', User1Token)
+                .send({
+                    content: 'This is my first post',
+                    author: User1ID
+                })
+                .then(response => {
+                    expect(200)
+                    Post1ID = response.body.post._id;
+                    // console.log(`Post1ID: ${Post1ID}`);
+                    expect(response.body.post.content).toEqual('This is my first post')
+                    expect(response.body.post.author).toEqual(User1ID)
+                })
+        })
+    }) // end of test
+
+    describe("given user has created 1 post", () => {
+        it("their main feed should only contain 1 post", async () => {
+            const response = await request(app)
+            .get(`/api/v1/post/all`)
+            .set('Content-Type','application/json')
+            .set('Authorization', User1Token)
+            .then(response => {
+                expect(200)
+                expect(response.body.posts.length).toEqual(1)
+            })
+        })
+    })
+
+    describe("given user 1 likes post 1", () => {
+        it("post should have 1 like", async () => {
+            const response = await request(app)
+                .post(`/api/v1/post/${Post1ID}/like`)
+                .set('Content-Type','application/json')
+                .set('Authorization', User1Token)
+                .then(response => {
+                    expect(200)
+                    expect(response.body.post.likes).toContain(User1ID)
+                })
+        })
+    })
+
+    describe("given user 1 unlikes post 1", () => {
+        it("post should have 0 likes", async () => {
+            const response = await request(app)
+                .post(`/api/v1/post/${Post1ID}/unlike`)
+                .set('Content-Type','application/json')
+                .set('Authorization', User1Token)
+                .then(response => {
+                    expect(200)
+                    expect(response.body.post.likes).not.toContain(User1ID)
+                })
+        })
+    })
+
+    describe("given user 2 comments on post 1", () => {
+        it("post should have 1 comment from user 2", async () => {
+            const response = await request(app)
+                .post(`/api/v1/post/${Post1ID}/comment`)
+                .set('Content-Type','application/json')
+                .set('Authorization', User2Token)
+                .send({
+                    comment: 'This is a comment',
+                    date: Date.now(),
+                })
+                .then(response => {
+                    expect(200)
+                    expect(response.body.post.comments[0].author).toEqual(User2ID)
+                    expect(response.body.post.comments[0].comment).toEqual('This is a comment')
+                    expect(response.body.post.comments.length).toEqual(1)
+                })
+        })
+    })
+
+
+
+
+
+
+})
+
+
+
+
+
+
