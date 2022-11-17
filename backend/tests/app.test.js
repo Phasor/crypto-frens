@@ -6,7 +6,6 @@ const Post = require('../models/post')
 const utils = require('../lib/utils');
 
 // connect to Mongo db
-// dummy data has been uploaded before running these
 async function connectToDB(){
     const mongoDB = process.env.DB_STRING_TEST;
     await mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -14,9 +13,8 @@ async function connectToDB(){
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 }
 
-
-// clear database
 beforeAll(async() => {
+    // connect to db where required
     if(mongoose.connection.readyState === 0){ // not connected
         await connectToDB();
         console.log('New connection to DB established...');
@@ -24,7 +22,7 @@ beforeAll(async() => {
         console.log('Already connected to db, not starting a new connection...');
     }
 
-    // clear database
+    // clear database and start fresh
     await User.deleteMany()
     await Post.deleteMany()
     console.log('Database cleared...');
@@ -35,7 +33,7 @@ afterAll(() => {
     console.log('Database connection closed')
 })
 
-// Save user details for later use
+// Variables used to save user and post details for use in tests below
 var User1Token = '';
 var User1ID = '';
 var User2Token = '';
@@ -43,7 +41,6 @@ var User2ID = '';
 var Post1ID = '';
 
 describe('User paths', () => {
-    
     describe("given we signup a new user", () => {
         it("should return the new user details", async () => {
             const response = await request(app)
@@ -255,12 +252,6 @@ describe('Post paths', () => {
                 })
         })
     })
-
-
-
-
-
-
 })
 
 
