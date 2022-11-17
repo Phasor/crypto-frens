@@ -14,7 +14,10 @@ if (process.env.NODE_ENV === 'production') {
     mongoose.connection.on('connected', () => {
         console.log('Production database connected');
     });
-} else {
+} else if (process.env.NODE_ENV === 'testing') {
+    console.log('Testing environment...');
+} 
+else {
     mongoose.connect(devConnection, {
         useNewUrlParser: true,
         useUnifiedTopology: true
