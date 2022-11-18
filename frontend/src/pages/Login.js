@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import NavBar from '../components/NavBar'
 import GoogleLogin from '../components/GoogleLogin'
@@ -6,6 +6,11 @@ import GoogleLogin from '../components/GoogleLogin'
 export default function Login() {
     const navigate = useNavigate();
     const [error, setError] = useState("");
+    const title = "Crypto Frens - Log In";
+
+    useEffect(() => {
+      document.title = title;
+    }, [title]);
 
     const submitHandler = async (e) => {
         e.preventDefault();

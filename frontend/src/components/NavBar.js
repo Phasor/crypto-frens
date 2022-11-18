@@ -58,8 +58,8 @@ export default function NavBar({setDataFromUrl}){
                 <button onClick={logout}  className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Log Out</button>
             ) : (
                 <>
-                    <Link to="/login"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 hover:bg-blue-500">Log In</button></Link>
-                    <Link to="/signup"><button className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Sign Up</button></Link>
+                    <Link to="/login"><button data-test="nav-login-button" className="w-[80px] bg-gray-400 rounded-lg text-white p-2 hover:bg-blue-500">Log In</button></Link>
+                    <Link to="/signup"><button data-test="nav-signup-button" className="w-[80px] bg-gray-400 rounded-lg text-white p-2 ml-4 hover:bg-blue-500">Sign Up</button></Link>
                 </>
             )}
         </div>
