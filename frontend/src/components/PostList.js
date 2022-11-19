@@ -31,7 +31,7 @@ export default function PostList({refreshFeed, setDataFromUrl}) {
     }, [refreshFeed, setDataFromUrl])
 
   return (
-    <div className='mt-8'>
+    <div className='mt-8' data-test="post-list">
         {loading ? 
             // loading spinner 
             <div className='flex justify-center items-center mt-20'>

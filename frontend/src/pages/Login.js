@@ -76,7 +76,7 @@ export default function Login() {
                                 <label htmlFor="password">Password</label>
                                 <input className="border rounded-md outline-none ml-2 p-1" type="password" name="password" id="password" placeholder='Password'/>
                             </div>
-                            <button type="submit" className='w-full mt-4 bg-blue-500 hover:bg-blue-600 rounded-lg px-2 py-1  text-white shadow-lg border'>Log In</button>
+                            <button type="submit" data-test="login-button-main" className='w-full mt-4 bg-blue-500 hover:bg-blue-600 rounded-lg px-2 py-1  text-white shadow-lg border'>Log In</button>
                         </form>
                         <div className='flex mx-4 items-center justify-center  bg-gray-200 rounded-full w-[1px] my-3'>
                             <p className='md:text-2xl'>OR</p>

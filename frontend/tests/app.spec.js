@@ -45,4 +45,31 @@ test.describe("Log in page", () => {
     const signUpButton = await page.locator('[data-test=nav-signup-button]')
     await expect(signUpButton).toBeVisible();
   });
+
+  test("We can log in", async ({ page }) => {
+    await page.getByLabel('Email').fill('a@test.com');
+    await page.getByLabel('Password').fill('test');
+    const LogInButton = await page.locator('[data-test=login-button-main]').click();
+    await expect(page).toHaveURL("http://localhost:3002/home");
+  });
+});
+
+test.describe("Home Page", () => {
+    test.beforeEach(async ({ page }) => {
+      // Go to the log in page and sign in before each test.
+      await page.goto("http://localhost:3002");
+      await page.getByLabel('Email').fill('a@test.com');
+      await page.getByLabel('Password').fill('test');
+      await page.locator('[data-test=login-button-main]').click();
+    });
+
+    test("user can make a new text post", async ({ page }) => {
+        await page.locator('xpath=//*[@id="content"]').fill('test post');
+        await page.locator('xpath=//*[@id="content"]').press('Enter');
+        await expect(page).toHaveURL("http://localhost:3002/home");
+        // data-test="post-list"
+        const post = page.locator('[data-test=post-list]')
+        expect(post).toHaveText('test post');
+    });
+
 });
