@@ -64,12 +64,11 @@ test.describe("Home Page", () => {
     });
 
     test("user can make a new text post", async ({ page }) => {
-        await page.locator('xpath=//*[@id="content"]').fill('test post');
+        await page.locator('xpath=//*[@id="content"]').fill('cool post');
         await page.locator('xpath=//*[@id="content"]').press('Enter');
         await expect(page).toHaveURL("http://localhost:3002/home");
-        // data-test="post-list"
-        const post = page.locator('[data-test=post-list]')
-        expect(post).toHaveText('test post');
+        const post = await page.locator(':nth-match([data-test=post] p,1)');
+        await expect(post).toHaveText('cool post');
     });
 
 });

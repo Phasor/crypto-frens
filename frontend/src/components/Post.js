@@ -117,7 +117,7 @@ export default function Post({setPosts, post}) {
     
 
   return (
-    <div className=''>
+    <div data-test="post">
         <div className='flex flex-col bg-white p-3 mt-5 rounded-t-xl shadow-md '>
             {post.imgURL && (
                 <div className='h-56 md:h-96 bg-white'>
