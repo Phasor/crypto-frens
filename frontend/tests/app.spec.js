@@ -70,5 +70,4 @@ test.describe("Home Page", () => {
         const post = await page.locator(':nth-match([data-test=post] p,1)');
         await expect(post).toHaveText('cool post');
     });
-
 });
