@@ -35,7 +35,7 @@ export default function FriendsSentList({users}) {
         {pendingFriendsSent.map(friend => {
             return (
                 <div className='flex space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                    <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'></img>
+                    <img src={friend.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full object-cover'></img>
                     <p>{friend.firstName} {friend.lastName}</p>
                 </div>
             )

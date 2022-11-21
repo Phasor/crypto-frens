@@ -81,7 +81,7 @@ const addFriend = async (friend) => {
                 return (
                     <div key={user._id} className='flex justify-between my-2'>
                         <div className='flex flex-1 space-x-3 items-center mb-2 hover:bg-gray-100 rounded-lg hover:font-medium'>
-                            <img src={user.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full'></img>
+                            <img src={user.profileImage} referrerPolicy="no-referrer" alt=""  className='h-10 w-10 rounded-full object-cover'></img>
                             <p className=''>{user.firstName} {user.lastName}</p>
                         </div>
                         <div>
