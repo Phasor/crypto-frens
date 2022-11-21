@@ -124,7 +124,7 @@ export default function Post({setPosts, post}) {
                     <img src={post.imgURL} alt="" className='h-full w-full object-cover object-scale-down'/>
                 </div>
             )}
-            <p className='p-2 font-medium border-b'>{JSON.stringify(post.content)}</p>
+            <p className='p-2 py-4 font-medium border-b'>{post.content}</p>
             <div className='flex justify-start space-x-4 mt-1 p-1 w-100%'>
                 {!postLiked ? 
                 (
