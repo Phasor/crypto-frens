@@ -148,7 +148,7 @@ exports.unlikePost = async (postID, userID) => {
 
 exports.fetchAllUserPosts = async (userID) => {
     try{
-        const posts = await Post.find({author: userID}).populate('author', 'username');
+        const posts = await Post.find({author: userID}).populate('author', 'username').sort({posted: -1});
         return posts;
     }catch(err){
         return err;
