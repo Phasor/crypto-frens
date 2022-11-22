@@ -32,7 +32,7 @@ export default function NavBar({setDataFromUrl}){
         {/* left */}
         <div className='flex items-center'>
             <div className='rounded-full overflow-hidden flex-shrink-0'>
-                <Link to="/"><img src="/cryptoFrensLogo.png" alt="logo" width={45} height={45}/></Link>
+                <Link to="/home"><img src="/cryptoFrensLogo.png" alt="logo" width={45} height={45}/></Link>
             </div>
             <div className='hidden md:flex md:ml-2 md:items-center md:rounded-full bg-gray-100 p-3'>
                 <MagnifyingGlassIcon className="h-6 text-gray-600"/>
