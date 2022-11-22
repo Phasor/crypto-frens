@@ -1,5 +1,5 @@
 // @ts-check
-const { test, expect } = require('@playwright/test');
+const { test, expect } = require("@playwright/test");
 
 // test('homepage has title and links to intro page', async ({ page }) => {
 //   await page.goto('https://playwright.dev/');
@@ -15,7 +15,7 @@ const { test, expect } = require('@playwright/test');
 
 //   // Click the get started link.
 //   await getStarted.click();
-  
+
 //   // Expects the URL to contain intro.
 //   await expect(page).toHaveURL(/.*intro/);
 // });
@@ -33,41 +33,43 @@ test.describe("Log in page", () => {
 
   test("title is correct", async ({ page }) => {
     // Expect a title "to contain" a substring.
-    await expect(page).toHaveTitle(/Crypto Frens - Log In/);  
+    await expect(page).toHaveTitle(/Crypto Frens - Log In/);
   });
 
   test("Navbar login button is present", async ({ page }) => {
-      const loginButton = await page.locator('[data-test=nav-login-button]')
-      await expect(loginButton).toBeVisible();
+    const loginButton = await page.locator("[data-test=nav-login-button]");
+    await expect(loginButton).toBeVisible();
   });
 
   test("Navbar sign up button is present", async ({ page }) => {
-    const signUpButton = await page.locator('[data-test=nav-signup-button]')
+    const signUpButton = await page.locator("[data-test=nav-signup-button]");
     await expect(signUpButton).toBeVisible();
   });
 
   test("We can log in", async ({ page }) => {
-    await page.getByLabel('Email').fill('a@test.com');
-    await page.getByLabel('Password').fill('test');
-    const LogInButton = await page.locator('[data-test=login-button-main]').click();
+    await page.getByLabel("Email").fill("a@test.com");
+    await page.getByLabel("Password").fill("test");
+    const LogInButton = await page
+      .locator("[data-test=login-button-main]")
+      .click();
     await expect(page).toHaveURL("http://localhost:3002/home");
   });
 });
 
 test.describe("Home Page", () => {
-    test.beforeEach(async ({ page }) => {
-      // Go to the log in page and sign in before each test.
-      await page.goto("http://localhost:3002");
-      await page.getByLabel('Email').fill('a@test.com');
-      await page.getByLabel('Password').fill('test');
-      await page.locator('[data-test=login-button-main]').click();
-    });
+  test.beforeEach(async ({ page }) => {
+    // Go to the log in page and sign in before each test.
+    await page.goto("http://localhost:3002");
+    await page.getByLabel("Email").fill("a@test.com");
+    await page.getByLabel("Password").fill("test");
+    await page.locator("[data-test=login-button-main]").click();
+  });
 
-    test("user can make a new text post", async ({ page }) => {
-        await page.locator('xpath=//*[@id="content"]').fill('cool post');
-        await page.locator('xpath=//*[@id="content"]').press('Enter');
-        await expect(page).toHaveURL("http://localhost:3002/home");
-        const post = await page.locator(':nth-match([data-test=post] p,1)');
-        await expect(post).toHaveText('cool post');
-    });
+  test("user can make a new text post", async ({ page }) => {
+    await page.locator('xpath=//*[@id="content"]').fill("cool post");
+    await page.locator('xpath=//*[@id="content"]').press("Enter");
+    await expect(page).toHaveURL("http://localhost:3002/home");
+    const post = await page.locator(":nth-match([data-test=post] p,1)");
+    await expect(post).toHaveText("cool post");
+  });
 });

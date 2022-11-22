@@ -3,10 +3,6 @@ node_modules/
 /.pnp
 .pnp.js
 
-# testing
-coverage/
-*.rest
-
 # production
 build/
 
@@ -17,12 +13,7 @@ build/
 .env.development.local
 .env.test.local
 .env.production.local
-playwright-report/
-.vscode/
 
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-#back end Express api
-id_rsa_priv.pem

@@ -5,7 +5,7 @@ This is the React front end for the Crypto Frens social media app. It interacts 
 ## Installing and Starting
 
 Install dependencies:
-`npm -i' 
+`npm -i'
 
 Run the front end:
 `npm start`
@@ -16,5 +16,3 @@ Run the front end:
 
 To run tests:
 `npx playwright test`.
-
-
