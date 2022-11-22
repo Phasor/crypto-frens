@@ -3,6 +3,7 @@ var path = require("path");
 var logger = require("morgan");
 const cors = require("cors");
 const passport = require("passport");
+const helmet = require("helmet");
 require("dotenv").config();
 
 //import routes
@@ -29,6 +30,7 @@ app.use(express.json()); // Instead of using body-parser middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(cors()); // allows our front end application to make HTTP requests to Express application
+app.use(helmet()); // helps secure our Express apps by setting various HTTP headers
 
 // apply routes
 app.use(`${baseURL}/user`, userRouter);
