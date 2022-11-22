@@ -36,7 +36,7 @@ export default function Sidebar({ setDataFromUrl }) {
                 <div className="p-4 space-x-3 flex">
                     {user && (
                         <img
-                            className="h-8 w-8 rounded-full object-cover"
+                            className="h-8 w-8 rounded-full object-cover whitespace-nowrap"
                             src={user.profileImage}
                             referrerPolicy="no-referrer"
                             alt=""

@@ -6,7 +6,7 @@ const Post = require("../models/post");
 const utils = require("../lib/utils");
 
 // connect to Mongo db
-async function connectToDB() {
+async function connectToTestDB() {
     const mongoDB = process.env.DB_STRING_TEST;
     await mongoose.connect(mongoDB, {
         useNewUrlParser: true,
@@ -17,21 +17,27 @@ async function connectToDB() {
 }
 
 beforeAll(async () => {
-    // connect to db where required
-    if (mongoose.connection.readyState === 0) {
-        // not connected
-        await connectToDB();
-        console.log("New connection to DB established...");
+    // check we are connected to the test db
+    if (
+        mongoose.connection.readyState === 0 ||
+        mongoose.connection.readyState === 3
+    ) {
+        // not connected to any db
+        await connectToTestDB();
+        console.log("New connection to test DB established...");
     } else {
         console.log(
-            "Already connected to db, not starting a new connection..."
+            "Already connected to db, disconnecting and connecting to test db..."
         );
+        await mongoose.connection.close();
+        await connectToTestDB();
+        console.log("New connection to test DB established...");
     }
 
     // clear database and start fresh
     await User.deleteMany();
     await Post.deleteMany();
-    console.log("Database cleared...");
+    console.log("Test database cleared...");
 });
 
 afterAll(() => {
