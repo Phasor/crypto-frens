@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import formatDate from '../utils/formatDate';
 import { HeartIcon as HeartIconSolid } from '@heroicons/react/24/solid';
 import { HeartIcon as HeartIconOutline, ChatBubbleOvalLeftIcon } from '@heroicons/react/24/outline';
-
+import ImageModal from './ImageModal';
 
 export default function Post({setPosts, post}) {
     const [comment, setComment] = useState('');
     const [postLiked, setPostLiked] = useState(false);
     const [showComments, setShowComments] = useState(false);
+    const [showModal, setShowModal] = useState(false);
 
     useEffect(() => {
         const checkIfLiked = () => {
@@ -114,14 +115,16 @@ export default function Post({setPosts, post}) {
     }
 
 
-    
-
   return (
-    <div data-test="post">
-        <div className='flex flex-col bg-white p-3 mt-5 rounded-t-xl shadow-md '>
-            {post.imgURL && (
+    <div data-test="post"  className="" >
+        {/* image model popup */}
+        {
+            showModal && <ImageModal postURL={post.imgURL} setShowModal={setShowModal} showModal={showModal}/>
+        }
+        <div className='flex flex-col bg-white p-3 mt-5 rounded-t-xl shadow-md'>
+            {post.imgURL && !showModal && (
                 <div className='h-56 md:h-96 bg-white'>
-                    <img src={post.imgURL} alt="" className='h-full w-full object-cover object-scale-down'/>
+                    <img src={post.imgURL} alt="" className='h-full w-full object-cover max-h-96 cursor-pointer' onClick={() => setShowModal(!showModal)}/>                
                 </div>
             )}
             <p className='p-2 py-4 font-medium border-b'>{post.content}</p>
