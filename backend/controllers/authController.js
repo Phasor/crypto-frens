@@ -30,10 +30,10 @@ exports.googleAuthCallback = async (req, res) => {
         const user = await googleLogin(req, res);
         if (user.success) {
             res.redirect(
-                `http://localhost:3002/home?token=${user.tokenObject.token}&firstName=${user.user.firstName}&id=${user.user._id}`
+                `${process.env.FRONT_END_BASE_URL}/home?token=${user.tokenObject.token}&firstName=${user.user.firstName}&id=${user.user._id}`
             );
         } else {
-            res.redirect("http://localhost:3002/login/failed");
+            res.redirect(`${process.env.FRONT_END_BASE_URL}/login/failed`);
         }
     } catch (err) {
         console.log(err);
