@@ -64,7 +64,7 @@ export default function InputBox({ setRefreshFeed, refreshFeed }) {
     };
 
     const UploadImage = async (image) => {
-        console.log("uploading image");
+        // console.log("uploading image");
         const formData = new FormData();
         formData.append("file", image);
         formData.append("upload_preset", "rgydp4v2");

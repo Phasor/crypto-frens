@@ -10,7 +10,7 @@ export default function PostList({ refreshFeed, setDataFromUrl }) {
     useEffect(() => {
         const getPosts = async () => {
             await setDataFromUrl();
-            console.log(`base url: ${process.env.REACT_APP_BASE_URL}`);
+            // console.log(`base url: ${process.env.REACT_APP_BASE_URL}`);
             const response = await fetch(
                 `${process.env.REACT_APP_API_BASE_URL}/post/all`,
                 {

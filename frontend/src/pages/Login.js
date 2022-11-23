@@ -42,7 +42,7 @@ export default function Login() {
                 setTimeout(() => navigate("/home"), 1000);
             } else {
                 setError(data.message);
-                console.log(data.message);
+                // console.log(data.message);
             }
         } catch (err) {
             console.log(err);
