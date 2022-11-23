@@ -31,7 +31,10 @@ export default function FriendsList({ setDataFromUrl }) {
                 <h2 className="p-2 font-medium text-gray-500">Contacts</h2>
                 {friends &&
                     friends.map((friend) => (
-                        <Link to={`/user/${friend._id}`} key={friend._id}>
+                        <Link
+                            to={`${process.env.REACT_APP_FRONTEND_BASE_URL}/user/${friend._id}`}
+                            key={friend._id}
+                        >
                             <div className="flex space-x-2 p-1 border-b md:min-w-[200px] rounded-2xl hover:bg-gray-200 cursor-pointer ">
                                 <div>
                                     <img
