@@ -19,3 +19,7 @@ The application uses a MERN stack consisting of:
 ### Demo
 
 ![](/Demo/CryptoFrensDemo.gif)
+
+### Mobile First Design
+
+![](/Demo/mobile.JPG)
