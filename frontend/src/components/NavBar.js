@@ -64,7 +64,7 @@ export default function NavBar({ setDataFromUrl }) {
             {/* Centre */}
             <div className="flex justify-center flex-grow">
                 {loggedIn && (
-                    <div className="flex space-x-6 md:space-x-2">
+                    <div className="flex space-x-1 md:space-x-10">
                         <Link to="/home">
                             <HeaderIcon active={true} Icon={HomeIcon} />
                         </Link>

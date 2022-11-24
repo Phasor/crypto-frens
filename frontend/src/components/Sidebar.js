@@ -31,9 +31,9 @@ export default function Sidebar({ setDataFromUrl }) {
     }, [setDataFromUrl]);
 
     return (
-        <div className="p-2 max-w-[600px] xl:min-w-[300px] bg-gray-100 border-r-2 border-gray-200 h-screen">
-            <div className="mt-6">
-                <div className="p-4 space-x-3 flex">
+        <div className="md:p-2 max-w-[600px] xl:min-w-[300px] bg-gray-100 border-r-2 border-gray-200 h-screen">
+            <div className="mt-6 p-2">
+                <div className="md:p-4 space-x-3 flex">
                     {user && (
                         <img
                             className="h-8 w-8 rounded-full object-cover whitespace-nowrap"

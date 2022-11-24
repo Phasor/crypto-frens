@@ -62,10 +62,10 @@ export default function Login() {
 
     return (
         <div>
-            <div>
+            <div className="h-screen">
                 <NavBar />
-                <div className="w-full h-screen flex flex-col md:flex-row md:justify-center">
-                    <div className="flex-col mt-5 md:mt-20 p-4">
+                <div className="w-full h-[90%] flex flex-col md:flex-row md:justify-center overflow-y-auto">
+                    <div className="flex-col mt-5 md:mt-20 p-4 landscape:mt-0">
                         <div className="mb-10">
                             <h2 className="text-2xl">New?</h2>
                             <Link to="/signup">
