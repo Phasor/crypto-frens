@@ -35,12 +35,14 @@ export default function Sidebar({ setDataFromUrl }) {
             <div className="mt-6 p-2">
                 <div className="md:p-4 space-x-3 flex">
                     {user && (
-                        <img
-                            className="h-8 w-8 rounded-full object-cover whitespace-nowrap"
-                            src={user.profileImage}
-                            referrerPolicy="no-referrer"
-                            alt=""
-                        ></img>
+                        <Link to="/settings">
+                            <img
+                                className="h-8 w-8 rounded-full object-cover whitespace-nowrap"
+                                src={user.profileImage}
+                                referrerPolicy="no-referrer"
+                                alt=""
+                            ></img>
+                        </Link>
                     )}
                     <p className="font-medium hidden sm:inline-flex">
                         {user.firstName} {user.lastName}
