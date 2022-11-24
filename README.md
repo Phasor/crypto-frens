@@ -1,4 +1,4 @@
-# Crypto Frens Social Media Webapp
+# Crypto Frens Social Media Web App
 
 Welcome to the repo for Crypto Frens, a social media app to meet friends who are into Crypto.
 
