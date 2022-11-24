@@ -57,5 +57,10 @@ router.post(
     passport.authenticate("jwt", { session: false }),
     userController.post_friend_request_accept
 );
+router.post(
+    "/authcheck",
+    passport.authenticate("jwt", { session: false }),
+    userController.post_auth_check
+);
 
 module.exports = router;

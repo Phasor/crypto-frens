@@ -119,7 +119,8 @@ export default function Login() {
                         </div>
                         <div className="mt-5">
                             <p className="text-md">
-                                Just looking around? Log in as test user below.
+                                Just looking around? Log in as a test user
+                                below.
                             </p>
                             <button
                                 onClick={testUserLogin}

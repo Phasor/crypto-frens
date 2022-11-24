@@ -251,3 +251,22 @@ exports.get_all_users_ex_friends = async (req, res) => {
         res.json({ success: false, message: `${err.name}, ${err.message}` });
     }
 };
+
+exports.post_auth_check = async (req, res) => {
+    try {
+        const token = req.headers.authorization.split(" ")[1];
+        const user = await getUserIDFromToken(token);
+        if (user) {
+            return res.json({ success: true, user: user });
+        } else {
+            return res
+                .status(401)
+                .json({ success: false, message: "Unauthorised" });
+        }
+    } catch (err) {
+        return res.json({
+            success: false,
+            message: `${err.name}, ${err.message}`,
+        });
+    }
+};
