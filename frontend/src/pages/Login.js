@@ -64,8 +64,8 @@ export default function Login() {
         <div>
             <div>
                 <NavBar />
-                <div className="w-full h-screen flex justify-center">
-                    <div className="flex-col mt-20 p-4">
+                <div className="w-full h-screen flex flex-col md:flex-row md:justify-center">
+                    <div className="flex-col mt-5 md:mt-20 p-4">
                         <div className="mb-10">
                             <h2 className="text-2xl">New?</h2>
                             <Link to="/signup">
@@ -75,10 +75,10 @@ export default function Login() {
                             </Link>
                         </div>
                         <h2 className="text-2xl">Log In</h2>
-                        <div className="flex border rounded-md mt-2 shadow-md p-2 bg-white">
+                        <div className="flex flex-col md:flex-row border rounded-md mt-2 shadow-md p-2 bg-white">
                             <form
                                 onSubmit={submitHandler}
-                                className=" border rounded-md p-2 md:p-4 md:m-5 my-10"
+                                className=" border rounded-md p-2 md:p-4 md:m-5 md:my-10"
                             >
                                 <div className="flex items-center outline-none justify-between">
                                     <label htmlFor="username">Email</label>
@@ -108,10 +108,10 @@ export default function Login() {
                                     Log In
                                 </button>
                             </form>
-                            <div className="flex mx-4 items-center justify-center  bg-gray-200 rounded-full w-[1px] my-3">
+                            <div className="flex mx-4 items-center justify-center font-medium md:bg-gray-200 rounded-full md:w-[1px] my-3">
                                 <p className="md:text-2xl">OR</p>
                             </div>
-                            <div className="flex items-center md:p-4">
+                            <div className="flex  justify-center items-center md:p-4">
                                 <GoogleLogin />
                             </div>
                         </div>
