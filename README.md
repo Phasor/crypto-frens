@@ -22,4 +22,4 @@ The application uses a MERN stack consisting of:
 
 ### Mobile First Design
 
-![](/Demo/mobile.JPG)
+![](/Demo/mobile1.JPG)
