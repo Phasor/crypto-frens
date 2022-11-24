@@ -64,21 +64,23 @@ export default function Login() {
         <div>
             <div className="h-screen">
                 <NavBar />
-                <div className="w-full h-[90%] flex flex-col md:flex-row md:justify-center overflow-y-auto">
+                <div className="w-full h-[85%] flex flex-col md:flex-row md:justify-center overflow-y-auto">
                     <div className="flex-col mt-5 md:mt-20 p-4 landscape:mt-0">
-                        <div className="mb-10">
-                            <h2 className="text-2xl">New?</h2>
+                        <div className="mb-5 md:mt-10">
+                            <h2 className="text-5xl text-center md:text-left font-bold ">
+                                Meet People in Crypto.
+                            </h2>
                             <Link to="/signup">
-                                <button className="mt-2 py-1 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-lg border">
+                                <button className="mt-10 py-1 px-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg shadow-lg border">
                                     Sign Up
                                 </button>
                             </Link>
                         </div>
-                        <h2 className="text-2xl">Log In</h2>
-                        <div className="flex flex-col md:flex-row border rounded-md mt-2 shadow-md p-2 bg-white">
+                        <h2 className="text-2xl mb-2">Log In</h2>
+                        <div className="flex flex-col md:flex-row border rounded-md mt-1 shadow-md p-2 bg-white">
                             <form
                                 onSubmit={submitHandler}
-                                className=" border rounded-md p-2 md:p-4 md:m-5 md:my-10"
+                                className="md:border rounded-md p-2 md:p-4 md:m-5 md:my-10"
                             >
                                 <div className="flex items-center outline-none justify-between">
                                     <label htmlFor="username">Email</label>
