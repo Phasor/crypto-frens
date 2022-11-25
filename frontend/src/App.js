@@ -22,6 +22,7 @@ function App() {
                     {/* Open routes */}
                     <Route exact path="/" element={<Login />} />
                     <Route exact path="/signup" element={<SignUp />} />
+                    <Route exact path="/login/failed" element={<Failed />} />
 
                     {/* Private routes */}
                     <Route element={<PrivateRoutes />}>
@@ -33,11 +34,6 @@ function App() {
                             element={<MyPosts />}
                         />
                         <Route exact path="/settings" element={<Settings />} />
-                        <Route
-                            exact
-                            path="/login/failed"
-                            element={<Failed />}
-                        />
                         <Route
                             exact
                             path="/user/:id"

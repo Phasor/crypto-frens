@@ -12,20 +12,27 @@ export default function PrivateRoutes() {
 
     useEffect(() => {
         const isAuth = async () => {
-            const response = await fetch(`${API_URL}/user/authcheck`, {
-                method: "GET",
-                headers: {
-                    Authorization: token,
-                },
-            });
-
-            const data = await response.json();
-            if (data.success) {
-                if (data.user === localStorage.getItem("userID")) {
-                    setIsLoggedIn(true);
+            try {
+                const response = await fetch(`${API_URL}/user/authcheck`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: token,
+                    },
+                });
+                const data = await response.json();
+                if (data.success) {
+                    if (data.user === localStorage.getItem("userID")) {
+                        setIsLoggedIn(true);
+                        setIsChecking(false);
+                        return;
+                    }
+                } else {
                     setIsChecking(false);
                     return;
                 }
+            } catch (err) {
+                setIsChecking(false);
+                return;
             }
         };
         isAuth();
@@ -41,5 +48,5 @@ export default function PrivateRoutes() {
             </div>
         );
 
-    return isLoggedIn ? <Outlet /> : <Navigate to={"/"} />;
+    return isLoggedIn ? <Outlet /> : <Navigate to="/" />;
 }
